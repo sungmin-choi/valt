@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/utils/validation.dart';
+import 'package:valt/widgets/input_custom.dart';
+import 'package:valt/widgets/input_password_custom.dart';
 
 class EmailLoginPage extends StatefulWidget {
   const EmailLoginPage({super.key});
@@ -44,35 +45,21 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
                   padding: const EdgeInsets.fromLTRB(16, 27, 16, 362),
                   child: Column(
                     children: [
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        onChanged: (value) {
-                          email = value;
-                        },
-                        validator: Validation().validateEmail,
-                        decoration: InputDecoration(
+                      InputCustom(
                           hintText: '이메일 입력',
-                          hintStyle: const TextStyle(color: ColorStyles.gray40),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 1, color: ColorStyles.gray30),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(2.0),
-                            borderSide: const BorderSide(
-                                width: 1, color: ColorStyles.gray100),
-                          ),
-                          errorBorder: const OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 3, color: ColorStyles.red10),
-                          ),
-                        ),
-                      ),
+                          onChanged: (value) {
+                            email = value;
+                            _formKey.currentState?.validate();
+                          },
+                          validator: (value) =>
+                              Validation().validateEmail(value)),
                       const SizedBox(height: 12),
-                      const TextField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(), hintText: '비밀번호 입력'),
-                      ),
+                      InputPasswordCustom(
+                          hintText: '비밀번호 입력',
+                          onChanged: ((value) {
+                            password = value;
+                          }),
+                          validator: (value) => null),
                       TextButton(
                         style:
                             TextButton.styleFrom(foregroundColor: Colors.black),
@@ -84,23 +71,6 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
                           if (!valid) {
                             return;
                           }
-
-                          showDialog<void>(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Your story'),
-                              content:
-                                  Text('The $email developer saw a $password'),
-                              actions: [
-                                TextButton(
-                                  child: const Text('Done'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            ),
-                          );
                         },
                       ),
                     ],
