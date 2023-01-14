@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/utils/validation.dart';
+import 'package:valt/widgets/button_lg_fill.dart';
 import 'package:valt/widgets/input_custom.dart';
 import 'package:valt/widgets/input_password_custom.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class EmailLoginPage extends StatefulWidget {
   const EmailLoginPage({super.key});
@@ -55,18 +58,37 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
                               Validation().validateEmail(value)),
                       const SizedBox(height: 12),
                       InputPasswordCustom(
-                          hintText: '비밀번호 입력',
-                          onChanged: ((value) {
-                            password = value;
-                          }),
-                          validator: (value) => null),
+                        hintText: '비밀번호 입력',
+                        onChanged: ((value) {
+                          password = value;
+                        }),
+                        validator: ((value) {
+                          if (value != null && value.isEmpty) {
+                            return "비밀번호를 입력해 주세요";
+                          }
+                          return null;
+                        }),
+                      ),
+                      const SizedBox(height: 48),
                       TextButton(
-                        style:
-                            TextButton.styleFrom(foregroundColor: Colors.black),
-                        child: const Text('Submit'),
-                        onPressed: () {
-                          // Validate the form by getting the FormState from the GlobalKey
-                          // and calling validate() on it.
+                          onPressed: () => {
+                                Fluttertoast.showToast(
+                                    msg: "이메일 또는 비밀번호를 확인해 주세요",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.TOP,
+                                    timeInSecForIosWeb: 2,
+                                    backgroundColor:
+                                        Colors.black.withOpacity(0.7),
+                                    textColor: Colors.white,
+                                    fontSize: 16.0)
+                              },
+                          child: const Text('Click')),
+                      ButtonLgFill(
+                        text: '로그인',
+                        textStyle: TextStyles.pretendardB16White,
+                        bgColor: ColorStyles.gray90,
+                        onClick: () {
+                          // showToast();
                           var valid = _formKey.currentState!.validate();
                           if (!valid) {
                             return;
