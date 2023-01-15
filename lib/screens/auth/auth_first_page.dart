@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valt/screens/auth/auth_email_login_page.dart';
+import 'package:valt/screens/auth/auth_email_register_page.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
@@ -63,7 +64,8 @@ class AuthFirstPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TextButton(
-                      onPressed: () => {},
+                      onPressed: () =>
+                          {Get.to(() => const EmailRegisterPage())},
                       child: const Text('이메일로 가입',
                           style: TextStyles.pretendardR14Gray70)),
                   Container(

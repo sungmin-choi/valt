@@ -17,6 +17,11 @@ class TextStyles {
       fontSize: 16,
       fontWeight: FontWeight.bold,
       color: ColorStyles.white);
+  static const pretendardB16Gray50 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      color: ColorStyles.gray50);
   static const pretendardR14Gray70 = TextStyle(
       fontFamily: 'Pretendard',
       fontSize: 14,
@@ -27,4 +32,15 @@ class TextStyles {
       fontSize: 13,
       fontWeight: FontWeight.w400,
       color: ColorStyles.gray60);
+  static const pretendardR14Gray100 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: ColorStyles.gray100);
+  static const pretendardB20Black = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 20,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w700,
+      color: ColorStyles.black);
 }
