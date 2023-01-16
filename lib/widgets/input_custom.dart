@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:valt/styles/text_style.dart';
+import 'package:valt/widgets/label.dart';
 
 import '../styles/color_style.dart';
 
@@ -20,19 +20,11 @@ class InputCustom extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        label != null
-            ? Column(
-                children: [
-                  Text(label.toString(),
-                      style: TextStyles.pretendardR14Gray100),
-                  const SizedBox(height: 8)
-                ],
-              )
-            : const SizedBox(height: 0),
+        label != null ? Label(label: label) : const SizedBox(height: 0),
         SizedBox(
-          width: 343,
+          width: double.maxFinite,
           child: TextFormField(
-            autovalidateMode: AutovalidateMode.always,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             textInputAction: TextInputAction.next,
             onChanged: onChanged,
             validator: validator,

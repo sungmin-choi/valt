@@ -4,6 +4,7 @@ class ColorStyles {
   static const Color white = Colors.white;
   static const Color black = Colors.black;
   static const Color gray15 = Color(0xffF7F8F9);
+  static const Color gray20 = Color(0xffF2F3F5);
   static const Color gray30 = Color(0xffE4E6E9);
   static const Color gray40 = Color(0xffCFD2D7);
   static const Color gray50 = Color(0xffB7BBBF);

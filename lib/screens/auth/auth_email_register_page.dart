@@ -20,8 +20,8 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final registerController = Get.put(RegisterController());
   String? email;
-  String? password = '@#@#!@#';
-  String? confirmPassword = '@#@#!@#';
+  String? password;
+  String? confirmPassword;
   var disabled = true;
 
   void handelDisabled(bool value) {
@@ -82,9 +82,7 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
                           password = value;
                         }),
                         validator: ((value) {
-                          if (value != null &&
-                              value.isEmpty &&
-                              password != '@#@#!@#') {
+                          if (value != null && value.isEmpty) {
                             return "비밀번호를 입력해 주세요";
                           }
                           return null;
@@ -97,12 +95,9 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
                           confirmPassword = value;
                         }),
                         validator: ((value) {
-                          if (value != null &&
-                              value.isEmpty &&
-                              confirmPassword != '@#@#!@#') {
+                          if (value != null && value.isEmpty) {
                             return "비밀번호를 입력해 주세요";
-                          } else if (value != password &&
-                              confirmPassword != '@#@#!@#') {
+                          } else if (value != password) {
                             return "비밀번호가 일치하지 않습니다.";
                           }
                           return null;

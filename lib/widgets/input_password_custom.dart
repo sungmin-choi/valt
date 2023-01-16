@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:valt/styles/text_style.dart';
+import 'package:valt/widgets/label.dart';
 
 import '../styles/color_style.dart';
 
@@ -34,18 +34,12 @@ class _InputPasswordCustomState extends State<InputPasswordCustom> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         widget.label != null
-            ? Column(
-                children: [
-                  Text(widget.label.toString(),
-                      style: TextStyles.pretendardR14Gray100),
-                  const SizedBox(height: 8)
-                ],
-              )
+            ? Label(label: widget.label)
             : const SizedBox(height: 0),
         SizedBox(
-          width: 343,
+          width: double.maxFinite,
           child: TextFormField(
-            autovalidateMode: AutovalidateMode.always,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             obscureText: _obscureText,
             textInputAction: TextInputAction.next,
             onChanged: widget.onChanged,

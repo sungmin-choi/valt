@@ -17,7 +17,7 @@ class EmailLoginPage extends StatefulWidget {
 class _EmailLoginPageState extends State<EmailLoginPage> {
   final _formKey = GlobalKey<FormState>();
   String? email;
-  String? password = '@#@#!@#';
+  String? password;
 
   var disabled = true;
 
@@ -77,9 +77,7 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
                           password = value;
                         }),
                         validator: ((value) {
-                          if (value != null &&
-                              value.isEmpty &&
-                              password != '@#@#!@#') {
+                          if (value != null && value.isEmpty) {
                             return "비밀번호를 입력해 주세요";
                           }
                           return null;
