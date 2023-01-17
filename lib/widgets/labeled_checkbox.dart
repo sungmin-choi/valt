@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:valt/styles/color_style.dart';
 
 class LabeledCheckbox extends StatelessWidget {
   const LabeledCheckbox({
@@ -16,20 +17,48 @@ class LabeledCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return ColorStyles.gray90;
+      }
+      return ColorStyles.gray90;
+    }
+
     return InkWell(
       onTap: () {
         onChanged(!value);
       },
-      child: Row(
-        children: <Widget>[
-          Checkbox(
-            value: value,
-            onChanged: (bool? newValue) {
-              onChanged(newValue!);
-            },
-          ),
-          Expanded(child: Text(label)),
-        ],
+      child: Padding(
+        padding: padding,
+        child: Row(
+          children: <Widget>[
+            SizedBox(
+              height: 24,
+              width: 24,
+              child: Checkbox(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+                side: MaterialStateBorderSide.resolveWith(
+                  (states) =>
+                      const BorderSide(width: 1.0, color: ColorStyles.gray30),
+                ),
+                fillColor: MaterialStateProperty.resolveWith(getColor),
+                value: value,
+                onChanged: (bool? newValue) {
+                  onChanged(newValue!);
+                },
+              ),
+            ),
+            const SizedBox(width: 6),
+            Expanded(child: Text(label)),
+          ],
+        ),
       ),
     );
   }

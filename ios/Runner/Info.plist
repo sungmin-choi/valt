@@ -47,5 +47,69 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	   <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <!-- facebook login -->
+        <!-- <string>fbUrlSchemes</string> -->
+
+        <!-- google login -->
+        <!-- <string>google url schemes</string> -->
+
+        <!-- kakao login -->
+        <!-- <string>kakao네이티브 앱 키</string> -->
+
+        <!-- naver login -->
+        <string>valtapp</string>
+      </array>
+      </dict>
+    </array>
+
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+       <string>naversearchapp</string>
+       <string>naversearchthirdlogin</string>
+    </array>
+
+    <key>naverServiceAppUrlScheme</key>
+    <string>valtnapp</string>
+	
+    <!-- naver client_id -->
+    <key>naverConsumerKey</key>
+    <string>hmmcdEyCk7YSLTGux2BR</string>
+    
+    <!-- naver client_secret -->
+    <key>naverConsumerSecret</key>
+    <string>JT_7iuyhz7</string>
+
+    <key>naverServiceAppName</key>
+    <string>valtapp</string>
+
+    <!-- http allows configurations -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+       <key>NSAllowsArbitraryLoads</key>
+       <true/>
+       <key>NSExceptionDomains</key>
+       <dict>
+          <key>naver.com</key>
+          <dict>
+             <key>NSExceptionRequiresForwardSecrecy</key>
+             <false/>
+             <key>NSIncludesSubdomains</key>
+             <true/>
+          </dict>
+          <key>naver.net</key>
+          <dict>
+             <key>NSExceptionRequiresForwardSecrecy</key>
+             <false/>
+             <key>NSIncludesSubdomains</key>
+             <true/>
+          </dict>
+        </dict>
+    </dict>
 </dict>
 </plist>
