@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -20,9 +22,27 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakaod1ba24420a7871c373e202e5f09a8a70</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>kakaolink</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -43,73 +63,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-
-	   <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <!-- facebook login -->
-        <!-- <string>fbUrlSchemes</string> -->
-
-        <!-- google login -->
-        <!-- <string>google url schemes</string> -->
-
-        <!-- kakao login -->
-        <!-- <string>kakao네이티브 앱 키</string> -->
-
-        <!-- naver login -->
-        <string>valtapp</string>
-      </array>
-      </dict>
-    </array>
-
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-       <string>naversearchapp</string>
-       <string>naversearchthirdlogin</string>
-    </array>
-
-    <key>naverServiceAppUrlScheme</key>
-    <string>valtnapp</string>
-	
-    <!-- naver client_id -->
-    <key>naverConsumerKey</key>
-    <string>hmmcdEyCk7YSLTGux2BR</string>
-    
-    <!-- naver client_secret -->
-    <key>naverConsumerSecret</key>
-    <string>JT_7iuyhz7</string>
-
-    <key>naverServiceAppName</key>
-    <string>valtapp</string>
-
-    <!-- http allows configurations -->
-    <key>NSAppTransportSecurity</key>
-    <dict>
-       <key>NSAllowsArbitraryLoads</key>
-       <true/>
-       <key>NSExceptionDomains</key>
-       <dict>
-          <key>naver.com</key>
-          <dict>
-             <key>NSExceptionRequiresForwardSecrecy</key>
-             <false/>
-             <key>NSIncludesSubdomains</key>
-             <true/>
-          </dict>
-          <key>naver.net</key>
-          <dict>
-             <key>NSExceptionRequiresForwardSecrecy</key>
-             <false/>
-             <key>NSIncludesSubdomains</key>
-             <true/>
-          </dict>
-        </dict>
-    </dict>
 </dict>
 </plist>

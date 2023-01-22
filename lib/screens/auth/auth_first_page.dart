@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:valt/controller/auth/kakao_login.dart';
+import 'package:valt/model/main_view_model.dart';
 import 'package:valt/screens/auth/auth_email_login_page.dart';
 import 'package:valt/screens/auth/auth_email_register_page.dart';
 import 'package:valt/styles/color_style.dart';
@@ -8,7 +10,9 @@ import 'package:valt/styles/text_style.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
 
 class AuthFirstPage extends StatelessWidget {
-  const AuthFirstPage({super.key});
+  AuthFirstPage({super.key});
+
+  final viewModel = MainViewModel(KakaoLogin());
   final String logoSvg = 'assets/icons/logo.svg';
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,7 @@ class AuthFirstPage extends StatelessWidget {
                     color: Color(0xff2D2C2C),
                   ),
                 ),
+                // Text('${viewModel.isLogined}'),
                 const SizedBox(height: 12),
                 SvgPicture.asset(logoSvg),
                 const SizedBox(height: 89),
@@ -58,7 +63,9 @@ class AuthFirstPage extends StatelessWidget {
                   text: '네이버로 로그인',
                   bgColor: const Color(0xff03C75A),
                   textStyle: TextStyles.pretendardB16White,
-                  onClick: () => {},
+                  onClick: () async {
+                    await viewModel.kakaologin();
+                  },
                 ),
                 const SizedBox(height: 24),
                 Row(

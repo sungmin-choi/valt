@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:valt/screens/Home.dart';
+import 'package:valt/controller/auth/kakao_login.dart';
+import 'package:valt/model/main_view_model.dart';
+import 'package:valt/screens/home.dart';
+import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
+
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  KakaoSdk.init(
+    nativeAppKey: 'd1ba24420a7871c373e202e5f09a8a70',
+  );
   runApp(const Main());
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:get/get.dart';
 import 'package:valt/styles/text_style.dart';
+import 'package:valt/utils/validation.dart';
 import 'package:valt/widgets/buttom_m.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
 import 'package:valt/widgets/input_custom.dart';
@@ -19,8 +20,9 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
   final _formKey = GlobalKey<FormState>();
   String? name;
   String? birthDate;
-  bool? gender;
-  bool _isSelected = false;
+  int gender = 3;
+  final List _whereListSelected = [];
+  final List _registerReasonListSelected = [];
   List whereList = ['레스토랑', '위스키바', '파티', '홈술', '선물용'];
   List registerReasonList = ['레스토랑', '위스키바', '파티', '홈술', '선물용', '기타'];
   @override
@@ -81,16 +83,34 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                                 fit: FlexFit.tight,
                                 child: ButtonM(
                                     text: '남',
-                                    textStyle: TextStyles.pretendardN14Gray90,
-                                    onClick: () => {}),
+                                    bgColor: gender == 0
+                                        ? ColorStyles.gray90
+                                        : ColorStyles.white,
+                                    textStyle: gender == 0
+                                        ? TextStyles.pretendardN14White
+                                        : TextStyles.pretendardN14Gray90,
+                                    onClick: () => {
+                                          setState(() {
+                                            gender = 0;
+                                          })
+                                        }),
                               ),
                               const SizedBox(width: 8),
                               Flexible(
                                   fit: FlexFit.tight,
                                   child: ButtonM(
                                       text: '여',
-                                      textStyle: TextStyles.pretendardN14Gray90,
-                                      onClick: () => {})),
+                                      bgColor: gender == 1
+                                          ? ColorStyles.gray90
+                                          : ColorStyles.white,
+                                      textStyle: gender == 1
+                                          ? TextStyles.pretendardN14White
+                                          : TextStyles.pretendardN14Gray90,
+                                      onClick: () => {
+                                            setState(() {
+                                              gender = 1;
+                                            })
+                                          })),
                             ],
                           ),
                           const SizedBox(height: 20),
@@ -100,12 +120,8 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                                 name = value;
                               }),
                               label: '생년월일',
-                              validator: ((value) {
-                                if (value != null && value.isEmpty) {
-                                  return "이름을 입력해 주세요";
-                                }
-                                return null;
-                              })),
+                              validator: ((value) =>
+                                  Validation().validateBrithDate(value))),
                           const SizedBox(height: 32),
                         ]),
                   ),
@@ -136,11 +152,18 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                             LabeledCheckbox(
                                 label: item.toString(),
                                 padding: const EdgeInsets.only(bottom: 10),
-                                value: _isSelected,
+                                value: _whereListSelected.contains(item),
                                 onChanged: ((value) {
-                                  setState(() {
-                                    _isSelected = value;
-                                  });
+                                  if (_whereListSelected.contains(item)) {
+                                    setState(() {
+                                      _whereListSelected.removeWhere(
+                                          (element) => element == item);
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _whereListSelected.add(item);
+                                    });
+                                  }
                                 })),
                           const SizedBox(height: 20),
                           const Text('가입하시는 이유를 알고 싶어요.',
@@ -149,16 +172,41 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                           const Text('복수 선택 가능해요.',
                               style: TextStyles.pretendardR13Gray60),
                           const SizedBox(height: 16),
-                          for (var item in whereList)
+                          for (var item in registerReasonList)
                             LabeledCheckbox(
                                 label: item.toString(),
                                 padding: const EdgeInsets.only(bottom: 10),
-                                value: _isSelected,
+                                value:
+                                    _registerReasonListSelected.contains(item),
                                 onChanged: ((value) {
-                                  setState(() {
-                                    _isSelected = value;
-                                  });
+                                  if (_registerReasonListSelected
+                                      .contains(item)) {
+                                    setState(() {
+                                      _registerReasonListSelected.removeWhere(
+                                          (element) => element == item);
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _registerReasonListSelected.add(item);
+                                    });
+                                  }
                                 })),
+                          _registerReasonListSelected.contains('기타')
+                              ? TextFormField(
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: null,
+                                  decoration: const InputDecoration(
+                                      hintText: "내용을 입력해 주세요",
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: ColorStyles.gray30)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1,
+                                              color: ColorStyles.gray90))),
+                                )
+                              : const SizedBox(height: 0, width: 0),
                           const SizedBox(height: 32),
                           ButtonLgFill(
                               text: '다음',

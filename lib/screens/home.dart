@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Get.to(() => const AuthFirstPage());
+              Get.to(() => AuthFirstPage());
             },
             icon: const Icon(
               Icons.mode_edit_outline_sharp,

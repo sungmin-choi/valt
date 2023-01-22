@@ -76,18 +76,13 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
                               Validation().validateEmail(value)),
                       const SizedBox(height: 12),
                       InputPasswordCustom(
-                        hintText: '영문, 숫자, 특수문자 조합 8-20자',
-                        label: '비밀번호',
-                        onChanged: ((value) {
-                          password = value;
-                        }),
-                        validator: ((value) {
-                          if (value != null && value.isEmpty) {
-                            return "비밀번호를 입력해 주세요";
-                          }
-                          return null;
-                        }),
-                      ),
+                          hintText: '영문, 숫자, 특수문자 조합 8-20자',
+                          label: '비밀번호',
+                          onChanged: ((value) {
+                            password = value;
+                          }),
+                          validator: (value) =>
+                              Validation().validatePassword(value)),
                       const SizedBox(height: 12),
                       InputPasswordCustom(
                         hintText: '비밀번호 재입력',
