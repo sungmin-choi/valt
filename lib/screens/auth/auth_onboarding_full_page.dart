@@ -3,6 +3,7 @@ import 'package:valt/styles/color_style.dart';
 import 'package:get/get.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/utils/validation.dart';
+import 'package:valt/widgets/agree_terms_bottom_modal.dart';
 import 'package:valt/widgets/buttom_m.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
 import 'package:valt/widgets/input_custom.dart';
@@ -25,6 +26,14 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
   final List _registerReasonListSelected = [];
   List whereList = ['레스토랑', '위스키바', '파티', '홈술', '선물용'];
   List registerReasonList = ['레스토랑', '위스키바', '파티', '홈술', '선물용', '기타'];
+  bool disabled = true;
+
+  void handelDisabled(bool value) {
+    setState(() {
+      disabled = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +55,14 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
       body: SingleChildScrollView(
         child: Center(
           child: Form(
+            onChanged: () {
+              var valid = _formKey.currentState!.validate();
+              if (!valid || gender == 3 || name == null) {
+                handelDisabled(true);
+              } else {
+                handelDisabled(false);
+              }
+            },
             key: _formKey,
             child: Column(
               children: [
@@ -154,7 +171,7 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 value: _whereListSelected.contains(item),
                                 onChanged: ((value) {
-                                  if (_whereListSelected.contains(item)) {
+                                  if (!value) {
                                     setState(() {
                                       _whereListSelected.removeWhere(
                                           (element) => element == item);
@@ -179,8 +196,7 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                                 value:
                                     _registerReasonListSelected.contains(item),
                                 onChanged: ((value) {
-                                  if (_registerReasonListSelected
-                                      .contains(item)) {
+                                  if (!value) {
                                     setState(() {
                                       _registerReasonListSelected.removeWhere(
                                           (element) => element == item);
@@ -210,9 +226,25 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                           const SizedBox(height: 32),
                           ButtonLgFill(
                               text: '다음',
-                              bgColor: ColorStyles.gray90,
-                              textStyle: TextStyles.pretendardB16White,
-                              onClick: () => {}),
+                              bgColor: disabled
+                                  ? ColorStyles.gray15
+                                  : ColorStyles.gray90,
+                              textStyle: disabled
+                                  ? TextStyles.pretendardB16Gray50
+                                  : TextStyles.pretendardB16White,
+                              onClick: disabled
+                                  ? () => {}
+                                  : () => {
+                                        showModalBottomSheet(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return const AgreeTermsBottomModal();
+                                            })
+                                      }),
                           const SizedBox(height: 42),
                         ]),
                   ),

@@ -22,7 +22,7 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
   String? email;
   String? password;
   String? confirmPassword;
-  var disabled = true;
+  bool disabled = true;
 
   void handelDisabled(bool value) {
     setState(() {

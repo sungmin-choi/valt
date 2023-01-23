@@ -12,6 +12,11 @@ class TextStyles {
       fontSize: 17,
       fontWeight: FontWeight.bold,
       color: ColorStyles.gray100);
+  static const pretendardB18Gray100 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      color: ColorStyles.gray100);
   static const pretendardB16White = TextStyle(
       fontFamily: 'Pretendard',
       fontSize: 16,
