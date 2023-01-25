@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:valt/controller/register_controller.dart';
+import 'package:valt/main.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:get/get.dart';
 import 'package:valt/styles/text_style.dart';
@@ -18,6 +20,8 @@ class OnboardingFullPage extends StatefulWidget {
 }
 
 class _OnboardingFullPageState extends State<OnboardingFullPage> {
+  final RegisterController controller = Get.find<RegisterController>();
+
   final _formKey = GlobalKey<FormState>();
   String? name;
   String? birthDate;
@@ -134,7 +138,7 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                           InputCustom(
                               hintText: 'ex) 19990101',
                               onChanged: ((value) {
-                                name = value;
+                                birthDate = value;
                               }),
                               label: '생년월일',
                               validator: ((value) =>
@@ -242,7 +246,17 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                                             ),
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return const AgreeTermsBottomModal();
+                                              return AgreeTermsBottomModal(
+                                                onClick: () {
+                                                  controller.submitOnboardingData(
+                                                      name,
+                                                      birthDate,
+                                                      gender,
+                                                      _whereListSelected,
+                                                      _registerReasonListSelected);
+                                                  Get.offAll(const MyApp());
+                                                },
+                                              );
                                             })
                                       }),
                           const SizedBox(height: 42),

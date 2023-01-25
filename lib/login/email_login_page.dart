@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:valt/login/controller/login_controller.dart';
+import 'package:valt/main.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/utils/validation.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
-import 'package:valt/widgets/input_custom.dart';
-import 'package:valt/widgets/input_password_custom.dart';
+import 'package:valt/widgets/input_custom_copy.dart';
+import 'package:valt/widgets/input_password_custom_copy.dart';
 
 class EmailLoginPage extends StatefulWidget {
   const EmailLoginPage({super.key});
@@ -15,11 +18,11 @@ class EmailLoginPage extends StatefulWidget {
 }
 
 class _EmailLoginPageState extends State<EmailLoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  String? email;
-  String? password;
+  var loginController = Get.put(LoginController());
 
+  final _formKey = GlobalKey<FormState>();
   var disabled = true;
+  var isLoading = false;
 
   void handelDisabled(bool value) {
     setState(() {
@@ -63,19 +66,15 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
                   padding: const EdgeInsets.fromLTRB(16, 27, 16, 362),
                   child: Column(
                     children: [
-                      InputCustom(
+                      InputCustomCopy(
+                          controller: loginController.emailTextController,
                           hintText: '이메일 입력',
-                          onChanged: (value) {
-                            email = value;
-                          },
                           validator: (value) =>
                               Validation().validateEmail(value)),
                       const SizedBox(height: 12),
-                      InputPasswordCustom(
+                      InputPasswordCustomCopy(
+                        controller: loginController.passwordTextController,
                         hintText: '비밀번호 입력',
-                        onChanged: ((value) {
-                          password = value;
-                        }),
                         validator: ((value) {
                           if (value != null && value.isEmpty) {
                             return "비밀번호를 입력해 주세요";
@@ -84,34 +83,38 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
                         }),
                       ),
                       const SizedBox(height: 48),
-                      // TextButton(
-                      //     onPressed: () => {
-                      //           Fluttertoast.showToast(
-                      //               msg: "이메일 또는 비밀번호를 확인해 주세요",
-                      //               toastLength: Toast.LENGTH_SHORT,
-                      //               gravity: ToastGravity.TOP,
-                      //               timeInSecForIosWeb: 2,
-                      //               backgroundColor:
-                      //                   Colors.black.withOpacity(0.7),
-                      //               textColor: Colors.white,
-                      //               fontSize: 16.0)
-                      //         },
-                      //     child: const Text('Click')),
                       ButtonLgFill(
-                        text: '로그인',
+                        text: isLoading ? '로그인중..' : '로그인',
                         textStyle: disabled
                             ? TextStyles.pretendardB16Gray50
                             : TextStyles.pretendardB16White,
                         bgColor:
                             disabled ? ColorStyles.gray15 : ColorStyles.gray90,
-                        onClick: disabled
+                        onClick: disabled && !isLoading
                             ? () => {}
-                            : () {
-                                // showToast();
+                            : () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
 
-                                var valid = _formKey.currentState!.validate();
-                                if (!valid) {
-                                  return;
+                                bool response = await loginController.login();
+
+                                setState(() {
+                                  isLoading = false;
+                                });
+
+                                if (response) {
+                                  Get.to(const MyApp());
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg: "이메일 또는 비밀번호를 확인해 주세요",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.TOP,
+                                      timeInSecForIosWeb: 2,
+                                      backgroundColor:
+                                          Colors.black.withOpacity(0.7),
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
                                 }
                               },
                       ),

@@ -18,7 +18,7 @@ class EmailRegisterPage extends StatefulWidget {
 
 class _EmailRegisterPageState extends State<EmailRegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  final registerController = Get.put(RegisterController());
+  final registerController = Get.find<RegisterController>();
   String? email;
   String? password;
   String? confirmPassword;

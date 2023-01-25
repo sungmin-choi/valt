@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valt/controller/auth/kakao_login.dart';
 import 'package:valt/model/main_view_model.dart';
-import 'package:valt/screens/auth/auth_email_login_page.dart';
+import 'package:valt/login/email_login_page.dart';
 import 'package:valt/screens/auth/auth_email_register_page.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';

@@ -6,7 +6,9 @@ import 'package:valt/widgets/agree_terms_check_list.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
 
 class AgreeTermsBottomModal extends StatefulWidget {
-  const AgreeTermsBottomModal({super.key});
+  const AgreeTermsBottomModal({super.key, required this.onClick});
+
+  final void Function() onClick;
 
   @override
   State<AgreeTermsBottomModal> createState() => _AgreeTermsBottomModalState();
@@ -140,7 +142,7 @@ class _AgreeTermsBottomModalState extends State<AgreeTermsBottomModal> {
               textStyle: _isBtnDisable
                   ? TextStyles.pretendardB16Gray50
                   : TextStyles.pretendardB16White,
-              onClick: () => Navigator.pop(context),
+              onClick: widget.onClick,
             )
           ],
         ),
