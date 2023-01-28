@@ -12,12 +12,12 @@ class NetWorkHandler {
   }
 
   static Uri buildUrl(String endpoint) {
-    String host = "http://192.168.8.107:3000/";
+    String host = "https://whiskeyshop.cf/";
     final apiPath = host + endpoint;
     return Uri.parse(apiPath);
   }
 
-  static void storeToken(String token) async {
+  static Future<void> storeToken(String token) async {
     await storage.write(key: 'token', value: token);
   }
 

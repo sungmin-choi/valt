@@ -6,14 +6,15 @@ import '../styles/color_style.dart';
 class InputCustom extends StatelessWidget {
   final String hintText;
   final String? label;
-  final void Function(String? value) onChanged;
+
   final String? Function(String? value) validator;
+  final TextEditingController controller;
   const InputCustom(
       {super.key,
       this.label,
       required this.hintText,
-      required this.onChanged,
-      required this.validator});
+      required this.validator,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +25,9 @@ class InputCustom extends StatelessWidget {
         SizedBox(
           width: double.maxFinite,
           child: TextFormField(
+            controller: controller,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             textInputAction: TextInputAction.next,
-            onChanged: onChanged,
             validator: validator,
             decoration: InputDecoration(
               contentPadding:

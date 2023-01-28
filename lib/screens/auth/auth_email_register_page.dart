@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:valt/controller/register_controller.dart';
+import 'package:valt/register/controller/register_controller.dart';
+
 import 'package:valt/screens/auth/auth_onboarding_full_page.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
@@ -18,7 +20,7 @@ class EmailRegisterPage extends StatefulWidget {
 
 class _EmailRegisterPageState extends State<EmailRegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  final registerController = Get.find<RegisterController>();
+  final RegisterController registerController = Get.put(RegisterController());
   String? email;
   String? password;
   String? confirmPassword;
@@ -67,32 +69,26 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
                   child: Column(
                     children: [
                       InputCustom(
+                          controller: registerController.emailTextController,
                           hintText: '이메일 입력',
                           label: '이메일',
-                          onChanged: (value) {
-                            email = value;
-                          },
                           validator: (value) =>
                               Validation().validateEmail(value)),
                       const SizedBox(height: 12),
                       InputPasswordCustom(
+                          controller: registerController.passwordTextController,
                           hintText: '영문, 숫자, 특수문자 조합 8-20자',
                           label: '비밀번호',
-                          onChanged: ((value) {
-                            password = value;
-                          }),
                           validator: (value) =>
                               Validation().validatePassword(value)),
                       const SizedBox(height: 12),
                       InputPasswordCustom(
                         hintText: '비밀번호 재입력',
-                        onChanged: ((value) {
-                          confirmPassword = value;
-                        }),
                         validator: ((value) {
                           if (value != null && value.isEmpty) {
                             return "비밀번호를 입력해 주세요";
-                          } else if (value != password) {
+                          } else if (value !=
+                              registerController.passwordTextController.text) {
                             return "비밀번호가 일치하지 않습니다.";
                           }
                           return null;
@@ -108,11 +104,23 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
                             disabled ? ColorStyles.gray15 : ColorStyles.gray90,
                         onClick: disabled
                             ? () => {}
-                            : () {
+                            : () async {
                                 // showToast();
-                                registerController.submitEmailPassword(
-                                    email, password);
-                                Get.to(() => const OnboardingFullPage());
+                                bool result =
+                                    await registerController.checkValidEmail();
+                                if (result) {
+                                  Get.to(() => const OnboardingFullPage());
+                                } else {
+                                  Fluttertoast.showToast(
+                                      msg: "이미 존재하는 이메일입니다.",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.TOP,
+                                      timeInSecForIosWeb: 2,
+                                      backgroundColor:
+                                          Colors.black.withOpacity(0.7),
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                }
                               },
                       ),
                     ],

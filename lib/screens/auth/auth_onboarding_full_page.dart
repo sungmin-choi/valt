@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:valt/controller/register_controller.dart';
+
 import 'package:valt/main.dart';
+import 'package:valt/register/controller/register_controller.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:get/get.dart';
 import 'package:valt/styles/text_style.dart';
@@ -20,14 +21,10 @@ class OnboardingFullPage extends StatefulWidget {
 }
 
 class _OnboardingFullPageState extends State<OnboardingFullPage> {
-  final RegisterController controller = Get.find<RegisterController>();
+  final RegisterController registerController = Get.find<RegisterController>();
 
   final _formKey = GlobalKey<FormState>();
-  String? name;
-  String? birthDate;
-  int gender = 3;
-  final List _whereListSelected = [];
-  final List _registerReasonListSelected = [];
+
   List whereList = ['레스토랑', '위스키바', '파티', '홈술', '선물용'];
   List registerReasonList = ['레스토랑', '위스키바', '파티', '홈술', '선물용', '기타'];
   bool disabled = true;
@@ -61,7 +58,7 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
           child: Form(
             onChanged: () {
               var valid = _formKey.currentState!.validate();
-              if (!valid || gender == 3 || name == null) {
+              if (!valid) {
                 handelDisabled(true);
               } else {
                 handelDisabled(false);
@@ -84,10 +81,9 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                               style: TextStyles.pretendardR14Gray70),
                           const SizedBox(height: 20),
                           InputCustom(
+                              controller:
+                                  registerController.usernameTextController,
                               hintText: '이름 입력',
-                              onChanged: ((value) {
-                                name = value;
-                              }),
                               label: '이름',
                               validator: ((value) {
                                 if (value != null && value.isEmpty) {
@@ -102,44 +98,53 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                             children: [
                               Flexible(
                                 fit: FlexFit.tight,
-                                child: ButtonM(
-                                    text: '남',
-                                    bgColor: gender == 0
-                                        ? ColorStyles.gray90
-                                        : ColorStyles.white,
-                                    textStyle: gender == 0
-                                        ? TextStyles.pretendardN14White
-                                        : TextStyles.pretendardN14Gray90,
-                                    onClick: () => {
-                                          setState(() {
-                                            gender = 0;
-                                          })
-                                        }),
+                                child: Obx(
+                                  () => ButtonM(
+                                      text: '남',
+                                      bgColor:
+                                          registerController.gender.value ==
+                                                  'male'
+                                              ? ColorStyles.gray90
+                                              : ColorStyles.white,
+                                      textStyle:
+                                          registerController.gender.value ==
+                                                  'male'
+                                              ? TextStyles.pretendardN14White
+                                              : TextStyles.pretendardN14Gray90,
+                                      onClick: () => {
+                                            registerController.gender.value =
+                                                'male'
+                                          }),
+                                ),
                               ),
                               const SizedBox(width: 8),
                               Flexible(
                                   fit: FlexFit.tight,
-                                  child: ButtonM(
-                                      text: '여',
-                                      bgColor: gender == 1
-                                          ? ColorStyles.gray90
-                                          : ColorStyles.white,
-                                      textStyle: gender == 1
-                                          ? TextStyles.pretendardN14White
-                                          : TextStyles.pretendardN14Gray90,
-                                      onClick: () => {
-                                            setState(() {
-                                              gender = 1;
-                                            })
-                                          })),
+                                  child: Obx(
+                                    () => ButtonM(
+                                        text: '여',
+                                        bgColor:
+                                            registerController.gender.value ==
+                                                    'female'
+                                                ? ColorStyles.gray90
+                                                : ColorStyles.white,
+                                        textStyle: registerController
+                                                    .gender.value ==
+                                                'female'
+                                            ? TextStyles.pretendardN14White
+                                            : TextStyles.pretendardN14Gray90,
+                                        onClick: () => {
+                                              registerController.gender.value =
+                                                  'female'
+                                            }),
+                                  )),
                             ],
                           ),
                           const SizedBox(height: 20),
                           InputCustom(
+                              controller:
+                                  registerController.birthDateTextController,
                               hintText: 'ex) 19990101',
-                              onChanged: ((value) {
-                                birthDate = value;
-                              }),
                               label: '생년월일',
                               validator: ((value) =>
                                   Validation().validateBrithDate(value))),
@@ -170,22 +175,22 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                               style: TextStyles.pretendardR13Gray60),
                           const SizedBox(height: 16),
                           for (var item in whereList)
-                            LabeledCheckbox(
-                                label: item.toString(),
-                                padding: const EdgeInsets.only(bottom: 10),
-                                value: _whereListSelected.contains(item),
-                                onChanged: ((value) {
-                                  if (!value) {
-                                    setState(() {
-                                      _whereListSelected.removeWhere(
-                                          (element) => element == item);
-                                    });
-                                  } else {
-                                    setState(() {
-                                      _whereListSelected.add(item);
-                                    });
-                                  }
-                                })),
+                            Obx(
+                              () => LabeledCheckbox(
+                                  label: item.toString(),
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  value: registerController.whereListSelected
+                                      .contains(item),
+                                  onChanged: ((value) {
+                                    if (!value) {
+                                      registerController.whereListSelected
+                                          .removeWhere((ele) => ele == item);
+                                    } else {
+                                      registerController.whereListSelected
+                                          .add(item);
+                                    }
+                                  })),
+                            ),
                           const SizedBox(height: 20),
                           const Text('가입하시는 이유를 알고 싶어요.',
                               style: TextStyles.pretendardB16Black),
@@ -194,39 +199,46 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                               style: TextStyles.pretendardR13Gray60),
                           const SizedBox(height: 16),
                           for (var item in registerReasonList)
-                            LabeledCheckbox(
-                                label: item.toString(),
-                                padding: const EdgeInsets.only(bottom: 10),
-                                value:
-                                    _registerReasonListSelected.contains(item),
-                                onChanged: ((value) {
-                                  if (!value) {
-                                    setState(() {
-                                      _registerReasonListSelected.removeWhere(
-                                          (element) => element == item);
-                                    });
-                                  } else {
-                                    setState(() {
-                                      _registerReasonListSelected.add(item);
-                                    });
-                                  }
-                                })),
-                          _registerReasonListSelected.contains('기타')
-                              ? TextFormField(
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: null,
-                                  decoration: const InputDecoration(
-                                      hintText: "내용을 입력해 주세요",
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: ColorStyles.gray30)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              width: 1,
-                                              color: ColorStyles.gray90))),
-                                )
-                              : const SizedBox(height: 0, width: 0),
+                            Obx(
+                              () => LabeledCheckbox(
+                                  label: item.toString(),
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  value: registerController
+                                      .registerReasonListSelected
+                                      .contains(item),
+                                  onChanged: ((value) {
+                                    if (!value) {
+                                      registerController
+                                          .registerReasonListSelected
+                                          .removeWhere((ele) => ele == item);
+                                    } else {
+                                      registerController
+                                          .registerReasonListSelected
+                                          .add(item);
+                                    }
+                                  })),
+                            ),
+                          Obx(
+                            () => registerController.registerReasonListSelected
+                                    .contains('기타')
+                                ? TextFormField(
+                                    controller: registerController
+                                        .extraReasonTextController,
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: null,
+                                    decoration: const InputDecoration(
+                                        hintText: "내용을 입력해 주세요",
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 1,
+                                                color: ColorStyles.gray30)),
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 1,
+                                                color: ColorStyles.gray90))),
+                                  )
+                                : const SizedBox(height: 0, width: 0),
+                          ),
                           const SizedBox(height: 32),
                           ButtonLgFill(
                               text: '다음',
@@ -247,14 +259,14 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AgreeTermsBottomModal(
-                                                onClick: () {
-                                                  controller.submitOnboardingData(
-                                                      name,
-                                                      birthDate,
-                                                      gender,
-                                                      _whereListSelected,
-                                                      _registerReasonListSelected);
-                                                  Get.offAll(const MyApp());
+                                                onClick: () async {
+                                                  bool result =
+                                                      await registerController
+                                                          .register();
+
+                                                  if (result) {
+                                                    Get.offAll(const MyApp());
+                                                  }
                                                 },
                                               );
                                             })

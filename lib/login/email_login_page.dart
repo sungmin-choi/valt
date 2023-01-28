@@ -7,8 +7,8 @@ import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/utils/validation.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
-import 'package:valt/widgets/input_custom_copy.dart';
-import 'package:valt/widgets/input_password_custom_copy.dart';
+import 'package:valt/widgets/input_custom.dart';
+import 'package:valt/widgets/input_password_custom.dart';
 
 class EmailLoginPage extends StatefulWidget {
   const EmailLoginPage({super.key});
@@ -66,13 +66,13 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
                   padding: const EdgeInsets.fromLTRB(16, 27, 16, 362),
                   child: Column(
                     children: [
-                      InputCustomCopy(
+                      InputCustom(
                           controller: loginController.emailTextController,
                           hintText: '이메일 입력',
                           validator: (value) =>
                               Validation().validateEmail(value)),
                       const SizedBox(height: 12),
-                      InputPasswordCustomCopy(
+                      InputPasswordCustom(
                         controller: loginController.passwordTextController,
                         hintText: '비밀번호 입력',
                         validator: ((value) {

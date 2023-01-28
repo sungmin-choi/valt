@@ -4,16 +4,18 @@ import 'package:valt/widgets/label.dart';
 import '../styles/color_style.dart';
 
 class InputPasswordCustom extends StatefulWidget {
+  final TextEditingController? controller;
   final String hintText;
   final String? label;
-  final void Function(String? value) onChanged;
+
   final String? Function(String? value) validator;
-  const InputPasswordCustom(
-      {super.key,
-      this.label,
-      required this.hintText,
-      required this.onChanged,
-      required this.validator});
+  const InputPasswordCustom({
+    super.key,
+    this.label,
+    required this.hintText,
+    required this.validator,
+    this.controller,
+  });
 
   @override
   State<InputPasswordCustom> createState() => _InputPasswordCustomState();
@@ -39,10 +41,10 @@ class _InputPasswordCustomState extends State<InputPasswordCustom> {
         SizedBox(
           width: double.maxFinite,
           child: TextFormField(
+            controller: widget.controller,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             obscureText: _obscureText,
             textInputAction: TextInputAction.next,
-            onChanged: widget.onChanged,
             validator: widget.validator,
             decoration: InputDecoration(
               contentPadding:

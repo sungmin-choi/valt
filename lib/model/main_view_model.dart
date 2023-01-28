@@ -12,6 +12,7 @@ class MainViewModel {
     isLogined = await _kakaoLogin.login();
     if (isLogined) {
       kakaoUser = await UserApi.instance.me();
+      print(kakaoUser);
     }
   }
 
