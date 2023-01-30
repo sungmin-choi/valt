@@ -6,9 +6,15 @@ class NetWorkHandler {
 // Create storage
   static const storage = FlutterSecureStorage();
   static Future<String> post(var body, String endpoint) async {
-    var response = await client.post(buildUrl(endpoint),
-        body: body, headers: {"Content-type": "application/json"});
-    return response.body;
+    var response = await client.post(buildUrl(endpoint), body: body, headers: {
+      "Content-type": "application/json",
+      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F60FE"
+    });
+    if (response.body.isNotEmpty) {
+      return response.body;
+    } else {
+      return response.statusCode.toString();
+    }
   }
 
   static Uri buildUrl(String endpoint) {

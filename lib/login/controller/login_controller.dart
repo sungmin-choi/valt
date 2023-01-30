@@ -10,13 +10,6 @@ class LoginController extends GetxController {
   TextEditingController passwordTextController = TextEditingController();
 
   Future<bool> login() async {
-    // await Future.delayed(const Duration(seconds: 1));
-    // if (emailTextController.text == 'namja306@naver.com' &&
-    //     passwordTextController.text == 'test1234!') {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
     LoginModel loginModel = LoginModel(
         email: emailTextController.text, password: passwordTextController.text);
     var response =
