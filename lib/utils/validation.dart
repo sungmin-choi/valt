@@ -27,7 +27,7 @@ class Validation {
   String? validateBrithDate(String? value) {
     if (value != null &&
         value.isNotEmpty &&
-        !RegExp(r"^19[2-9][0-9](0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])")
+        !RegExp(r"\b(19|20)\d{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])\b")
             .hasMatch(value)) {
       return '형식에 맞춰서 입력해 주세요 ex)19990101';
     } else if (value == null || value.isEmpty) {
