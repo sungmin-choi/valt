@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:valt/auth/auth_reset_password.dart';
-import 'package:valt/controller/email_controller.dart';
+import 'package:valt/auth/login/controller/login_controller.dart';
 import 'package:get/get.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
@@ -17,7 +17,7 @@ class AuthenticationCodePage extends StatefulWidget {
 }
 
 class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
-  var emailController = Get.put(EmailController());
+  var loginController = Get.find<LoginController>();
   var disabled = true;
   var isLoading = false;
   final _formKey = GlobalKey<FormState>();
@@ -68,7 +68,7 @@ class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           InputCustom(
-                              controller: emailController.emailTextController,
+                              controller: loginController.emailTextController,
                               hintText: '이메일 입력',
                               label: '이메일',
                               validator: (value) =>
@@ -88,9 +88,8 @@ class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
                               onClick: disabled && !isLoading
                                   ? () => {}
                                   : () async {
-                                      bool result = await emailController
+                                      bool result = await loginController
                                           .checkValidEmail();
-                                      print(result);
                                       if (!result) {
                                         Get.to(() => const ResetPassword());
                                       } else {
