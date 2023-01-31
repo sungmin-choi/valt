@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
-import 'package:valt/login/model/login_model.dart';
+import 'package:valt/auth/login/model/login_model.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 
 class LoginController extends GetxController {

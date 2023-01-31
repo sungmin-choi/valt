@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:valt/register/controller/register_controller.dart';
+import 'package:valt/auth/register/controller/register_controller.dart';
 
-import 'package:valt/screens/auth/auth_onboarding_full_page.dart';
+import 'package:valt/auth/register/auth_onboarding_full_page.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/utils/validation.dart';
@@ -21,9 +21,6 @@ class EmailRegisterPage extends StatefulWidget {
 class _EmailRegisterPageState extends State<EmailRegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final RegisterController registerController = Get.put(RegisterController());
-  String? email;
-  String? password;
-  String? confirmPassword;
   bool disabled = true;
 
   void handelDisabled(bool value) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:valt/main.dart';
-import 'package:valt/register/controller/register_controller.dart';
+import 'package:valt/auth/register/controller/register_controller.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:get/get.dart';
 import 'package:valt/styles/text_style.dart';
@@ -26,7 +26,14 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
   final _formKey = GlobalKey<FormState>();
 
   List whereList = ['레스토랑', '위스키바', '파티', '홈술', '선물용'];
-  List registerReasonList = ['레스토랑', '위스키바', '파티', '홈술', '선물용', '기타'];
+  List registerReasonList = [
+    '위스키 종류를 알고 싶어요.',
+    '위스키 배경 지식을 알고 싶어요.',
+    '위스키 맛을 알고 싶어요.',
+    '평균 가격을 알고 싶어요.',
+    '사람들의 후기를 보고 싶어요.',
+    '기타'
+  ];
   bool disabled = true;
 
   void handelDisabled(bool value) {
@@ -168,10 +175,10 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                           const Text('취향에 맞는 위스키를 추천해드릴게요.',
                               style: TextStyles.pretendardR14Gray70),
                           const SizedBox(height: 32),
-                          const Text('어디서 위스키를 즐기시나요?',
+                          const Text('어디서 위스키를 가장 많이 즐기시나요?',
                               style: TextStyles.pretendardB16Black),
                           const SizedBox(height: 2),
-                          const Text('복수 선택 가능해요.',
+                          const Text('최대 3개까지 선택할 수 있어요.',
                               style: TextStyles.pretendardR13Gray60),
                           const SizedBox(height: 16),
                           for (var item in whereList)
@@ -195,7 +202,7 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                           const Text('가입하시는 이유를 알고 싶어요.',
                               style: TextStyles.pretendardB16Black),
                           const SizedBox(height: 2),
-                          const Text('복수 선택 가능해요.',
+                          const Text('최대 3개까지 선택할 수 있어요.',
                               style: TextStyles.pretendardR13Gray60),
                           const SizedBox(height: 16),
                           for (var item in registerReasonList)

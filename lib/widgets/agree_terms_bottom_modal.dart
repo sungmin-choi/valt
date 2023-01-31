@@ -4,7 +4,7 @@ import 'package:valt/styles/text_style.dart';
 import 'package:valt/widgets/agree_terms_all_check.dart';
 import 'package:valt/widgets/agree_terms_check_list.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
-import 'package:valt/register/controller/register_controller.dart';
+import 'package:valt/auth/register/controller/register_controller.dart';
 import 'package:get/get.dart';
 
 class AgreeTermsBottomModal extends StatefulWidget {
