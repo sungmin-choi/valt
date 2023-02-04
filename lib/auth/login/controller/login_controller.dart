@@ -16,8 +16,12 @@ class LoginController extends GetxController {
     var response =
         await NetWorkHandler.post(loginModelToJson(loginModel), "member/login");
     var data = json.decode(response);
-
-    return false;
+    if (data['errors'] != null) {
+      return false;
+    }
+    var memberId = data['memberId'];
+    await NetWorkHandler.storeMemberId(memberId.toString());
+    return true;
   }
 
   Future<bool> checkValidEmail() async {

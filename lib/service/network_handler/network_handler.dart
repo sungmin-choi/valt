@@ -30,4 +30,12 @@ class NetWorkHandler {
   static Future<String?> getToken(String token) async {
     return await storage.read(key: 'token');
   }
+
+  static Future<void> storeMemberId(String token) async {
+    await storage.write(key: 'memberId', value: token);
+  }
+
+  static Future<String?> getMemberId() async {
+    return await storage.read(key: 'memberId');
+  }
 }

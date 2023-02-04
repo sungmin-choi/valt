@@ -141,7 +141,7 @@ class _AgreeTermsBottomModalState extends State<AgreeTermsBottomModal> {
                 textStyle: _isBtnDisable
                     ? TextStyles.pretendardB16Gray50
                     : TextStyles.pretendardB16White,
-                onClick: widget.onClick,
+                onClick: _isBtnDisable ? () => {} : widget.onClick,
               )
             ],
           ),

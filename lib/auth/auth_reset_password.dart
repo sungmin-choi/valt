@@ -95,7 +95,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 return null;
                               }),
                             ),
-                            const SizedBox(height: 14),
+                            const SizedBox(height: 148),
                             ButtonLgFill(
                               text: '로그인',
                               textStyle: disabled

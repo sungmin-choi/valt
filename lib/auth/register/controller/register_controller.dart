@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
+import 'package:valt/auth/register/model/register_model.dart';
 import 'package:valt/model/email_model.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 
@@ -38,27 +39,27 @@ class RegisterController extends GetxController {
   }
 
   Future<bool> register() async {
-    await Future.delayed(const Duration(seconds: 1));
-    // RegisterModel registerModel = RegisterModel(
-    //     email: emailTextController.text,
-    //     password: passwordTextController.text,
-    //     username: usernameTextController.text,
-    //     birthDate: birthDateTextController.text,
-    //     gender: gender.value,
-    //     whereListSelected: whereListSelected,
-    //     registerReasonListSelected: registerReasonListSelected,
-    //     agreeList: agreeList,
-    //     extraReason: extraReasonTextController.text.isNotEmpty
-    //         ? extraReasonTextController.text
-    //         : '');
+    RegisterModel registerModel = RegisterModel(
+        birth: int.parse(birthDateTextController.text),
+        confirm: passwordTextController.text,
+        email: emailTextController.text,
+        gender: gender.value,
+        name: usernameTextController.text,
+        password: passwordTextController.text,
+        privateInfoAgree: true,
+        promotionReceiveAgree: agreeList.contains(3),
+        reason: "위스키 종류를 알고 싶어요. 위스키 배경 지식을 알고 싶어요 그냥 가입했어요",
+        recommendType: ["RESTAURANT", "WHISKEY"],
+        termsAgree: true);
 
-    // var response =
-    //     await NetWorkHandler.post(registerModelToJson(registerModel), "sign");
-    // var data = json.decode(response);
+    var response = await NetWorkHandler.post(
+        registerModelToJson(registerModel), "member/sign");
+    var data = json.decode(response);
+
     /*
         response = {"token": dsadsadasdsasad, "message":"register Successful"}
        */
     // await NetWorkHandler.storeToken(data["token"]);
-    return true;
+    return false;
   }
 }
