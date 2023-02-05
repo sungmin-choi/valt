@@ -52,9 +52,11 @@ class RegisterController extends GetxController {
         recommendType: ["RESTAURANT", "WHISKEY"],
         termsAgree: true);
 
+    print(registerModelToJson(registerModel));
     var response = await NetWorkHandler.post(
-        registerModelToJson(registerModel), "member/sign");
+        registerModelToJson(registerModel), "member/signup");
     var data = json.decode(response);
+    print(data);
 
     /*
         response = {"token": dsadsadasdsasad, "message":"register Successful"}

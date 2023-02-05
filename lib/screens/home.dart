@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:valt/auth/register/controller/register_controller.dart';
 
 import 'package:valt/auth/auth_first_page.dart';
+import 'package:valt/service/network_handler/network_handler.dart';
 
 class Home extends StatelessWidget {
   final RegisterController controller = Get.put(RegisterController());
@@ -17,7 +18,9 @@ class Home extends StatelessWidget {
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
+              var memberId = await NetWorkHandler.getMemberId();
+              print(memberId);
               Get.to(() => AuthFirstPage());
             },
             icon: const Icon(

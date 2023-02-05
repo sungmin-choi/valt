@@ -21,6 +21,17 @@ class _AgreeTermsBottomModalState extends State<AgreeTermsBottomModal> {
   bool _isAllagree = false;
   bool _isBtnDisable = true;
 
+  @override
+  void initState() {
+    super.initState();
+    if (registerController.agreeList.length == 3) {
+      setState(() {
+        _isAllagree = true;
+        _isBtnDisable = false;
+      });
+    }
+  }
+
   void handelAgreeAllTerms() {
     if (_isAllagree) {
       registerController.agreeList.clear();

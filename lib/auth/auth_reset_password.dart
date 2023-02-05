@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:valt/auth/login/controller/login_controller.dart';
 import 'package:get/get.dart';
 import 'package:valt/styles/color_style.dart';
@@ -22,6 +23,19 @@ class _ResetPasswordState extends State<ResetPassword> {
     setState(() {
       disabled = value;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Fluttertoast.showToast(
+        msg: "인증코드가 전송되었습니다.                         전송된 코드는 10분 후에 만료됩니다.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 5,
+        backgroundColor: Colors.black.withOpacity(0.9),
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:valt/auth/auth_authentication_code.dart';
 import 'package:valt/controller/auth/kakao_login.dart';
 import 'package:valt/model/main_view_model.dart';
 import 'package:valt/auth/login/email_login_page.dart';
@@ -85,7 +86,8 @@ class AuthFirstPage extends StatelessWidget {
                           const BoxDecoration(color: ColorStyles.gray30),
                     ),
                     TextButton(
-                        onPressed: () => {},
+                        onPressed: () =>
+                            {Get.to(const AuthenticationCodePage())},
                         child: const Text(
                           '비밀번호 재설정',
                           style: TextStyles.pretendardR14Gray70,

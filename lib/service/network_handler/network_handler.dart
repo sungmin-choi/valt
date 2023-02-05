@@ -8,7 +8,7 @@ class NetWorkHandler {
   static Future<String> post(var body, String endpoint) async {
     var response = await client.post(buildUrl(endpoint), body: body, headers: {
       "Content-type": "application/json",
-      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F60FE"
+      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE"
     });
     if (response.body.isNotEmpty) {
       return response.body;

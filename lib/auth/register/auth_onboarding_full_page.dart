@@ -24,6 +24,11 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
   final RegisterController registerController = Get.find<RegisterController>();
 
   final _formKey = GlobalKey<FormState>();
+  void handelDisabled(bool value) {
+    setState(() {
+      disabled = value;
+    });
+  }
 
   List whereList = ['레스토랑', '위스키바', '파티', '홈술', '선물용'];
   List registerReasonList = [
@@ -35,12 +40,6 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
     '기타'
   ];
   bool disabled = true;
-
-  void handelDisabled(bool value) {
-    setState(() {
-      disabled = value;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,18 +108,16 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                                   () => ButtonM(
                                       text: '남',
                                       bgColor:
-                                          registerController.gender.value ==
-                                                  'male'
+                                          registerController.gender.value == 'M'
                                               ? ColorStyles.gray90
                                               : ColorStyles.white,
                                       textStyle:
-                                          registerController.gender.value ==
-                                                  'male'
+                                          registerController.gender.value == 'M'
                                               ? TextStyles.pretendardN14White
                                               : TextStyles.pretendardN14Gray90,
                                       onClick: () => {
                                             registerController.gender.value =
-                                                'male'
+                                                'M'
                                           }),
                                 ),
                               ),
@@ -132,17 +129,17 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                                         text: '여',
                                         bgColor:
                                             registerController.gender.value ==
-                                                    'female'
+                                                    'F'
                                                 ? ColorStyles.gray90
                                                 : ColorStyles.white,
                                         textStyle: registerController
                                                     .gender.value ==
-                                                'female'
+                                                'F'
                                             ? TextStyles.pretendardN14White
                                             : TextStyles.pretendardN14Gray90,
                                         onClick: () => {
                                               registerController.gender.value =
-                                                  'female'
+                                                  'F'
                                             }),
                                   )),
                             ],
