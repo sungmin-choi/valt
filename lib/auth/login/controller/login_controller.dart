@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:valt/auth/login/model/login_model.dart';
-import 'package:valt/model/email_model.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 
 class LoginController extends GetxController {
@@ -21,23 +20,8 @@ class LoginController extends GetxController {
     }
     var memberId = data['memberId'];
     await NetWorkHandler.storeMemberId(memberId.toString());
+    emailTextController.text = '';
+    passwordTextController.text = '';
     return true;
-  }
-
-  Future<bool> checkValidEmail() async {
-    EmailModel email = EmailModel(email: emailTextController.text);
-    try {
-      var response = await NetWorkHandler.post(
-          emailModelToJson(email), "member/check-email-duplication");
-      var data = json.decode(response);
-      if (data['result'] == true) {
-        return false;
-      } else if (data['result'] == false) {
-        return true;
-      }
-    } catch (e) {
-      return false;
-    }
-    return false;
   }
 }

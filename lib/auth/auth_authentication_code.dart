@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:valt/auth/auth_reset_password.dart';
-import 'package:valt/auth/login/controller/login_controller.dart';
+import 'package:valt/auth/controller/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
@@ -17,7 +17,8 @@ class AuthenticationCodePage extends StatefulWidget {
 }
 
 class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
-  var loginController = Get.find<LoginController>();
+  var authController = Get.find<AuthController>();
+  TextEditingController emailTextController = TextEditingController();
   var disabled = true;
   var isLoading = false;
   final _formKey = GlobalKey<FormState>();
@@ -68,7 +69,7 @@ class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           InputCustom(
-                              controller: loginController.emailTextController,
+                              controller: emailTextController,
                               hintText: '이메일 입력',
                               label: '이메일',
                               validator: (value) =>
@@ -88,8 +89,9 @@ class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
                               onClick: disabled && !isLoading
                                   ? () => {}
                                   : () async {
-                                      bool result = await loginController
-                                          .checkValidEmail();
+                                      bool result =
+                                          await authController.checkValidEmail(
+                                              emailTextController.text);
                                       if (!result) {
                                         Get.to(() => const ResetPassword());
                                       } else {

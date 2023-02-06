@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valt/auth/auth_authentication_code.dart';
+import 'package:valt/auth/controller/auth_controller.dart';
 import 'package:valt/controller/auth/kakao_login.dart';
 import 'package:valt/model/main_view_model.dart';
 import 'package:valt/auth/login/email_login_page.dart';
@@ -12,7 +13,7 @@ import 'package:valt/widgets/button_lg_fill.dart';
 
 class AuthFirstPage extends StatelessWidget {
   AuthFirstPage({super.key});
-
+  final AuthController authController = Get.put(AuthController());
   final viewModel = MainViewModel(KakaoLogin());
   final String logoSvg = 'assets/icons/logo.svg';
   @override

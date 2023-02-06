@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:valt/auth/register/model/register_model.dart';
-import 'package:valt/model/email_model.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 
 class RegisterController extends GetxController {
@@ -17,27 +16,6 @@ class RegisterController extends GetxController {
   RxList registerReasonListSelected = [].obs;
   RxList agreeList = [].obs;
 
-  Future<bool> checkValidEmail() async {
-    // await Future.delayed(const Duration(seconds: 1));
-    // if (emailTextController.text == 'namja306@naver.com') {
-    //   return false;
-    // }
-    EmailModel email = EmailModel(email: emailTextController.text);
-    try {
-      var response = await NetWorkHandler.post(
-          emailModelToJson(email), "member/check-email-duplication");
-      var data = json.decode(response);
-      if (data['result'] == true) {
-        return false;
-      } else if (data['result'] == false) {
-        return true;
-      }
-    } catch (e) {
-      return false;
-    }
-    return false;
-  }
-
   Future<bool> register() async {
     RegisterModel registerModel = RegisterModel(
         birth: int.parse(birthDateTextController.text),
@@ -48,7 +26,7 @@ class RegisterController extends GetxController {
         password: passwordTextController.text,
         privateInfoAgree: true,
         promotionReceiveAgree: agreeList.contains(3),
-        reason: "위스키 종류를 알고 싶어요. 위스키 배경 지식을 알고 싶어요 그냥 가입했어요",
+        reason: extraReasonTextController.text,
         recommendType: ["RESTAURANT", "WHISKEY"],
         termsAgree: true);
 
@@ -57,11 +35,10 @@ class RegisterController extends GetxController {
         registerModelToJson(registerModel), "member/signup");
     var data = json.decode(response);
     print(data);
-
-    /*
-        response = {"token": dsadsadasdsasad, "message":"register Successful"}
-       */
-    // await NetWorkHandler.storeToken(data["token"]);
-    return false;
+    if (data == '201') {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

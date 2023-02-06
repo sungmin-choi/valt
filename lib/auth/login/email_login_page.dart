@@ -56,11 +56,14 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
             children: [
               Form(
                 onChanged: () {
-                  var valid = _formKey.currentState!.validate();
-                  if (!valid) {
-                    handelDisabled(true);
-                  } else {
-                    handelDisabled(false);
+                  if (loginController.emailTextController.text.isNotEmpty &&
+                      loginController.passwordTextController.text.isNotEmpty) {
+                    var valid = _formKey.currentState!.validate();
+                    if (!valid) {
+                      handelDisabled(true);
+                    } else {
+                      handelDisabled(false);
+                    }
                   }
                 },
                 key: _formKey,

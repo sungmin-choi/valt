@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:valt/auth/controller/auth_controller.dart';
 import 'package:valt/auth/register/controller/register_controller.dart';
 
 import 'package:valt/auth/register/auth_onboarding_full_page.dart';
@@ -20,7 +21,10 @@ class EmailRegisterPage extends StatefulWidget {
 
 class _EmailRegisterPageState extends State<EmailRegisterPage> {
   final _formKey = GlobalKey<FormState>();
+
   final RegisterController registerController = Get.put(RegisterController());
+  var authController = Get.find<AuthController>();
+  TextEditingController confirmPasswordTextController = TextEditingController();
   bool disabled = true;
 
   void handelDisabled(bool value) {
@@ -51,11 +55,15 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
         child: Center(
           child: Form(
             onChanged: () {
-              var valid = _formKey.currentState!.validate();
-              if (!valid) {
-                handelDisabled(true);
-              } else {
-                handelDisabled(false);
+              if (registerController.emailTextController.text.isNotEmpty &&
+                  registerController.passwordTextController.text.isNotEmpty &&
+                  confirmPasswordTextController.text.isNotEmpty) {
+                var valid = _formKey.currentState!.validate();
+                if (!valid) {
+                  handelDisabled(true);
+                } else {
+                  handelDisabled(false);
+                }
               }
             },
             key: _formKey,
@@ -80,6 +88,7 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
                               Validation().validatePassword(value)),
                       const SizedBox(height: 12),
                       InputPasswordCustom(
+                        controller: confirmPasswordTextController,
                         hintText: '비밀번호 재입력',
                         validator: ((value) {
                           if (value != null && value.isEmpty) {
@@ -103,8 +112,9 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
                             ? () => {}
                             : () async {
                                 // showToast();
-                                bool result =
-                                    await registerController.checkValidEmail();
+                                bool result = await authController
+                                    .checkValidEmail(registerController
+                                        .emailTextController.text);
                                 if (result) {
                                   Get.to(() => const OnboardingFullPage());
                                 } else {

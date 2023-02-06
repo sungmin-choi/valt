@@ -63,11 +63,14 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
         child: Center(
           child: Form(
             onChanged: () {
-              var valid = _formKey.currentState!.validate();
-              if (!valid) {
-                handelDisabled(true);
-              } else {
-                handelDisabled(false);
+              if (registerController.usernameTextController.text.isNotEmpty &&
+                  registerController.birthDateTextController.text.isNotEmpty) {
+                var valid = _formKey.currentState!.validate();
+                if (!valid) {
+                  handelDisabled(true);
+                } else {
+                  handelDisabled(false);
+                }
               }
             },
             key: _formKey,
