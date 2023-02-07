@@ -89,14 +89,15 @@ class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
                               onClick: disabled && !isLoading
                                   ? () => {}
                                   : () async {
-                                      bool result =
-                                          await authController.checkValidEmail(
+                                      final isSendCode = await authController
+                                          .sendAuthenticationCode(
                                               emailTextController.text);
-                                      if (!result) {
+                                      if (isSendCode) {
                                         Get.to(() => const ResetPassword());
                                       } else {
                                         Fluttertoast.showToast(
-                                            msg: "가입되어 있지 않은 이메일 입니다.",
+                                            msg: authController
+                                                .errorMessage.value,
                                             toastLength: Toast.LENGTH_SHORT,
                                             gravity: ToastGravity.TOP,
                                             timeInSecForIosWeb: 2,
@@ -121,7 +122,7 @@ class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
                   TextButton(
                     onPressed: () => {Get.to(const AuthenticationCodePage())},
                     child: const Text(
-                      '고객센처 문의하기',
+                      '고객센터 문의하기',
                       style: TextStyle(
                         fontFamily: 'Pretendard',
                         fontStyle: FontStyle.normal,

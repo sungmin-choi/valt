@@ -39,6 +39,10 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
+            var value = Get.arguments;
+            if (value == 'register') {
+              Get.offAll(() => const MyApp());
+            }
             Get.back();
           },
           icon: const Icon(

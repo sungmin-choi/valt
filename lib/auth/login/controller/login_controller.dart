@@ -15,9 +15,6 @@ class LoginController extends GetxController {
     var response =
         await NetWorkHandler.post(loginModelToJson(loginModel), "member/login");
     var data = json.decode(response);
-    if (data['errors'] != null) {
-      return false;
-    }
     var memberId = data['memberId'];
     await NetWorkHandler.storeMemberId(memberId.toString());
     emailTextController.text = '';

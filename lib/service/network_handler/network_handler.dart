@@ -1,20 +1,42 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'dart:convert';
+
+import 'package:valt/model/errors_model.dart';
 
 class NetWorkHandler {
   static final client = http.Client();
 // Create storage
   static const storage = FlutterSecureStorage();
+
+  static String returnErrorMessage(String body) {
+    var errorBody = errorsModelFromJson(body);
+    var errorBodyJson = errorsModelToJson(errorBody);
+    var errorsArr = json.decode(errorBodyJson);
+    return errorsArr['errors'][0]['message'];
+  }
+
   static Future<String> post(var body, String endpoint) async {
     var response = await client.post(buildUrl(endpoint), body: body, headers: {
       "Content-type": "application/json",
       "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE"
     });
-    if (response.body.isNotEmpty) {
-      return response.body;
-    } else {
-      return response.statusCode.toString();
-    }
+
+    var utf8body = utf8.decode(response.bodyBytes);
+
+    return responseTypeToJson(
+        ResponseType(body: utf8body, statusCode: response.statusCode));
+  }
+
+  static Future<String> put(var body, String endpoint) async {
+    var response = await client.put(buildUrl(endpoint), body: body, headers: {
+      "Content-type": "application/json",
+      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE"
+    });
+
+    var utf8body = utf8.decode(response.bodyBytes);
+    return responseTypeToJson(
+        ResponseType(body: utf8body, statusCode: response.statusCode));
   }
 
   static Uri buildUrl(String endpoint) {
@@ -38,4 +60,29 @@ class NetWorkHandler {
   static Future<String?> getMemberId() async {
     return await storage.read(key: 'memberId');
   }
+}
+
+ResponseType responseTypeFromJson(String str) =>
+    ResponseType.fromJson(json.decode(str));
+
+String responseTypeToJson(ResponseType data) => json.encode(data.toJson());
+
+class ResponseType {
+  ResponseType({
+    required this.body,
+    required this.statusCode,
+  });
+
+  String body;
+  int statusCode;
+
+  factory ResponseType.fromJson(Map<String, dynamic> json) => ResponseType(
+        body: json["body"],
+        statusCode: json["statusCode"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "body": body,
+        "statusCode": statusCode,
+      };
 }

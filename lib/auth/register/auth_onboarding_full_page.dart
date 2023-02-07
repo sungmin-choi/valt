@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:valt/auth/login/email_login_page.dart';
 
-import 'package:valt/main.dart';
 import 'package:valt/auth/register/controller/register_controller.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:get/get.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/utils/validation.dart';
-import 'package:valt/widgets/agree_terms_bottom_modal.dart';
+import 'package:valt/auth/agree_terms_bottom_modal.dart';
 import 'package:valt/widgets/buttom_m.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
 import 'package:valt/widgets/input_custom.dart';
@@ -272,7 +273,25 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                                                           .register();
 
                                                   if (result) {
-                                                    Get.offAll(const MyApp());
+                                                    Get.offAll(
+                                                        const EmailLoginPage(),
+                                                        arguments: 'register');
+                                                  } else {
+                                                    // ignore: use_build_context_synchronously
+                                                    Navigator.pop(context);
+                                                    Fluttertoast.showToast(
+                                                        msg: registerController
+                                                            .errorMessage.value,
+                                                        toastLength:
+                                                            Toast.LENGTH_SHORT,
+                                                        gravity:
+                                                            ToastGravity.TOP,
+                                                        timeInSecForIosWeb: 2,
+                                                        backgroundColor: Colors
+                                                            .black
+                                                            .withOpacity(0.7),
+                                                        textColor: Colors.white,
+                                                        fontSize: 16.0);
                                                   }
                                                 },
                                               );

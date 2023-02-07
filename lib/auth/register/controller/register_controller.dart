@@ -6,6 +6,7 @@ import 'package:valt/auth/register/model/register_model.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 
 class RegisterController extends GetxController {
+  RxString errorMessage = ''.obs;
   TextEditingController emailTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
   TextEditingController usernameTextController = TextEditingController();
@@ -30,15 +31,16 @@ class RegisterController extends GetxController {
         recommendType: ["RESTAURANT", "WHISKEY"],
         termsAgree: true);
 
-    print(registerModelToJson(registerModel));
     var response = await NetWorkHandler.post(
         registerModelToJson(registerModel), "member/signup");
     var data = json.decode(response);
-    print(data);
-    if (data == '201') {
+
+    if (data['statusCode'] == 201) {
       return true;
-    } else {
-      return false;
     }
+
+    errorMessage.value = NetWorkHandler.returnErrorMessage(data['body']);
+
+    return false;
   }
 }

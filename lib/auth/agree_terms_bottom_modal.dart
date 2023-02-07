@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
-import 'package:valt/widgets/agree_terms_all_check.dart';
-import 'package:valt/widgets/agree_terms_check_list.dart';
+import 'package:valt/auth/agree_terms_all_check.dart';
+import 'package:valt/auth/agree_terms_check_list.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
 import 'package:valt/auth/register/controller/register_controller.dart';
 import 'package:get/get.dart';
@@ -27,6 +27,11 @@ class _AgreeTermsBottomModalState extends State<AgreeTermsBottomModal> {
     if (registerController.agreeList.length == 3) {
       setState(() {
         _isAllagree = true;
+        _isBtnDisable = false;
+      });
+    } else if (registerController.agreeList.contains(1) &&
+        registerController.agreeList.contains(2)) {
+      setState(() {
         _isBtnDisable = false;
       });
     }
