@@ -11,14 +11,12 @@ class ResetPasswordModel {
     required this.code,
     required this.confirm,
     required this.email,
-    required this.name,
     required this.password,
   });
 
   String code;
   String confirm;
   String email;
-  String name;
   String password;
 
   factory ResetPasswordModel.fromJson(Map<String, dynamic> json) =>
@@ -26,7 +24,6 @@ class ResetPasswordModel {
         code: json["code"],
         confirm: json["confirm"],
         email: json["email"],
-        name: json["name"],
         password: json["password"],
       );
 
@@ -34,7 +31,6 @@ class ResetPasswordModel {
         "code": code,
         "confirm": confirm,
         "email": email,
-        "name": name,
         "password": password,
       };
 }

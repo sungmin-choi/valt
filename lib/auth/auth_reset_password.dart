@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:valt/auth/login/controller/login_controller.dart';
+
 import 'package:get/get.dart';
+import 'package:valt/auth/controller/auth_controller.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/utils/validation.dart';
 import 'package:valt/widgets/button_lg_fill.dart';
 import 'package:valt/widgets/input_password_custom.dart';
+
+import 'login/email_login_page.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -16,7 +19,11 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  var loginController = Get.find<LoginController>();
+  final AuthController authController = Get.find<AuthController>();
+
+  TextEditingController passwordTextController = TextEditingController();
+  TextEditingController confirmPasswordTextController = TextEditingController();
+  TextEditingController codeTextController = TextEditingController();
   var disabled = true;
   final _formKey = GlobalKey<FormState>();
   void handelDisabled(bool value) {
@@ -63,11 +70,15 @@ class _ResetPasswordState extends State<ResetPassword> {
               children: [
                 Form(
                   onChanged: () {
-                    var valid = _formKey.currentState!.validate();
-                    if (!valid) {
-                      handelDisabled(true);
-                    } else {
-                      handelDisabled(false);
+                    if (codeTextController.text.isNotEmpty &&
+                        passwordTextController.text.isNotEmpty &&
+                        confirmPasswordTextController.text.isNotEmpty) {
+                      var valid = _formKey.currentState!.validate();
+                      if (!valid) {
+                        handelDisabled(true);
+                      } else {
+                        handelDisabled(false);
+                      }
                     }
                   },
                   key: _formKey,
@@ -82,7 +93,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 style: TextStyles.pretendardB16Black),
                             const SizedBox(height: 16),
                             InputPasswordCustom(
-                                controller: loginController.codeTextController,
+                                controller: codeTextController,
                                 hintText: '인증 코드',
                                 validator: (value) => null),
                             const SizedBox(height: 24),
@@ -90,20 +101,19 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 style: TextStyles.pretendardB16Black),
                             const SizedBox(height: 16),
                             InputPasswordCustom(
-                                controller:
-                                    loginController.passwordTextController,
+                                controller: passwordTextController,
                                 hintText: '영문, 숫자, 특수문자 조합 8-20자',
                                 validator: (value) =>
                                     Validation().validatePassword(value)),
                             const SizedBox(height: 12),
                             InputPasswordCustom(
+                              controller: confirmPasswordTextController,
                               hintText: '비밀번호 재입력',
                               validator: ((value) {
                                 if (value != null && value.isEmpty) {
                                   return "비밀번호를 입력해 주세요";
                                 } else if (value !=
-                                    loginController
-                                        .passwordTextController.text) {
+                                    confirmPasswordTextController.text) {
                                   return "비밀번호가 일치하지 않습니다.";
                                 }
                                 return null;
@@ -121,6 +131,30 @@ class _ResetPasswordState extends State<ResetPassword> {
                               onClick: disabled
                                   ? () => {}
                                   : () async {
+                                      final email = Get.arguments;
+                                      bool result =
+                                          await authController.resetPassword(
+                                              codeTextController.text,
+                                              passwordTextController.text,
+                                              email);
+
+                                      if (result) {
+                                        Get.offAll(const EmailLoginPage(),
+                                            arguments: 'register');
+                                      } else {
+                                        // ignore: use_build_context_synchronously
+                                        Navigator.pop(context);
+                                        Fluttertoast.showToast(
+                                            msg: authController
+                                                .errorMessage.value,
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.TOP,
+                                            timeInSecForIosWeb: 2,
+                                            backgroundColor:
+                                                Colors.black.withOpacity(0.7),
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                      }
                                       // showToast();
                                     },
                             ),

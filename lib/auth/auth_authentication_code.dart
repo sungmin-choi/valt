@@ -93,7 +93,9 @@ class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
                                           .sendAuthenticationCode(
                                               emailTextController.text);
                                       if (isSendCode) {
-                                        Get.to(() => const ResetPassword());
+                                        Get.to(() => const ResetPassword(),
+                                            arguments:
+                                                emailTextController.text);
                                       } else {
                                         Fluttertoast.showToast(
                                             msg: authController

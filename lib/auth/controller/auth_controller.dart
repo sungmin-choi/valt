@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/state_manager.dart';
+import 'package:valt/auth/model/reset_password_model.dart';
 import 'package:valt/model/email_model.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 
@@ -20,6 +21,21 @@ class AuthController extends GetxController {
     }
     errorMessage.value = NetWorkHandler.returnErrorMessage(data['body']);
 
+    return false;
+  }
+
+  Future<bool> resetPassword(String code, String password, String email) async {
+    ResetPasswordModel resetPasswordModel = ResetPasswordModel(
+        code: code, confirm: password, email: email, password: password);
+
+    var response = await NetWorkHandler.post(
+        resetPasswordModelToJson(resetPasswordModel), "reset-pw");
+
+    var data = json.decode(response);
+    if (data['statusCode'] == 200) {
+      return true;
+    }
+    errorMessage.value = NetWorkHandler.returnErrorMessage(data['body']);
     return false;
   }
 
