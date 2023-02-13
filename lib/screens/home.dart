@@ -7,11 +7,13 @@ import 'package:valt/controller/product_controller.dart';
 import 'package:valt/model/product.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 import 'package:valt/widgets/product_tile.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Home extends StatelessWidget {
   final RegisterController controller = Get.put(RegisterController());
   final ProductController productController = Get.put(ProductController());
   final String logosmSvg = 'assets/icons/logosm.svg';
+  List<int> list = [1, 2, 3, 4, 5];
   final Product product = Product(
       itemsId: 10,
       name: "노아스 밑",
@@ -53,13 +55,26 @@ class Home extends StatelessWidget {
         ),
       ),
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              ProductTile(product),
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CarouselSlider(
+              items: list.map((item) => ProductTile(product)).toList(),
+              options: CarouselOptions(
+                  height: 330,
+                  viewportFraction: 0.38,
+                  enableInfiniteScroll: false,
+                  padEnds: false),
+            ),
+            ProductTile(product),
+            CarouselSlider(
+              items: list.map((item) => ProductTile(product)).toList(),
+              options: CarouselOptions(
+                height: 330,
+                enableInfiniteScroll: false,
+              ),
+            ),
+          ],
         ),
       ),
     );

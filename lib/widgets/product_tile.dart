@@ -11,7 +11,8 @@ class ProductTile extends StatelessWidget {
   var f = NumberFormat('###,###,###,###');
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
+      width: 136,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
