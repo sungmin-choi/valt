@@ -28,6 +28,18 @@ class NetWorkHandler {
         ResponseType(body: utf8body, statusCode: response.statusCode));
   }
 
+  static Future<String> get(String endpoint) async {
+    var response = await client.get(buildUrl(endpoint), headers: {
+      "Content-type": "application/json",
+      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE"
+    });
+
+    var utf8body = utf8.decode(response.bodyBytes);
+
+    return responseTypeToJson(
+        ResponseType(body: utf8body, statusCode: response.statusCode));
+  }
+
   static Future<String> put(var body, String endpoint) async {
     var response = await client.put(buildUrl(endpoint), body: body, headers: {
       "Content-type": "application/json",

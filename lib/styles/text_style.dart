@@ -2,6 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:valt/styles/color_style.dart';
 
 class TextStyles {
+  static const pretendardN13Gray60 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 13,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w500,
+      color: ColorStyles.gray60);
+  static const pretendardN13Gray90 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 13,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w500,
+      color: ColorStyles.gray90);
+  static const pretendardN15Gray90 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 15,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w700,
+      color: ColorStyles.gray90);
   static const pretendardB16Gray80 = TextStyle(
       fontFamily: 'Pretendard',
       fontSize: 16,
