@@ -8,6 +8,12 @@ class TextStyles {
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w500,
       color: ColorStyles.gray60);
+  static const pretendardN11Gray60 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 11,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w500,
+      color: ColorStyles.gray60);
   static const pretendardN13Gray90 = TextStyle(
       fontFamily: 'Pretendard',
       fontSize: 13,

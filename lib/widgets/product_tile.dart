@@ -11,7 +11,8 @@ class ProductTile extends StatelessWidget {
   var f = NumberFormat('###,###,###,###');
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.only(left: 16),
       width: 136,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,18 +39,21 @@ class ProductTile extends StatelessWidget {
             height: 9.5,
           ),
           Text('${product.country} ・ ${product.categoryName}',
-              style: TextStyles.pretendardN13Gray60),
+              style: TextStyles.pretendardN11Gray60),
+          const SizedBox(
+            height: 2,
+          ),
           Text(product.name, style: TextStyles.pretendardN13Gray90),
           const SizedBox(
-            height: 8,
+            height: 6,
           ),
           Text('${f.format(product.price)} 원',
               style: TextStyles.pretendardN15Gray90),
           const SizedBox(
-            height: 8,
+            height: 6,
           ),
           Text('${f.format(1234)}명이 보는 중',
-              style: TextStyles.pretendardN13Gray60),
+              style: TextStyles.pretendardN11Gray60),
           const SizedBox(
             height: 4,
           ),
@@ -58,10 +62,10 @@ class ProductTile extends StatelessWidget {
               const Icon(
                 Icons.star,
                 color: ColorStyles.gray60,
-                size: 16.0,
+                size: 13.0,
               ),
               Text('${5.0}(${f.format(1234)})',
-                  style: TextStyles.pretendardN13Gray60),
+                  style: TextStyles.pretendardN11Gray60),
             ],
           )
         ],
