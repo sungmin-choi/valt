@@ -15,8 +15,8 @@ class Home extends StatelessWidget {
   final RegisterController controller = Get.put(RegisterController());
   final ProductController productController = Get.put(ProductController());
   final String logosmSvg = 'assets/icons/logosm.svg';
-  List<int> list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  final Product product = Product(
+
+  Product product = Product(
       itemsId: 10,
       name: "노아스 밑",
       englishName: "Noah's Mill",
@@ -27,6 +27,97 @@ class Home extends StatelessWidget {
       categoryName: "BOURBON",
       linkUrl:
           "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png");
+  final List<Product> list = [
+    Product(
+        itemsId: 10,
+        name: "노아스 밑",
+        englishName: "Noah's Mill",
+        price: 173000,
+        size: 750,
+        strength: 57,
+        country: '미국',
+        categoryName: "BOURBON",
+        linkUrl:
+            "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"),
+    Product(
+        itemsId: 10,
+        name: "글렌파클라스 105 CS 1L",
+        englishName: "Noah's Mill",
+        price: 164900,
+        size: 750,
+        strength: 57,
+        country: '스코틀랜드',
+        categoryName: "싱글몰트",
+        linkUrl:
+            "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"),
+    Product(
+        itemsId: 10,
+        name: "노아스 밑",
+        englishName: "Noah's Mill",
+        price: 173000,
+        size: 750,
+        strength: 57,
+        country: '미국',
+        categoryName: "BOURBON",
+        linkUrl:
+            "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"),
+    Product(
+        itemsId: 10,
+        name: "글렌파클라스 105 CS 1L",
+        englishName: "Noah's Mill",
+        price: 164900,
+        size: 750,
+        strength: 57,
+        country: '스코틀랜드',
+        categoryName: "싱글몰트",
+        linkUrl:
+            "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"),
+    Product(
+        itemsId: 10,
+        name: "노아스 밑",
+        englishName: "Noah's Mill",
+        price: 173000,
+        size: 750,
+        strength: 57,
+        country: '미국',
+        categoryName: "BOURBON",
+        linkUrl:
+            "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"),
+    Product(
+        itemsId: 10,
+        name: "글렌파클라스 105 CS 1L",
+        englishName: "Noah's Mill",
+        price: 164900,
+        size: 750,
+        strength: 57,
+        country: '스코틀랜드',
+        categoryName: "싱글몰트",
+        linkUrl:
+            "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"),
+    Product(
+        itemsId: 10,
+        name: "노아스 밑",
+        englishName: "Noah's Mill",
+        price: 173000,
+        size: 750,
+        strength: 57,
+        country: '미국',
+        categoryName: "BOURBON",
+        linkUrl:
+            "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"),
+    Product(
+        itemsId: 10,
+        name: "글렌파클라스 105 CS 1L",
+        englishName: "Noah's Mill",
+        price: 164900,
+        size: 750,
+        strength: 57,
+        country: '스코틀랜드',
+        categoryName: "싱글몰트",
+        linkUrl:
+            "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"),
+  ];
+
   Home({super.key});
 
   @override
@@ -80,14 +171,22 @@ class Home extends StatelessWidget {
               ),
             ),
             CarouselSlider(
-              items: list.map((item) => ProductTile(product)).toList(),
+              items: list.asMap().entries.map((entry) {
+                int index = entry.key;
+                Product item = entry.value;
+                return Builder(
+                  builder: (BuildContext context) {
+                    return ProductTile(item, index: index, size: list.length);
+                  },
+                );
+              }).toList(),
               options: CarouselOptions(
                   height: 330,
                   viewportFraction: 0.4,
                   enableInfiniteScroll: false,
                   padEnds: false),
             ),
-            const SizedBox(height: 24)
+            const SizedBox(height: 24),
           ],
         ),
       ),

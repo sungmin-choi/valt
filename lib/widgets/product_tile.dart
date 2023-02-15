@@ -6,35 +6,47 @@ import 'package:intl/intl.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
-  ProductTile(this.product, {super.key});
+  final int index;
+  final int size;
+  ProductTile(this.product,
+      {super.key, required this.index, required this.size});
 
   var f = NumberFormat('###,###,###,###');
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 16),
+      margin: EdgeInsets.only(
+          left: index == 0 ? 16 : 8, right: index == size - 1 ? 16 : 8),
       width: 136,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 192,
-            width: 136,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.contain, image: NetworkImage(product.linkUrl)),
-            ),
-            child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                    topRight: Radius.circular(5),
+          Stack(children: <Widget>[
+            Container(
+              height: 192,
+              width: 136,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.contain, image: NetworkImage(product.linkUrl)),
+              ),
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      topRight: Radius.circular(5),
+                    ),
+                    color: ColorStyles.gray80.withOpacity(0.05),
                   ),
-                  color: ColorStyles.gray80.withOpacity(0.05),
-                ),
-                height: 192,
-                width: 136),
-          ),
+                  height: 192,
+                  width: 136),
+            ),
+            Positioned(
+              top: 5.0,
+              left: 0.0,
+              right: 0.0,
+              child: Text('${index + 1}'),
+            )
+          ]),
           const SizedBox(
             height: 9.5,
           ),
