@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:valt/model/product.dart';
 
@@ -11,12 +13,13 @@ class ProductServices {
   }
 
   static Future<List<Product>?> fetchProducts() async {
-    var response = await client.get(buildUrl('/items'), headers: {
+    var response = await client.get(buildUrl('/items?option=BEST'), headers: {
       "Content-type": "application/json",
     });
-    print(response.statusCode);
+
     if (response.statusCode == 200) {
-      var jasonData = response.body;
+      var jasonData = utf8.decode(response.bodyBytes);
+
       return productFromJson(jasonData);
     } else {
       return null;

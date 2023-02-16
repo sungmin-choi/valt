@@ -20,7 +20,13 @@ class Product {
     required this.strength,
     required this.country,
     required this.categoryName,
+    required this.rating,
+    required this.ratingCount,
     required this.linkUrl,
+    required this.like,
+    this.youtubeLink,
+    this.category,
+    this.viewCount,
   });
 
   int itemsId;
@@ -31,7 +37,13 @@ class Product {
   int strength;
   String country;
   String categoryName;
+  double rating;
+  int ratingCount;
   String linkUrl;
+  bool like;
+  String? youtubeLink;
+  String? category;
+  int? viewCount;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         itemsId: json["itemsId"],
@@ -42,7 +54,13 @@ class Product {
         strength: json["strength"],
         country: json["country"],
         categoryName: json["categoryName"],
+        rating: json["rating"],
+        ratingCount: json["ratingCount"],
         linkUrl: json["linkUrl"],
+        like: json["like"],
+        youtubeLink: json["youtubeLink"],
+        category: json["category"],
+        viewCount: json["viewCount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -52,16 +70,17 @@ class Product {
         "price": price,
         "size": size,
         "strength": strength,
-        "country": countryValues.reverse[country],
+        "country": country,
         "categoryName": categoryName,
+        "rating": rating,
+        "ratingCount": ratingCount,
         "linkUrl": linkUrl,
+        "like": like,
+        "youtubeLink": youtubeLink,
+        "category": category,
+        "viewCount": viewCount,
       };
 }
-
-enum Country { EMPTY, COUNTRY, PURPLE }
-
-final countryValues = EnumValues(
-    {"일본": Country.COUNTRY, "스코틀랜드": Country.EMPTY, "미국": Country.PURPLE});
 
 class EnumValues<T> {
   Map<String, T> map;
