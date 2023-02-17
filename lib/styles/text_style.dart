@@ -2,6 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:valt/styles/color_style.dart';
 
 class TextStyles {
+  static const pretendardN15Gray60 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 15,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w500,
+      color: ColorStyles.gray60);
+  static const pretendardN15Gray100 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 15,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w500,
+      color: ColorStyles.gray100);
   static const pretendardN13Gray60 = TextStyle(
       fontFamily: 'Pretendard',
       fontSize: 13,
@@ -35,6 +47,16 @@ class TextStyles {
       fontFamily: 'Pretendard',
       fontSize: 17,
       fontWeight: FontWeight.bold,
+      color: ColorStyles.gray100);
+  static const pretendardB14Gray60 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+      color: ColorStyles.gray60);
+  static const pretendardN17Gray100 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 17,
+      fontWeight: FontWeight.w700,
       color: ColorStyles.gray100);
   static const pretendardB18Gray100 = TextStyle(
       fontFamily: 'Pretendard',
@@ -108,4 +130,10 @@ class TextStyles {
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w400,
       color: ColorStyles.gray70);
+  static const pretendardN20Gray100 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 20,
+      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w700,
+      color: ColorStyles.gray100);
 }

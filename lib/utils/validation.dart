@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class Validation {
   //이메일 포맷 검증
   String? validateEmail(String? value) {
@@ -47,5 +49,22 @@ class Validation {
       }
     }
     return null;
+  }
+
+  Future<bool> isImageUrlValid(String url) async {
+    try {
+      final response = await HttpClient()
+          .getUrl(Uri.parse(url))
+          .then((request) => request.close());
+      if (response.statusCode < 200 || response.statusCode >= 300) {
+        return false;
+      }
+      if (response.headers.contentType?.value.startsWith('image/') != true) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

@@ -25,4 +25,17 @@ class ProductServices {
       return null;
     }
   }
+
+  static Future<Product?> fetchProductDetail(int itemsId) async {
+    var response = await client.get(buildUrl('/item/$itemsId'), headers: {
+      "Content-type": "application/json",
+    });
+    if (response.statusCode == 200) {
+      var jasonData = utf8.decode(response.bodyBytes);
+      print(jasonData);
+      return productDetailFromJson(jasonData);
+    } else {
+      return null;
+    }
+  }
 }
