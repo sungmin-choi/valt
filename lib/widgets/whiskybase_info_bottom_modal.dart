@@ -34,7 +34,23 @@ class WhiskybaseInfoBottomModal extends StatelessWidget {
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 20),
-            child: const Text('평균가 설명'),
+            child: Center(
+              child: Column(
+                children: const [
+                  Image(
+                      width: 72,
+                      height: 72,
+                      image: AssetImage('assets/images/whiskybase.png')),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    'Whiskey Base는 위스키 평점을 관리하는 글로벌 사이트에요',
+                    style: TextStyles.pretendardN13Gray90,
+                  )
+                ],
+              ),
+            ),
           )
         ]));
   }

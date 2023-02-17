@@ -70,7 +70,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 height: 368,
                 width: double.infinity,
                 child: Image.network(
-                  "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png",
+                  product.linkUrl.isNotEmpty
+                      ? product.linkUrl
+                      : "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png",
                 ),
               ),
               Positioned(

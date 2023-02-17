@@ -43,6 +43,7 @@ class TextStyles {
       fontSize: 16,
       fontWeight: FontWeight.bold,
       color: ColorStyles.gray80);
+
   static const pretendardB17Gray100 = TextStyle(
       fontFamily: 'Pretendard',
       fontSize: 17,
