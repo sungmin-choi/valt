@@ -6,10 +6,7 @@ import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/controller/product_controller.dart';
 import 'package:valt/model/product.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
-import 'package:valt/styles/color_style.dart';
-import 'package:valt/styles/text_style.dart';
-import 'package:valt/widgets/product_tile.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:valt/widgets/products_carousel.dart';
 
 class Home extends StatelessWidget {
   final RegisterController controller = Get.put(RegisterController());
@@ -148,44 +145,15 @@ class Home extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    '🏆 BEST 위스키',
-                    style: TextStyles.pretendardB18Gray100,
-                  ),
-                  IconButton(
-                      iconSize: 30.0,
-                      color: ColorStyles.gray60,
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      onPressed: () {},
-                      icon: const Icon(Icons.chevron_right))
-                ],
-              ),
+            ProductsCarousel(
+              label: '🏆 BEST 위스키',
+              option: 'BEST',
             ),
-            GetX<ProductController>(builder: ((controller) {
-              return CarouselSlider(
-                items: controller.productList.asMap().entries.map((entry) {
-                  int index = entry.key;
-                  Product item = entry.value;
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return ProductTile(item, index: index, size: list.length);
-                    },
-                  );
-                }).toList(),
-                options: CarouselOptions(
-                    height: 330,
-                    viewportFraction: 0.4,
-                    enableInfiniteScroll: false,
-                    padEnds: false),
-              );
-            })),
             const SizedBox(height: 24),
+            ProductsCarousel(
+              label: '🥃 5만원 이하 가성비 위스키',
+              option: 'MONEY',
+            ),
           ],
         ),
       ),

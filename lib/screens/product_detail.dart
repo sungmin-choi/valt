@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:valt/controller/product_controller.dart';
 import 'package:valt/model/product.dart';
 import 'package:valt/service/network_handler/product_service.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/widgets/average_price_bottom_modal.dart';
 import 'package:valt/widgets/product_info_list.dart';
+import 'package:valt/widgets/products_carousel.dart';
 import 'package:valt/widgets/whiskybase_info_bottom_modal.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -18,6 +20,7 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   var f = NumberFormat('###,###,###,###');
+  final ProductController productController = Get.find<ProductController>();
   Product product = Product(
       itemsId: 0,
       name: '',
@@ -30,6 +33,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       rating: 0,
       ratingCount: 0,
       linkUrl: '',
+      category: '',
       like: false);
 
   @override
@@ -39,6 +43,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         .then((response) => setState(() {
               if (response != null) {
                 product = response;
+                productController.fetchCategoryData(response.category);
               }
             }));
   }
@@ -202,22 +207,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    '🏆 BEST 위스키',
-                    style: TextStyles.pretendardB18Gray100,
-                  ),
-                  IconButton(
-                      iconSize: 30.0,
-                      color: ColorStyles.gray60,
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      onPressed: () {},
-                      icon: const Icon(Icons.chevron_right))
-                ],
+              decoration: const BoxDecoration(
+                color: ColorStyles.white,
+              ),
+              child: ProductsCarousel(
+                label: '🇱🇷 ${product.categoryName} 위스키',
+                category: product.category,
               ),
             ),
           ],

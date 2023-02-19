@@ -23,7 +23,8 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ProductDetailPage(itemsId: product.itemsId));
+        Get.to(() => ProductDetailPage(itemsId: product.itemsId),
+            preventDuplicates: false);
       },
       child: SizedBox(
         // margin: EdgeInsets.only(
@@ -38,9 +39,7 @@ class ProductTile extends StatelessWidget {
                     height: 192,
                     width: 136,
                     child: Image.network(
-                      index == 0
-                          ? "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"
-                          : product.linkUrl,
+                      product.linkUrl,
                       errorBuilder: (BuildContext context, Object exception,
                           StackTrace? stackTrace) {
                         print(exception.toString());
@@ -84,7 +83,9 @@ class ProductTile extends StatelessWidget {
                     bottom: -4,
                     right: -4,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print('like');
+                      },
                       icon: product.like == true
                           ? SvgPicture.asset(favorite)
                           : SvgPicture.asset(favoriteOutline),

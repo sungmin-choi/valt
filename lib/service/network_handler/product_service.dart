@@ -12,8 +12,10 @@ class ProductServices {
     return Uri.parse(apiPath);
   }
 
-  static Future<List<Product>?> fetchProducts() async {
-    var response = await client.get(buildUrl('/items?option=BEST'), headers: {
+  static Future<List<Product>?> fetchProducts(String? params) async {
+    print('/items${params ?? params}');
+    var response =
+        await client.get(buildUrl('/items${params ?? params}'), headers: {
       "Content-type": "application/json",
     });
 

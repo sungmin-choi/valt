@@ -4,21 +4,42 @@ import 'package:valt/service/network_handler/product_service.dart';
 
 class ProductController extends GetxController {
   static ProductController get to => Get.find();
-  var productList = <Product>[].obs;
+  var producBestList = <Product>[].obs;
+  var producMoneyList = <Product>[].obs;
+  var producCategoryList = <Product>[].obs;
   var loading = true.obs;
   RxString errorMessage = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    fetchData();
+    fetchBestData();
+    fetchMoneyData();
   }
 
-  void fetchData() async {
-    var products = await ProductServices.fetchProducts();
+  void fetchBestData() async {
+    var products = await ProductServices.fetchProducts('?option=BEST');
 
     if (products != null) {
-      productList.value = products;
+      producBestList.value = products;
+    }
+    loading.value = false;
+  }
+
+  void fetchMoneyData() async {
+    var products = await ProductServices.fetchProducts('?option=MONEY');
+
+    if (products != null) {
+      producMoneyList.value = products;
+    }
+    loading.value = false;
+  }
+
+  void fetchCategoryData(String category) async {
+    var products = await ProductServices.fetchProducts('?categor=$category');
+
+    if (products != null) {
+      producCategoryList.value = products;
     }
     loading.value = false;
   }

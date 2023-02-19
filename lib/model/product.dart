@@ -27,7 +27,7 @@ class Product {
     required this.linkUrl,
     required this.like,
     this.youtubeLink,
-    this.category,
+    required this.category,
     this.viewCount,
   });
 
@@ -44,7 +44,7 @@ class Product {
   String linkUrl;
   bool like;
   String? youtubeLink;
-  String? category;
+  String category;
   int? viewCount;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
