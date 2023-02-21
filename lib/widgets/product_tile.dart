@@ -39,7 +39,7 @@ class ProductTile extends StatelessWidget {
                     height: 192,
                     width: 136,
                     child: Image.network(
-                      product.linkUrl,
+                      "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W2.png",
                       errorBuilder: (BuildContext context, Object exception,
                           StackTrace? stackTrace) {
                         print(exception.toString());

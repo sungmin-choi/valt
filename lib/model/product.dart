@@ -13,23 +13,25 @@ String productToJson(List<Product> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Product {
-  Product({
-    required this.itemsId,
-    required this.name,
-    required this.englishName,
-    required this.price,
-    required this.size,
-    required this.strength,
-    required this.country,
-    required this.categoryName,
-    required this.rating,
-    required this.ratingCount,
-    required this.linkUrl,
-    required this.like,
-    this.youtubeLink,
-    required this.category,
-    this.viewCount,
-  });
+  Product(
+      {required this.itemsId,
+      required this.name,
+      required this.englishName,
+      required this.price,
+      required this.size,
+      required this.strength,
+      required this.country,
+      required this.categoryName,
+      required this.rating,
+      required this.ratingCount,
+      required this.linkUrl,
+      required this.like,
+      this.youtubeLink,
+      required this.category,
+      this.viewCount,
+      this.taste,
+      this.finish,
+      this.aroma});
 
   int itemsId;
   String name;
@@ -46,24 +48,29 @@ class Product {
   String? youtubeLink;
   String category;
   int? viewCount;
+  String? taste;
+  String? finish;
+  String? aroma;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-        itemsId: json["itemsId"],
-        name: json["name"],
-        englishName: json["englishName"],
-        price: json["price"],
-        size: json["size"],
-        strength: json["strength"],
-        country: json["country"],
-        categoryName: json["categoryName"],
-        rating: json["rating"],
-        ratingCount: json["ratingCount"],
-        linkUrl: json["linkUrl"],
-        like: json["like"],
-        youtubeLink: json["youtubeLink"],
-        category: json["category"],
-        viewCount: json["viewCount"],
-      );
+      itemsId: json["itemsId"],
+      name: json["name"],
+      englishName: json["englishName"],
+      price: json["price"],
+      size: json["size"],
+      strength: json["strength"],
+      country: json["country"],
+      categoryName: json["categoryName"],
+      rating: json["rating"],
+      ratingCount: json["ratingCount"],
+      linkUrl: json["linkUrl"],
+      like: json["like"],
+      youtubeLink: json["youtubeLink"],
+      category: json["category"],
+      viewCount: json["viewCount"],
+      taste: json["taste"],
+      finish: json["finish"],
+      aroma: json["aroma"]);
 
   Map<String, dynamic> toJson() => {
         "itemsId": itemsId,
@@ -81,6 +88,9 @@ class Product {
         "youtubeLink": youtubeLink,
         "category": category,
         "viewCount": viewCount,
+        "taste": taste,
+        "aroma": aroma,
+        "finish": finish
       };
 }
 

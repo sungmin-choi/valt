@@ -203,6 +203,29 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               height: 8,
               width: double.infinity,
               decoration: const BoxDecoration(
+                color: ColorStyles.white,
+              ),
+            ),
+            Container(
+              decoration: const BoxDecoration(color: ColorStyles.white),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              width: double.infinity,
+              child: const Text(
+                '테이스팅 노트',
+                style: TextStyles.pretendardB18Gray100,
+              ),
+            ),
+            Column(
+              children: [
+                ProductInfoList(label: 'Aroma', value: product.aroma ?? ''),
+                ProductInfoList(label: 'Taste  ', value: product.taste ?? ''),
+                ProductInfoList(label: 'Finish ', value: product.finish ?? ''),
+              ],
+            ),
+            Container(
+              height: 8,
+              width: double.infinity,
+              decoration: const BoxDecoration(
                 color: ColorStyles.gray20,
               ),
             ),
