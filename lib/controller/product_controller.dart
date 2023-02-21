@@ -17,6 +17,23 @@ class ProductController extends GetxController {
     fetchMoneyData();
   }
 
+  RxList<Product> getProductList(String? option, String? category) {
+    if (option != null) {
+      switch (option) {
+        case 'BEST':
+          return producBestList;
+        case 'MONEY':
+          return producMoneyList;
+        default:
+          return producBestList;
+      }
+    } else if (category != null) {
+      return producCategoryList;
+    }
+
+    return producBestList;
+  }
+
   void fetchBestData() async {
     var products = await ProductServices.fetchProducts('?option=BEST');
 

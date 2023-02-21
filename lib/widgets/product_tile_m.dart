@@ -7,14 +7,14 @@ import 'package:valt/styles/text_style.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
-class ProductTile extends StatelessWidget {
+class ProductTileM extends StatelessWidget {
   final Product product;
   final int index;
   final int? size;
   final String favorite = 'assets/icons/favorite.svg';
   final String favoriteOutline = 'assets/icons/favoriteOutline.svg';
   final bool? isBest;
-  ProductTile(this.product,
+  ProductTileM(this.product,
       {super.key, required this.index, this.size, this.isBest});
 
   var f = NumberFormat('###,###,###,###');
@@ -29,23 +29,23 @@ class ProductTile extends StatelessWidget {
       child: SizedBox(
         // margin: EdgeInsets.only(
         //     left: index == 0 ? 16 : 8, right: index == size - 1 ? 16 : 8),
-        width: 136,
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               children: <Widget>[
                 SizedBox(
-                    height: 192,
-                    width: 136,
-                    child: Image.network(
-                      "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W2.png",
-                      errorBuilder: (BuildContext context, Object exception,
-                          StackTrace? stackTrace) {
-                        print(exception.toString());
-                        return const Text('error');
-                      },
-                    )),
+                  height: 192,
+                  child: Image.network(
+                    "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W2.png",
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      print(exception.toString());
+                      return const Text('error');
+                    },
+                  ),
+                ),
                 Positioned(
                   child: Container(
                     decoration: BoxDecoration(
@@ -56,7 +56,6 @@ class ProductTile extends StatelessWidget {
                       color: ColorStyles.gray80.withOpacity(0.05),
                     ),
                     height: 192,
-                    width: 136,
                   ),
                 ),
                 if (isBest == true)

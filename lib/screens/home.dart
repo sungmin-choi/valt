@@ -148,6 +148,7 @@ class Home extends StatelessWidget {
             ProductsCarousel(
               label: '🏆 BEST 위스키',
               option: 'BEST',
+              isBest: true,
             ),
             const SizedBox(height: 24),
             ProductsCarousel(
