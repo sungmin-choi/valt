@@ -4,6 +4,7 @@ import 'package:valt/auth/register/controller/register_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/controller/product_controller.dart';
+import 'package:valt/controller/youtube_controller.dart';
 import 'package:valt/model/product.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 import 'package:valt/widgets/products_carousel.dart';
@@ -11,6 +12,7 @@ import 'package:valt/widgets/products_carousel.dart';
 class Home extends StatelessWidget {
   final RegisterController controller = Get.put(RegisterController());
   final ProductController productController = Get.put(ProductController());
+  final YoutubeController youtubeController = Get.put(YoutubeController());
   final String logosmSvg = 'assets/icons/logosm.svg';
 
   final List<Product> list = [
@@ -155,6 +157,7 @@ class Home extends StatelessWidget {
               label: '🥃 5만원 이하 가성비 위스키',
               option: 'MONEY',
             ),
+            const SizedBox(height: 24),
           ],
         ),
       ),
