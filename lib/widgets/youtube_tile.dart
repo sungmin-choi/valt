@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:valt/controller/youtube_controller.dart';
 import 'package:valt/model/youtube_model.dart';
 import 'package:valt/styles/text_style.dart';
+import 'package:get/get.dart';
 
 class YoutubeTile extends StatelessWidget {
+  var controller = Get.find<YoutubeController>();
+
   final YoutubeModel youtubeModel;
-  const YoutubeTile({super.key, required this.youtubeModel});
+  YoutubeTile({super.key, required this.youtubeModel});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        controller.youtubeLaunchUrl(youtubeModel.youtubeLink);
+      },
       child: SizedBox(
         width: 239,
         child: Column(

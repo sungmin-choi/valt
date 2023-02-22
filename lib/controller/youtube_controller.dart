@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:valt/model/youtube_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class YoutubeController extends GetxController {
   static YoutubeController get to => Get.find();
@@ -34,6 +35,13 @@ class YoutubeController extends GetxController {
   var referenceYoutubeList = <YoutubeModel>[].obs;
   var loading = true.obs;
   RxString errorMessage = ''.obs;
+
+  Future<void> youtubeLaunchUrl(String youtubeLink) async {
+    final Uri url = Uri.parse(youtubeLink);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   RxList<YoutubeModel> getProductList(String page) {
     switch (page) {
