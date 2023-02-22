@@ -54,8 +54,8 @@ class YoutubeCarousel extends StatelessWidget {
               );
             }).toList(),
             options: CarouselOptions(
-                height: 220,
-                viewportFraction: 0.5,
+                height: 270,
+                viewportFraction: 0.65,
                 enableInfiniteScroll: false,
                 padEnds: false),
           );
