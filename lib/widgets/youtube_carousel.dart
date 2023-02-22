@@ -5,6 +5,7 @@ import 'package:valt/controller/youtube_controller.dart';
 import 'package:valt/model/youtube_model.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
+import 'package:valt/widgets/youtube_tile.dart';
 
 class YoutubeCarousel extends StatelessWidget {
   const YoutubeCarousel({
@@ -48,13 +49,13 @@ class YoutubeCarousel extends StatelessWidget {
 
               return Builder(
                 builder: (BuildContext context) {
-                  return Text(item.title);
+                  return YoutubeTile(youtubeModel: item);
                 },
               );
             }).toList(),
             options: CarouselOptions(
-                height: 330,
-                viewportFraction: 0.4,
+                height: 220,
+                viewportFraction: 0.5,
                 enableInfiniteScroll: false,
                 padEnds: false),
           );
