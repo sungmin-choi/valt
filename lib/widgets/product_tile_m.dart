@@ -1,29 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/model/product.dart';
 import 'package:valt/screens/product_detail.dart';
+import 'package:valt/service/network_handler/network_handler.dart';
+import 'package:valt/service/network_handler/product_service.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
-class ProductTileM extends StatelessWidget {
+class ProductTileM extends StatefulWidget {
   final Product product;
   final int index;
   final int? size;
-  final String favorite = 'assets/icons/favorite.svg';
-  final String favoriteOutline = 'assets/icons/favoriteOutline.svg';
   final bool? isBest;
-  ProductTileM(this.product,
+  const ProductTileM(this.product,
       {super.key, required this.index, this.size, this.isBest});
 
+  @override
+  State<ProductTileM> createState() => _ProductTileMState();
+}
+
+class _ProductTileMState extends State<ProductTileM> {
+  final String favorite = 'assets/icons/favorite.svg';
+  final String favoriteOutline = 'assets/icons/favoriteOutline.svg';
   var f = NumberFormat('###,###,###,###');
+
+  bool like = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      like = widget.product.like;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ProductDetailPage(itemsId: product.itemsId),
+        Get.to(() => ProductDetailPage(itemsId: widget.product.itemsId),
             preventDuplicates: false);
       },
       child: SizedBox(
@@ -38,7 +56,9 @@ class ProductTileM extends StatelessWidget {
                 SizedBox(
                   height: 192,
                   child: Image.network(
-                    "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W2.png",
+                    widget.product.linkUrl.isNotEmpty
+                        ? widget.product.linkUrl
+                        : "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png",
                     errorBuilder: (BuildContext context, Object exception,
                         StackTrace? stackTrace) {
                       print(exception.toString());
@@ -58,7 +78,7 @@ class ProductTileM extends StatelessWidget {
                     height: 192,
                   ),
                 ),
-                if (isBest == true)
+                if (widget.isBest == true)
                   Positioned(
                     top: 0.0,
                     left: 0.0,
@@ -74,7 +94,7 @@ class ProductTileM extends StatelessWidget {
                             bottomRight: Radius.circular(3)),
                       ),
                       child: Text(
-                        '${index + 1}',
+                        '${widget.index + 1}',
                         style: TextStyles.pretendardN14White,
                       ),
                     ),
@@ -83,10 +103,32 @@ class ProductTileM extends StatelessWidget {
                     bottom: -4,
                     right: -4,
                     child: IconButton(
-                      onPressed: () {
-                        print('like');
+                      onPressed: () async {
+                        var memberId = await NetWorkHandler.getMemberId();
+
+                        if (memberId == 'null') {
+                          Get.to(() => AuthFirstPage());
+                        } else {
+                          if (like) {
+                            bool result = await ProductServices.unlikeProduct(
+                                widget.product.itemsId);
+                            if (result) {
+                              setState(() {
+                                like = !like;
+                              });
+                            }
+                          } else {
+                            bool result = await ProductServices.likeProduct(
+                                widget.product.itemsId);
+                            if (result) {
+                              setState(() {
+                                like = !like;
+                              });
+                            }
+                          }
+                        }
                       },
-                      icon: product.like == true
+                      icon: like == true
                           ? SvgPicture.asset(favorite)
                           : SvgPicture.asset(favoriteOutline),
                     ))
@@ -95,21 +137,21 @@ class ProductTileM extends StatelessWidget {
             const SizedBox(
               height: 9.5,
             ),
-            Text('${product.country} ・ ${product.categoryName}',
+            Text('${widget.product.country} ・ ${widget.product.categoryName}',
                 style: TextStyles.pretendardN11Gray60),
             const SizedBox(
               height: 2,
             ),
-            Text(product.name, style: TextStyles.pretendardN13Gray90),
+            Text(widget.product.name, style: TextStyles.pretendardN13Gray90),
             const SizedBox(
               height: 6,
             ),
-            Text('${f.format(product.price)} 원',
+            Text('${f.format(widget.product.price)} 원',
                 style: TextStyles.pretendardN15Gray90),
             const SizedBox(
               height: 6,
             ),
-            Text('${f.format(product.viewCount ?? 0)}명이 보는 중',
+            Text('${f.format(widget.product.viewCount ?? 0)}명이 보는 중',
                 style: TextStyles.pretendardN11Gray60),
             const SizedBox(
               height: 4,
@@ -121,7 +163,8 @@ class ProductTileM extends StatelessWidget {
                   color: ColorStyles.gray60,
                   size: 13.0,
                 ),
-                Text('${product.rating}(${f.format(product.ratingCount)})',
+                Text(
+                    '${widget.product.rating}(${f.format(widget.product.ratingCount)})',
                     style: TextStyles.pretendardN11Gray60),
               ],
             )

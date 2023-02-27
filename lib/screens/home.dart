@@ -33,7 +33,7 @@ class Home extends StatelessWidget {
             IconButton(
               onPressed: () async {
                 var memberId = await NetWorkHandler.getMemberId();
-                print(memberId);
+                print('memberId: $memberId');
                 Get.to(() => AuthFirstPage());
               },
               icon: const Icon(

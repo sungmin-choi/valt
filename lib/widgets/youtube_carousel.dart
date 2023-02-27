@@ -49,7 +49,10 @@ class YoutubeCarousel extends StatelessWidget {
 
               return Builder(
                 builder: (BuildContext context) {
-                  return YoutubeTile(youtubeModel: item);
+                  return YoutubeTile(
+                    youtubeModel: item,
+                    page: 'HOME',
+                  );
                 },
               );
             }).toList(),

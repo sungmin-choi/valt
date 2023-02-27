@@ -8,7 +8,8 @@ class YoutubeTile extends StatelessWidget {
   var controller = Get.find<YoutubeController>();
 
   final YoutubeModel youtubeModel;
-  YoutubeTile({super.key, required this.youtubeModel});
+  final String? page;
+  YoutubeTile({super.key, required this.youtubeModel, this.page});
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +18,15 @@ class YoutubeTile extends StatelessWidget {
         controller.youtubeLaunchUrl(youtubeModel.youtubeLink);
       },
       child: SizedBox(
-        width: 239,
+        width: page == 'detail' ? 343 : 239,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(3),
               child: SizedBox(
-                width: 239,
-                height: 137,
+                width: page == 'detail' ? 343 : 239,
+                height: page == 'detail' ? 197 : 137,
                 // Image radius
                 child:
                     Image.network(youtubeModel.thumbnailUrl, fit: BoxFit.cover),

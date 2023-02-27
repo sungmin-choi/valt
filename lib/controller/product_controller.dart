@@ -52,8 +52,9 @@ class ProductController extends GetxController {
     loading.value = false;
   }
 
-  void fetchCategoryData(String category) async {
-    var products = await ProductServices.fetchProducts('?categor=$category');
+  void fetchCategoryData(String category, String orderBy) async {
+    var products = await ProductServices.fetchProducts(
+        '/category?category=$category&orderBy=$orderBy');
 
     if (products != null) {
       producCategoryList.value = products;

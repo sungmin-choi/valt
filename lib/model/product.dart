@@ -9,8 +9,6 @@ import 'package:valt/model/youtube_model.dart';
 List<Product> productFromJson(String str) =>
     List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
 
-Product productDetailFromJson(String str) => Product.fromJson(json.decode(str));
-
 String productToJson(List<Product> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
@@ -30,7 +28,7 @@ class Product {
       required this.like,
       this.youtube,
       required this.category,
-      this.viewCount,
+      required this.viewCount,
       this.taste,
       this.finish,
       this.aroma});
@@ -47,9 +45,9 @@ class Product {
   int ratingCount;
   String linkUrl;
   bool like;
-  YoutubeModel? youtube;
+  List<YoutubeModel>? youtube;
   String category;
-  int? viewCount;
+  int viewCount;
   String? taste;
   String? finish;
   String? aroma;
@@ -67,7 +65,7 @@ class Product {
       ratingCount: json["ratingCount"],
       linkUrl: json["linkUrl"],
       like: json["like"],
-      youtube: json["youtubeLink"],
+      youtube: json["youtube"],
       category: json["category"],
       viewCount: json["viewCount"],
       taste: json["taste"],
@@ -87,7 +85,7 @@ class Product {
         "ratingCount": ratingCount,
         "linkUrl": linkUrl,
         "like": like,
-        "youtubeLink": youtube,
+        "youtube": youtube,
         "category": category,
         "viewCount": viewCount,
         "taste": taste,

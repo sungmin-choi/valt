@@ -70,7 +70,8 @@ class NetWorkHandler {
   }
 
   static Future<String?> getMemberId() async {
-    return await storage.read(key: 'memberId');
+    var memberId = await storage.read(key: 'memberId');
+    return memberId;
   }
 }
 

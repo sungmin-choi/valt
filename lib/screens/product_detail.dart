@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:valt/controller/product_controller.dart';
-import 'package:valt/model/product.dart';
+import 'package:valt/model/product_detail_model.dart';
 import 'package:valt/service/network_handler/product_service.dart';
 import 'package:flutter/material.dart';
 import 'package:valt/styles/color_style.dart';
@@ -10,6 +10,7 @@ import 'package:valt/widgets/average_price_bottom_modal.dart';
 import 'package:valt/widgets/product_info_list.dart';
 import 'package:valt/widgets/products_carousel.dart';
 import 'package:valt/widgets/whiskybase_info_bottom_modal.dart';
+import 'package:valt/widgets/youtube_tile.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key, required this.itemsId});
@@ -21,7 +22,7 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   var f = NumberFormat('###,###,###,###');
   final ProductController productController = Get.find<ProductController>();
-  Product product = Product(
+  ProductDetail product = ProductDetail(
       itemsId: 0,
       name: '',
       englishName: '',
@@ -34,7 +35,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       ratingCount: 0,
       linkUrl: '',
       category: '',
-      like: false);
+      like: false,
+      youtube: []);
 
   @override
   void initState() {
@@ -43,7 +45,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         .then((response) => setState(() {
               if (response != null) {
                 product = response;
-                productController.fetchCategoryData(response.category);
+                productController.fetchCategoryData(response.category, 'MOST');
               }
             }));
   }
@@ -230,11 +232,37 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
             ),
             Container(
+              decoration: const BoxDecoration(color: ColorStyles.white),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              width: double.infinity,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '추천영상',
+                      style: TextStyles.pretendardB18Gray100,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    for (int i = 0; i < product.youtube.length; i++)
+                      YoutubeTile(
+                          youtubeModel: product.youtube[i], page: 'detail')
+                  ]),
+            ),
+            Container(
+              height: 8,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: ColorStyles.gray20,
+              ),
+            ),
+            Container(
               decoration: const BoxDecoration(
                 color: ColorStyles.white,
               ),
               child: ProductsCarousel(
-                label: '🇱🇷 ${product.categoryName} 위스키',
+                label: '${product.categoryName} 위스키',
                 category: product.category,
               ),
             ),
