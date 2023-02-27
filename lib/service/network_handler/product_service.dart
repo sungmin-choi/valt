@@ -36,7 +36,6 @@ class ProductServices {
 
   static Future<bool> likeProduct(int itemsId) async {
     var memberId = await NetWorkHandler.getMemberId();
-
     var response =
         await client.post(buildUrl('/items/$itemsId/like'), headers: {
       "Content-type": "application/json",
@@ -44,31 +43,33 @@ class ProductServices {
       "mid": memberId.toString()
     });
 
-    print(response.body);
     if (response.statusCode == 200) {
       return true;
     }
+    var jasonData = utf8.decode(response.bodyBytes);
+    print(jasonData);
     return false;
   }
 
   static Future<bool> unlikeProduct(int itemsId) async {
     var memberId = await NetWorkHandler.getMemberId();
-    print(memberId);
     var response =
         await client.delete(buildUrl('/items/$itemsId/like'), headers: {
       "Content-type": "application/json",
       "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
       "mid": memberId.toString()
     });
+
     if (response.statusCode == 200) {
       return true;
     }
+    var jasonData = utf8.decode(response.bodyBytes);
+    print(jasonData);
     return false;
   }
 
   static Future<ProductDetail?> fetchProductDetail(int itemsId) async {
     var memberId = await NetWorkHandler.getMemberId();
-    print(memberId);
     var response = await client.get(buildUrl('/item/$itemsId'), headers: {
       "Content-type": "application/json",
       "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
@@ -81,7 +82,6 @@ class ProductServices {
 
     if (response.statusCode == 200 && viewCnt.statusCode == 200) {
       var jasonData = utf8.decode(response.bodyBytes);
-      print(jasonData);
       return productDetailFromJson(jasonData);
     } else {
       return null;

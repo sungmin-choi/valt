@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/model/product.dart';
 import 'package:valt/screens/product_detail.dart';
@@ -105,9 +106,17 @@ class _ProductTileMState extends State<ProductTileM> {
                     child: IconButton(
                       onPressed: () async {
                         var memberId = await NetWorkHandler.getMemberId();
-
-                        if (memberId == 'null') {
+                        print(memberId);
+                        if (memberId == 'null' || memberId == null) {
                           Get.to(() => AuthFirstPage());
+                          Fluttertoast.showToast(
+                              msg: '로그인 해주세요',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 2,
+                              backgroundColor: Colors.black.withOpacity(0.7),
+                              textColor: Colors.white,
+                              fontSize: 16.0);
                         } else {
                           if (like) {
                             bool result = await ProductServices.unlikeProduct(
@@ -142,7 +151,9 @@ class _ProductTileMState extends State<ProductTileM> {
             const SizedBox(
               height: 2,
             ),
-            Text(widget.product.name, style: TextStyles.pretendardN13Gray90),
+            Text(widget.product.name,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.pretendardN13Gray90),
             const SizedBox(
               height: 6,
             ),
