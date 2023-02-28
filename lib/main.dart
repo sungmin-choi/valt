@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:valt/screens/home.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
+import 'package:valt/screens/search_page.dart';
 
 import 'controller/product_controller.dart';
 
@@ -41,10 +42,7 @@ class _MyAppState extends State<MyApp> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static final List<Widget> _widgetOptions = <Widget>[
     Home(),
-    const Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
+    const SearchPage(),
     const Text(
       'Index 2: School',
       style: optionStyle,
