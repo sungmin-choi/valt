@@ -3,6 +3,7 @@ import 'package:valt/styles/color_style.dart';
 import 'package:valt/widgets/filter/badge.dart';
 import 'package:valt/widgets/filter/category_list.dart';
 import 'package:valt/widgets/filter/country_list.dart';
+import 'package:valt/widgets/filter/price_range_list.dart';
 import 'package:valt/widgets/search_bar.dart';
 
 class SearchPage extends StatefulWidget {
@@ -63,7 +64,8 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
               if (tabIndex == 0) const CountryList(),
-              if (tabIndex == 1) const CategoryList()
+              if (tabIndex == 1) const CategoryList(),
+              if (tabIndex == 2) const PriceRangeList()
             ],
           ),
         ),
