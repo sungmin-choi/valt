@@ -6,10 +6,10 @@ import 'package:valt/service/network_handler/product_service.dart';
 import 'package:flutter/material.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
-import 'package:valt/widgets/average_price_bottom_modal.dart';
+import 'package:valt/widgets/bottomModal/average_price_bottom_modal.dart';
 import 'package:valt/widgets/product_info_list.dart';
 import 'package:valt/widgets/products_carousel.dart';
-import 'package:valt/widgets/whiskybase_info_bottom_modal.dart';
+import 'package:valt/widgets/bottomModal/whiskybase_info_bottom_modal.dart';
 import 'package:valt/widgets/youtube_tile.dart';
 
 class ProductDetailPage extends StatefulWidget {

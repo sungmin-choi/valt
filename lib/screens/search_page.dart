@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:valt/styles/color_style.dart';
-import 'package:valt/widgets/badge.dart';
+import 'package:valt/widgets/filter/badge.dart';
+import 'package:valt/widgets/filter/category_list.dart';
+import 'package:valt/widgets/filter/country_list.dart';
 import 'package:valt/widgets/search_bar.dart';
 
 class SearchPage extends StatefulWidget {
@@ -19,11 +21,12 @@ class _SearchPageState extends State<SearchPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SearchBar(),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 2, horizontal: 16),
+                    const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
                 child: Row(
                   children: [
                     Badge(
@@ -58,7 +61,9 @@ class _SearchPageState extends State<SearchPage> {
                         isFocus: tabIndex == 2)
                   ],
                 ),
-              )
+              ),
+              if (tabIndex == 0) const CountryList(),
+              if (tabIndex == 1) const CategoryList()
             ],
           ),
         ),
