@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:valt/styles/color_style.dart';
+import 'package:valt/widgets/badge.dart';
 import 'package:valt/widgets/search_bar.dart';
 
 class SearchPage extends StatefulWidget {
@@ -17,23 +18,50 @@ class _SearchPageState extends State<SearchPage> {
       backgroundColor: ColorStyles.white,
       body: SafeArea(
         child: SingleChildScrollView(
-            child: Column(
-          children: [
-            SearchBar(),
-            Row(
-              children: [
-                OutlinedButton(
-                  onPressed: () {},
-                  style: const ButtonStyle(),
-                  child: const Text(
-                    '국가별',
-                    style: TextStyle(color: ColorStyles.gray90),
-                  ),
-                )
-              ],
-            )
-          ],
-        )),
+          child: Column(
+            children: [
+              SearchBar(),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 2, horizontal: 16),
+                child: Row(
+                  children: [
+                    Badge(
+                        text: '국가별',
+                        onClick: () {
+                          setState(() {
+                            tabIndex = 0;
+                          });
+                        },
+                        isFocus: tabIndex == 0),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Badge(
+                        text: '키테고리별',
+                        onClick: () {
+                          setState(() {
+                            tabIndex = 1;
+                          });
+                        },
+                        isFocus: tabIndex == 1),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Badge(
+                        text: '금액대별',
+                        onClick: () {
+                          setState(() {
+                            tabIndex = 2;
+                          });
+                        },
+                        isFocus: tabIndex == 2)
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
