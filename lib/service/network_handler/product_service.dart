@@ -17,7 +17,6 @@ class ProductServices {
 
   static Future<List<Product>?> fetchProducts(String? params) async {
     var memberId = await NetWorkHandler.getMemberId();
-    print(memberId);
     var response =
         await client.get(buildUrl('/items${params ?? params}'), headers: {
       "Content-type": "application/json",
