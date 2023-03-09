@@ -7,6 +7,8 @@ class ProductController extends GetxController {
   var producBestList = <Product>[].obs;
   var producMoneyList = <Product>[].obs;
   var producCategoryList = <Product>[].obs;
+  RxList<Product> producList = <Product>[].obs;
+
   var loading = true.obs;
   RxString errorMessage = ''.obs;
 
@@ -32,6 +34,38 @@ class ProductController extends GetxController {
     }
 
     return producBestList;
+  }
+
+  Future<List<Product>?> fetchProductList(
+      String? category,
+      String? country,
+      String? displayCategory,
+      String? orderBy,
+      bool? money,
+      int? maxPrice,
+      int? minPrice) async {
+    var url = '';
+    if (category != null) {
+      url = '$url/category?category=$category';
+    } else if (country != null) {
+      url = '$url/country?country=$country';
+    } else if (money == true) {
+      url = '$url/money';
+      if (maxPrice != null && minPrice != null) {
+        url = '$url?maxPrice=$maxPrice&minPrice=$minPrice';
+      } else if (maxPrice != null) {
+        url = '$url?maxPrice=$maxPrice';
+      } else if (minPrice != null) {
+        url = '$url?minPrice=$minPrice';
+      }
+    }
+    if (orderBy != null) {
+      url = '$url&orderBy=$orderBy';
+    } else {
+      url = '$url&orderBy=MOST';
+    }
+    var products = await ProductServices.fetchProducts(url);
+    return products;
   }
 
   void fetchBestData() async {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:valt/screens/products_page.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
+import 'package:get/get.dart';
 
 class CountryItem extends StatelessWidget {
   const CountryItem(
@@ -41,7 +43,13 @@ class CountryItem extends StatelessWidget {
               color: ColorStyles.gray60,
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => ProductsPage(
+                      title: '$name 위스키',
+                      option: 'BEST',
+                      category: 'SINGLE_MALT',
+                    ));
+              },
               icon: const Icon(Icons.chevron_right))
         ],
       ),

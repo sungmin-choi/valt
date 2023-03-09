@@ -1,45 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:valt/controller/product_controller.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/widgets/product_tile_m.dart';
-import 'package:flutter_svg/svg.dart';
 
-class ProductsPage extends StatefulWidget {
-  ProductsPage({
-    super.key,
-    required this.title,
-    this.category,
-    this.country,
-    this.displayCategory,
-    this.orderBy,
-    this.maxPrice,
-    this.minPrice,
-  });
+class SearchProductsPage extends StatefulWidget {
+  const SearchProductsPage(
+      {super.key, this.option, this.category, required this.title});
 
+  final String? option;
   final String? category;
-  final String? country;
-  final String? displayCategory;
-  final String? orderBy;
-  int? maxPrice;
-  int? minPrice;
   final String title;
   @override
-  State<ProductsPage> createState() => _ProductsPageState();
+  State<SearchProductsPage> createState() => _SearchProductsPageState();
 }
 
-class _ProductsPageState extends State<ProductsPage> {
+class _SearchProductsPageState extends State<SearchProductsPage> {
   ProductController controller = Get.find<ProductController>();
-  final String sortIcon = 'assets/icons/sortLine.svg';
 
+  final String sortIcon = 'asset/icons/sortLine.svg';
+  final String favoriteOutline = 'assets/icons/favoriteOutline.svg';
   @override
   void initState() {
     super.initState();
-    controller
-        .fetchProductList(category, country, displayCategory, orderBy, money,
-            maxPrice, minPrice)
-        .then((value) => print(value));
   }
 
   @override
