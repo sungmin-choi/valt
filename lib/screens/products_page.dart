@@ -5,6 +5,7 @@ import 'package:valt/model/product.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/widgets/bottomModal/category_info_bottom_modal.dart';
+import 'package:valt/widgets/bottomModal/sort_orderBy_bottomModal.dart';
 import 'package:valt/widgets/product_tile_m.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -41,9 +42,13 @@ class _ProductsPageState extends State<ProductsPage> {
   ProductController controller = Get.find<ProductController>();
   final String sortIcon = 'assets/icons/sortLine.svg';
   late List<Product> products = [];
+  late String orderBy = 'MOST';
   @override
   void initState() {
     super.initState();
+    setState(() {
+      orderBy = widget.orderBy ?? 'BEST';
+    });
     controller
         .fetchProductList(
             widget.category,
@@ -109,9 +114,46 @@ class _ProductsPageState extends State<ProductsPage> {
           children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Text('총 ${products.length.toString()}개'),
-              Row(
-                children: [SvgPicture.asset(sortIcon), const Text('평점 높은 순')],
-              )
+              GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      builder: (BuildContext context) {
+                        return SortOrderByBottomModal(
+                          curOrderBy: orderBy,
+                          onChangeSort: (value) {
+                            setState(() {
+                              orderBy = value;
+                            });
+                            controller
+                                .fetchProductList(
+                                    widget.category,
+                                    widget.country,
+                                    widget.displayCategory,
+                                    value,
+                                    widget.option,
+                                    widget.money,
+                                    widget.maxPrice,
+                                    widget.minPrice)
+                                .then((value) => {
+                                      if (value != null)
+                                        setState(
+                                          () {
+                                            products = value;
+                                          },
+                                        )
+                                    });
+                          },
+                        );
+                      });
+                },
+                child: Row(
+                  children: [SvgPicture.asset(sortIcon), const Text('평점 높은 순')],
+                ),
+              ),
             ]),
             const SizedBox(
               height: 12,
