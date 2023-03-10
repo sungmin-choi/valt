@@ -20,6 +20,7 @@ class CategoryList extends StatelessWidget {
           SizedBox(height: 16),
           CategoryItem(
             name: '싱글몰트',
+            category: 'SINGLE_MALT',
             englishName: 'Single Malt',
             imgUrl: 'assets/images/SingleMalt.png',
             bottomModal: CategoryInfoBottomModal(
@@ -30,6 +31,7 @@ class CategoryList extends StatelessWidget {
           CategoryItem(
             name: '블렌디드',
             englishName: 'Blended',
+            category: 'BLENDED',
             imgUrl: 'assets/images/Blended.png',
             bottomModal: CategoryInfoBottomModal(
                 title: '블렌디드 위스키',
@@ -38,6 +40,7 @@ class CategoryList extends StatelessWidget {
           ),
           CategoryItem(
             name: '블렌디드 몰트',
+            category: 'BLENDED_MALT',
             englishName: 'Blended Malt',
             imgUrl: 'assets/images/BlendedMalt.png',
             bottomModal: CategoryInfoBottomModal(
@@ -48,6 +51,7 @@ class CategoryList extends StatelessWidget {
           CategoryItem(
             name: '버번',
             englishName: 'Bourbon',
+            category: 'BOURBON',
             imgUrl: 'assets/images/Bourbon.png',
             bottomModal: CategoryInfoBottomModal(
                 title: '버번 위스키',

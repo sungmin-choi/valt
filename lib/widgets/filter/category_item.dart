@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:valt/screens/products_page.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 
@@ -8,11 +10,13 @@ class CategoryItem extends StatelessWidget {
       required this.name,
       required this.englishName,
       required this.imgUrl,
-      required this.bottomModal});
+      required this.bottomModal,
+      required this.category});
 
   final String name;
   final String englishName;
   final String imgUrl;
+  final String category;
   final Widget bottomModal;
 
   @override
@@ -67,7 +71,13 @@ class CategoryItem extends StatelessWidget {
               color: ColorStyles.gray60,
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => ProductsPage(
+                      title: '$name 위스키',
+                      category: category,
+                      orderBy: 'MOST',
+                    ));
+              },
               icon: const Icon(Icons.chevron_right))
         ],
       ),
