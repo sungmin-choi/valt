@@ -4,6 +4,7 @@ import 'package:valt/controller/product_controller.dart';
 import 'package:valt/model/product.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
+import 'package:valt/widgets/bottomModal/category_info_bottom_modal.dart';
 import 'package:valt/widgets/product_tile_m.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,8 +20,10 @@ class ProductsPage extends StatefulWidget {
     this.maxPrice,
     this.minPrice,
     this.money,
+    this.bottomModal,
   });
 
+  final Widget? bottomModal;
   final String? category;
   final String? country;
   final String? displayCategory;
@@ -79,6 +82,24 @@ class _ProductsPageState extends State<ProductsPage> {
             size: 23,
           ),
         ),
+        actions: [
+          if (widget.bottomModal != null)
+            IconButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      context: context,
+                      builder: (BuildContext context) {
+                        return widget.bottomModal ??
+                            const CategoryInfoBottomModal(
+                                title: ' 위스키', infoText: '준비중');
+                      });
+                },
+                icon: const Icon(Icons.info_outline,
+                    color: ColorStyles.gray60, size: 22))
+        ],
         elevation: 0,
       ),
       body: Padding(

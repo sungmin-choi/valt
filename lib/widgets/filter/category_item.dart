@@ -76,6 +76,7 @@ class CategoryItem extends StatelessWidget {
                       title: '$name 위스키',
                       category: category,
                       orderBy: 'MOST',
+                      bottomModal: bottomModal,
                     ));
               },
               icon: const Icon(Icons.chevron_right))
