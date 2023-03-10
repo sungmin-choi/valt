@@ -26,7 +26,7 @@ class ProductServices {
 
     if (response.statusCode == 200) {
       var jasonData = utf8.decode(response.bodyBytes);
-
+      print(jasonData);
       return productFromJson(jasonData);
     } else {
       return null;

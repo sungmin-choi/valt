@@ -12,13 +12,6 @@ class ProductController extends GetxController {
   var loading = true.obs;
   RxString errorMessage = ''.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchBestData();
-    fetchMoneyData();
-  }
-
   RxList<Product> getProductList(String? option, String? category) {
     if (option != null) {
       switch (option) {
@@ -37,14 +30,15 @@ class ProductController extends GetxController {
   }
 
   Future<List<Product>?> fetchProductList(
-      String? category,
-      String? country,
-      String? displayCategory,
-      String? orderBy,
-      String? option,
-      bool? money,
-      int? maxPrice,
-      int? minPrice) async {
+    String? category,
+    String? country,
+    String? displayCategory,
+    String? orderBy,
+    String? option,
+    bool? money,
+    int? maxPrice,
+    int? minPrice,
+  ) async {
     var url = '';
     if (option != null) {
       url = '$url?option=$option';
@@ -67,36 +61,9 @@ class ProductController extends GetxController {
     } else {
       url = '$url&orderBy=MOST';
     }
+
     print(url);
     var products = await ProductServices.fetchProducts(url);
     return products;
-  }
-
-  void fetchBestData() async {
-    var products = await ProductServices.fetchProducts('?option=BEST');
-
-    if (products != null) {
-      producBestList.value = products;
-    }
-    loading.value = false;
-  }
-
-  void fetchMoneyData() async {
-    var products = await ProductServices.fetchProducts('?option=MONEY');
-
-    if (products != null) {
-      producMoneyList.value = products;
-    }
-    loading.value = false;
-  }
-
-  void fetchCategoryData(String category, String orderBy) async {
-    var products = await ProductServices.fetchProducts(
-        '/category?category=$category&orderBy=$orderBy');
-
-    if (products != null) {
-      producCategoryList.value = products;
-    }
-    loading.value = false;
   }
 }

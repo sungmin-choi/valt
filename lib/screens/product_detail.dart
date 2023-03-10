@@ -8,8 +8,8 @@ import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/widgets/bottomModal/average_price_bottom_modal.dart';
 import 'package:valt/widgets/product_info_list.dart';
-import 'package:valt/widgets/products_carousel.dart';
 import 'package:valt/widgets/bottomModal/whiskybase_info_bottom_modal.dart';
+import 'package:valt/widgets/products_carousel2.dart';
 import 'package:valt/widgets/youtube_tile.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -22,6 +22,8 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   var f = NumberFormat('###,###,###,###');
   final ProductController productController = Get.find<ProductController>();
+  String _category = '';
+  bool viewCarousel = false;
   ProductDetail product = ProductDetail(
       itemsId: 0,
       name: '',
@@ -34,7 +36,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       rating: 0,
       ratingCount: 0,
       linkUrl: '',
-      category: '',
+      category: 'aaaa',
       like: false,
       youtube: []);
 
@@ -45,7 +47,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         .then((response) => setState(() {
               if (response != null) {
                 product = response;
-                productController.fetchCategoryData(response.category, 'MOST');
+                _category = response.category;
+                viewCarousel = true;
               }
             }));
   }
@@ -257,15 +260,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 color: ColorStyles.gray20,
               ),
             ),
-            Container(
-              decoration: const BoxDecoration(
-                color: ColorStyles.white,
+            if (viewCarousel)
+              Container(
+                decoration: const BoxDecoration(
+                  color: ColorStyles.white,
+                ),
+                child: ProductCarousel2(
+                  label: '${product.categoryName} 위스키',
+                  category: _category,
+                ),
               ),
-              child: ProductsCarousel(
-                label: '${product.categoryName} 위스키',
-                category: product.category,
-              ),
-            ),
           ],
         ),
       ),

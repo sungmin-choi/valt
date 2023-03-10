@@ -22,6 +22,7 @@ class ProductsPage extends StatefulWidget {
     this.minPrice,
     this.money,
     this.bottomModal,
+    this.searchText,
   });
 
   final Widget? bottomModal;
@@ -33,6 +34,7 @@ class ProductsPage extends StatefulWidget {
   final bool? money;
   final int? maxPrice;
   final int? minPrice;
+  final String? searchText;
   final String title;
   @override
   State<ProductsPage> createState() => _ProductsPageState();
@@ -51,14 +53,15 @@ class _ProductsPageState extends State<ProductsPage> {
     });
     controller
         .fetchProductList(
-            widget.category,
-            widget.country,
-            widget.displayCategory,
-            widget.orderBy,
-            widget.option,
-            widget.money,
-            widget.maxPrice,
-            widget.minPrice)
+          widget.category,
+          widget.country,
+          widget.displayCategory,
+          widget.orderBy,
+          widget.option,
+          widget.money,
+          widget.maxPrice,
+          widget.minPrice,
+        )
         .then((value) => {
               if (value != null)
                 setState(
@@ -73,40 +76,42 @@ class _ProductsPageState extends State<ProductsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorStyles.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Text(widget.title, style: TextStyles.pretendardB17Gray100),
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new_outlined,
-            color: Colors.black,
-            size: 23,
-          ),
-        ),
-        actions: [
-          if (widget.bottomModal != null)
-            IconButton(
+      appBar: widget.searchText != null
+          ? null
+          : AppBar(
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              title: Text(widget.title, style: TextStyles.pretendardB17Gray100),
+              leading: IconButton(
                 onPressed: () {
-                  showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      context: context,
-                      builder: (BuildContext context) {
-                        return widget.bottomModal ??
-                            const CategoryInfoBottomModal(
-                                title: ' 위스키', infoText: '준비중');
-                      });
+                  Get.back();
                 },
-                icon: const Icon(Icons.info_outline,
-                    color: ColorStyles.gray60, size: 22))
-        ],
-        elevation: 0,
-      ),
+                icon: const Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                  color: Colors.black,
+                  size: 23,
+                ),
+              ),
+              actions: [
+                if (widget.bottomModal != null)
+                  IconButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return widget.bottomModal ??
+                                  const CategoryInfoBottomModal(
+                                      title: ' 위스키', infoText: '준비중');
+                            });
+                      },
+                      icon: const Icon(Icons.info_outline,
+                          color: ColorStyles.gray60, size: 22))
+              ],
+              elevation: 0,
+            ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
         child: Column(
@@ -130,14 +135,15 @@ class _ProductsPageState extends State<ProductsPage> {
                             });
                             controller
                                 .fetchProductList(
-                                    widget.category,
-                                    widget.country,
-                                    widget.displayCategory,
-                                    value,
-                                    widget.option,
-                                    widget.money,
-                                    widget.maxPrice,
-                                    widget.minPrice)
+                                  widget.category,
+                                  widget.country,
+                                  widget.displayCategory,
+                                  value,
+                                  widget.option,
+                                  widget.money,
+                                  widget.maxPrice,
+                                  widget.minPrice,
+                                )
                                 .then((value) => {
                                       if (value != null)
                                         setState(
