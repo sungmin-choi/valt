@@ -41,11 +41,14 @@ class ProductController extends GetxController {
       String? country,
       String? displayCategory,
       String? orderBy,
+      String? option,
       bool? money,
       int? maxPrice,
       int? minPrice) async {
     var url = '';
-    if (category != null) {
+    if (option != null) {
+      url = '$url?option=$option';
+    } else if (category != null) {
       url = '$url/category?category=$category';
     } else if (country != null) {
       url = '$url/country?country=$country';
@@ -64,6 +67,7 @@ class ProductController extends GetxController {
     } else {
       url = '$url&orderBy=MOST';
     }
+    print(url);
     var products = await ProductServices.fetchProducts(url);
     return products;
   }

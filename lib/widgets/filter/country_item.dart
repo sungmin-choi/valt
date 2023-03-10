@@ -46,8 +46,7 @@ class CountryItem extends StatelessWidget {
               onPressed: () {
                 Get.to(() => ProductsPage(
                       title: '$name 위스키',
-                      option: 'BEST',
-                      category: 'SINGLE_MALT',
+                      country: name,
                     ));
               },
               icon: const Icon(Icons.chevron_right))

@@ -42,7 +42,7 @@ class ProductsCarousel extends StatelessWidget {
                   constraints: const BoxConstraints(),
                   onPressed: () {
                     Get.to(() => ProductsPage(
-                        title: label, option: option, category: category));
+                        title: label, category: category, option: option));
                   },
                   icon: const Icon(Icons.chevron_right))
             ],

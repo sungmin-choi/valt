@@ -6,8 +6,9 @@ import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/controller/product_controller.dart';
 import 'package:valt/controller/youtube_controller.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
-import 'package:valt/widgets/products_carousel.dart';
 import 'package:valt/widgets/youtube_carousel.dart';
+
+import '../widgets/products_carousel2.dart';
 
 class Home extends StatelessWidget {
   final RegisterController controller = Get.put(RegisterController());
@@ -47,19 +48,19 @@ class Home extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            ProductsCarousel(
+          children: const [
+            ProductCarousel2(
               label: '🏆 BEST 위스키',
               option: 'BEST',
               isBest: true,
             ),
-            const SizedBox(height: 24),
-            ProductsCarousel(
+            SizedBox(height: 24),
+            ProductCarousel2(
               label: '🥃 5만원 이하 가성비 위스키',
               option: 'MONEY',
             ),
-            const SizedBox(height: 24),
-            const YoutubeCarousel(label: '👀 위스키 알아봐요', page: 'HOME'),
+            SizedBox(height: 24),
+            YoutubeCarousel(label: '👀 위스키 알아봐요', page: 'HOME'),
           ],
         ),
       ),
