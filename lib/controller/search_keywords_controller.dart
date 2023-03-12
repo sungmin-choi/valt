@@ -8,7 +8,7 @@ class SearchKeywordsController extends GetxController {
   RxList<Product> producList = <Product>[].obs;
 
   void fetchProductList(String? searchText, String? orderBy) async {
-    if (searchText != null) {
+    if (searchText != null && searchText.isNotEmpty) {
       if (orderBy != null) {
         var products = await ProductServices.fetchProducts(
             '/search?orderBy=$orderBy&searchText=$searchText');

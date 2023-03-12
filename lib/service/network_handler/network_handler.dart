@@ -73,6 +73,37 @@ class NetWorkHandler {
     var memberId = await storage.read(key: 'memberId');
     return memberId;
   }
+
+  static Future<void> storeRecentSearchs(String keyword) async {
+    // await storage.write(key: 'RecentSearchs', value: keyword);
+
+    var keywords = await storage.read(key: 'RecentSearchs');
+
+    if (keywords == null) {
+      List<String> keyWordsList = [keyword];
+      await storage.write(
+          key: 'RecentSearchs', value: jsonEncode(keyWordsList));
+    }
+    List<dynamic> listOfkeywords = jsonDecode(keywords!);
+    if (listOfkeywords.length > 10) {
+      listOfkeywords.removeAt(0);
+    }
+    listOfkeywords.add(keyword);
+
+    await storage.write(
+        key: 'RecentSearchs', value: jsonEncode(listOfkeywords));
+
+    // await storage.write(key: 'RecentSearchs', value: keyword);
+  }
+
+  static Future<List<dynamic>?> getRecentSearchs() async {
+    var keywords = await storage.read(key: 'RecentSearchs');
+    return jsonDecode(keywords!);
+  }
+
+  static Future<void> deleteRecentSearchs() async {
+    return await storage.delete(key: 'RecentSearchs');
+  }
 }
 
 ResponseType responseTypeFromJson(String str) =>

@@ -120,10 +120,20 @@ class TextStyles {
       fontSize: 13,
       fontWeight: FontWeight.w400,
       color: ColorStyles.gray60);
+  static const pretendardR13Gray70 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 13,
+      fontWeight: FontWeight.w400,
+      color: ColorStyles.gray70);
   static const pretendardR14Gray100 = TextStyle(
       fontFamily: 'Pretendard',
       fontSize: 14,
       fontWeight: FontWeight.w400,
+      color: ColorStyles.gray100);
+  static const pretendardR14Gray100W700 = TextStyle(
+      fontFamily: 'Pretendard',
+      fontSize: 14,
+      fontWeight: FontWeight.w700,
       color: ColorStyles.gray100);
   static const pretendardB20Black = TextStyle(
       fontFamily: 'Pretendard',

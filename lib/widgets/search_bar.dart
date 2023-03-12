@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:valt/controller/product_controller.dart';
+import 'package:valt/service/network_handler/network_handler.dart';
 import 'package:valt/styles/color_style.dart';
+import 'package:flutter/material.dart';
 import 'package:valt/controller/search_keywords_controller.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:get/get.dart';
@@ -17,16 +18,9 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   final TextEditingController _searchController = TextEditingController();
-  late Future<List<String>> _searchResults;
   var controller = Get.find<SearchKeywordsController>();
   var productController = Get.find<ProductController>();
   bool _focus = false;
-  Future<List<String>> _getSearchResults(String query) async {
-    // Simulate an asynchronous search request
-    print(query);
-    await Future.delayed(const Duration(seconds: 1));
-    return List.generate(10, (index) => '$query Result ${index + 1}');
-  }
 
   @override
   void dispose() {
@@ -70,12 +64,6 @@ class _SearchBarState extends State<SearchBar> {
                 child: TextField(
                   focusNode: widget.textFocus,
                   textInputAction: TextInputAction.go,
-                  onSubmitted: (value) {
-                    print('hello $value');
-                  },
-                  // onEditingComplete: () {
-                  //   print('editing complete');
-                  // },
                   controller: controller.textController,
                   decoration: const InputDecoration(
                     hintText: '어떤 위스키가 궁금하세요?',
@@ -84,13 +72,13 @@ class _SearchBarState extends State<SearchBar> {
                   ),
                   onChanged: (query) async {
                     EasyDebounce.debounce(
-                        'debouncer',
-                        const Duration(milliseconds: 1000),
-                        () => controller.fetchProductList(query, 'MOSTG'));
-
-                    // setState(() {
-                    //   _searchResults = _getSearchResults(query);
-                    // });
+                        'debouncer', const Duration(milliseconds: 500),
+                        () async {
+                      controller.fetchProductList(query, 'MOST');
+                      if (query.isNotEmpty) {
+                        await NetWorkHandler.storeRecentSearchs(query);
+                      }
+                    });
                   },
                 ),
               ),
@@ -105,6 +93,7 @@ class _SearchBarState extends State<SearchBar> {
                   _focus = false;
                 });
                 controller.textController.clear();
+                controller.producList.value.clear();
                 widget.textFocus.unfocus();
               },
               child: const Text('취소'),
