@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:valt/controller/search_keywords_controller.dart';
+import 'package:valt/widgets/bottomModal/sort_orderBy_bottomModal.dart';
 import 'package:valt/widgets/product_tile_m.dart';
 
 class SearchKeywordsContainer extends StatefulWidget {
@@ -16,6 +17,16 @@ class _SearchKeywordsContainerState extends State<SearchKeywordsContainer> {
   var controller = Get.find<SearchKeywordsController>();
   late String orderBy = 'MOST';
   final String sortIcon = 'assets/icons/sortLine.svg';
+
+  String renderSortText(String orderBy) {
+    if (orderBy == 'MOST') {
+      return '평점 높은 순';
+    } else if (orderBy == 'HIGH_PRICE') {
+      return '가격 높은 순';
+    }
+    return '가격 낮은 순';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,11 +37,29 @@ class _SearchKeywordsContainerState extends State<SearchKeywordsContainer> {
           children: [
             Obx(() => Text('총 ${controller.producList.length.toString()}개')),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SortOrderByBottomModal(
+                        curOrderBy: orderBy,
+                        onChangeSort: (value) {
+                          setState(() {
+                            orderBy = value;
+                          });
+                          controller.fetchProductList(
+                              controller.textController.text, value);
+                        },
+                      );
+                    });
+              },
               child: Row(
-                children: [SvgPicture.asset(sortIcon), const Text('평점 높은 순')],
+                children: [
+                  SvgPicture.asset(sortIcon),
+                  Text(renderSortText(orderBy))
+                ],
               ),
-            )
+            ),
           ],
         ),
         const SizedBox(

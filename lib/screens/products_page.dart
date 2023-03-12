@@ -45,11 +45,21 @@ class _ProductsPageState extends State<ProductsPage> {
   final String sortIcon = 'assets/icons/sortLine.svg';
   late List<Product> products = [];
   late String orderBy = 'MOST';
+
+  String renderSortText(String orderBy) {
+    if (orderBy == 'MOST') {
+      return '평점 높은 순';
+    } else if (orderBy == 'HIGH_PRICE') {
+      return '가격 높은 순';
+    }
+    return '가격 낮은 순';
+  }
+
   @override
   void initState() {
     super.initState();
     setState(() {
-      orderBy = widget.orderBy ?? 'BEST';
+      orderBy = widget.orderBy ?? 'MOST';
     });
     controller
         .fetchProductList(
@@ -157,7 +167,10 @@ class _ProductsPageState extends State<ProductsPage> {
                       });
                 },
                 child: Row(
-                  children: [SvgPicture.asset(sortIcon), const Text('평점 높은 순')],
+                  children: [
+                    SvgPicture.asset(sortIcon),
+                    Text(renderSortText(orderBy))
+                  ],
                 ),
               ),
             ]),

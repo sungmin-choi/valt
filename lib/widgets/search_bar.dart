@@ -83,8 +83,6 @@ class _SearchBarState extends State<SearchBar> {
                     border: InputBorder.none,
                   ),
                   onChanged: (query) async {
-                    print(controller.textController.text);
-
                     EasyDebounce.debounce(
                         'debouncer',
                         const Duration(milliseconds: 1000),
@@ -106,6 +104,7 @@ class _SearchBarState extends State<SearchBar> {
                 setState(() {
                   _focus = false;
                 });
+                controller.textController.clear();
                 widget.textFocus.unfocus();
               },
               child: const Text('취소'),
