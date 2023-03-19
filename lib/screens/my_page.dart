@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
+import 'package:get/get.dart';
+import 'package:valt/widgets/mypage/tab.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -12,6 +15,7 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
   var _memberId;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -34,33 +38,62 @@ class _MyPageState extends State<MyPage> {
         title: const Text('마이페이지', style: TextStyles.pretendardB17Gray100),
         elevation: 0,
       ),
-      body: Column(
-        children: [
-          Container(
-            color: ColorStyles.white,
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    if (_memberId == null) ...[
-                      const Text(
-                        '로그인이 필요해요',
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              color: ColorStyles.white,
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _memberId != null ? '누구누구님 안녕' : '로그인이 필요해요',
                         style: TextStyles.pretendardB18Gray100,
-                      )
-                    ] else ...[
-                      Text(_memberId.toString()),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        _memberId != null
+                            ? '누구누구님 안녕'
+                            : '3초만에 로그인하고 다양한 서비스를 이용해보세요',
+                        style: TextStyles.pretendardN12Gray60w500,
+                      ),
                     ],
-                    const SizedBox(
-                      height: 4,
-                    )
-                  ],
-                )
-              ],
+                  ),
+                  if (_memberId == null)
+                    IconButton(
+                        onPressed: () => Get.to(AuthFirstPage()),
+                        icon: const Icon(
+                          Icons.chevron_right_sharp,
+                          size: 31,
+                          color: ColorStyles.gray50,
+                        ))
+                ],
+              ),
             ),
-          )
-        ],
+            const SizedBox(height: 8),
+            // if (_memberId != null)
+            MyPageTab(title: '회원정보', tabItems: [
+              TabItem('회원정보 수정', () {}),
+              TabItem('비밀번호 변경', () {}),
+            ]),
+            MyPageTab(title: '고객센터', tabItems: [
+              TabItem('문의하기', () {}),
+              TabItem('자주 묻는 질문', () {}),
+              TabItem('상품 제안하기', () {})
+            ]),
+            MyPageTab(title: '기타', tabItems: [
+              TabItem('로그아웃', () {
+                NetWorkHandler.deleteMemberId();
+              }),
+            ])
+          ],
+        ),
       ),
     );
   }
