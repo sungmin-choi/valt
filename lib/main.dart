@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:valt/screens/dibs_page.dart';
 import 'package:valt/screens/home.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
+import 'package:valt/screens/my_page.dart';
 import 'package:valt/screens/search_page.dart';
 
 import 'controller/product_controller.dart';
@@ -43,14 +45,8 @@ class _MyAppState extends State<MyApp> {
   static final List<Widget> _widgetOptions = <Widget>[
     Home(),
     const SearchPage(),
-    const Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-    const Text(
-      'Index 3: My page',
-      style: optionStyle,
-    ),
+    const DibsPage(),
+    const MyPage()
   ];
 
   void _onItemTapped(int index) {

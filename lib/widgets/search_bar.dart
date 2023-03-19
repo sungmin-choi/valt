@@ -93,7 +93,7 @@ class _SearchBarState extends State<SearchBar> {
                   _focus = false;
                 });
                 controller.textController.clear();
-                controller.producList.value.clear();
+                controller.productList.value.clear();
                 widget.textFocus.unfocus();
               },
               child: const Text('취소'),

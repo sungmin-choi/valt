@@ -23,10 +23,11 @@ class ProductServices {
       "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
       "mid": memberId.toString()
     });
-
+    var jasonData = utf8.decode(response.bodyBytes);
+    print(jasonData);
     if (response.statusCode == 200) {
       var jasonData = utf8.decode(response.bodyBytes);
-      print(jasonData);
+      // print(jasonData);
       return productFromJson(jasonData);
     } else {
       return null;
@@ -45,8 +46,6 @@ class ProductServices {
     if (response.statusCode == 200) {
       return true;
     }
-    var jasonData = utf8.decode(response.bodyBytes);
-    print(jasonData);
     return false;
   }
 
@@ -62,8 +61,8 @@ class ProductServices {
     if (response.statusCode == 200) {
       return true;
     }
-    var jasonData = utf8.decode(response.bodyBytes);
-    print(jasonData);
+    // var jasonData = utf8.decode(response.bodyBytes);
+    // print(jasonData);
     return false;
   }
 

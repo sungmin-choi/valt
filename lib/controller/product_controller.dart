@@ -7,7 +7,8 @@ class ProductController extends GetxController {
   var producBestList = <Product>[].obs;
   var producMoneyList = <Product>[].obs;
   var producCategoryList = <Product>[].obs;
-  RxList<Product> producList = <Product>[].obs;
+  RxList<Product> productList = <Product>[].obs;
+  RxList<Product> dibsProductList = <Product>[].obs;
 
   var loading = true.obs;
   RxString errorMessage = ''.obs;
@@ -27,6 +28,11 @@ class ProductController extends GetxController {
     }
 
     return producBestList;
+  }
+
+  Future<List<Product>?> fetchDibsProductList() async {
+    var products = await ProductServices.fetchProducts('/like');
+    return products;
   }
 
   Future<List<Product>?> fetchProductList(
@@ -61,8 +67,6 @@ class ProductController extends GetxController {
     } else {
       url = '$url&orderBy=MOST';
     }
-
-    print(url);
     var products = await ProductServices.fetchProducts(url);
     return products;
   }

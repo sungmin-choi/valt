@@ -104,6 +104,10 @@ class NetWorkHandler {
   static Future<void> deleteRecentSearchs() async {
     return await storage.delete(key: 'RecentSearchs');
   }
+
+  static Future<void> deleteMemberId() async {
+    return await storage.delete(key: 'memberId');
+  }
 }
 
 ResponseType responseTypeFromJson(String str) =>

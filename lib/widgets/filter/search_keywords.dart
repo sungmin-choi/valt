@@ -36,7 +36,7 @@ class _SearchKeywordsContainerState extends State<SearchKeywordsContainer> {
     return Obx(
       () => Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: controller.producList.isEmpty &&
+            horizontal: controller.productList.isEmpty &&
                     controller.textController.text.isNotEmpty
                 ? 48
                 : 22,
@@ -46,7 +46,7 @@ class _SearchKeywordsContainerState extends State<SearchKeywordsContainer> {
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             if (controller.textController.text.isEmpty)
               Column(children: const [RecentSearchsKeywords()]),
-            if (controller.producList.isEmpty &&
+            if (controller.productList.isEmpty &&
                 controller.textController.text.isNotEmpty)
               SizedBox(
                 height: MediaQuery.of(context).size.height - 220,
@@ -83,12 +83,12 @@ class _SearchKeywordsContainerState extends State<SearchKeywordsContainer> {
                   ),
                 ),
               ),
-            if (controller.producList.isNotEmpty)
+            if (controller.productList.isNotEmpty)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Obx(() =>
-                      Text('총 ${controller.producList.length.toString()}개')),
+                      Text('총 ${controller.productList.length.toString()}개')),
                   GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
@@ -118,14 +118,14 @@ class _SearchKeywordsContainerState extends State<SearchKeywordsContainer> {
             const SizedBox(
               height: 12,
             ),
-            if (controller.producList.isNotEmpty)
+            if (controller.productList.isNotEmpty)
               SizedBox(
                 height: MediaQuery.of(context).size.height - 220,
                 child: Expanded(
                   child: Obx(() => GridView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: controller.producList.length,
+                      itemCount: controller.productList.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               mainAxisSpacing: 25, //수평 Padding
@@ -134,7 +134,7 @@ class _SearchKeywordsContainerState extends State<SearchKeywordsContainer> {
                               crossAxisCount: 2),
                       itemBuilder: (BuildContext context, int index) {
                         return SizedBox(
-                          child: ProductTileM(controller.producList[index],
+                          child: ProductTileM(controller.productList[index],
                               index: index),
                         );
                       })),
