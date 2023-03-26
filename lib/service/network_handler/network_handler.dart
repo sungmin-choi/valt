@@ -83,22 +83,25 @@ class NetWorkHandler {
       List<String> keyWordsList = [keyword];
       await storage.write(
           key: 'RecentSearchs', value: jsonEncode(keyWordsList));
-    }
-    List<dynamic> listOfkeywords = jsonDecode(keywords!);
-    if (listOfkeywords.length > 10) {
-      listOfkeywords.removeAt(0);
-    }
-    listOfkeywords.add(keyword);
+    } else {
+      List<dynamic> listOfkeywords = jsonDecode(keywords);
+      if (listOfkeywords.length > 10) {
+        listOfkeywords.removeAt(0);
+      }
+      listOfkeywords.add(keyword);
 
-    await storage.write(
-        key: 'RecentSearchs', value: jsonEncode(listOfkeywords));
-
-    // await storage.write(key: 'RecentSearchs', value: keyword);
+      await storage.write(
+          key: 'RecentSearchs', value: jsonEncode(listOfkeywords));
+    }
   }
 
   static Future<List<dynamic>?> getRecentSearchs() async {
     var keywords = await storage.read(key: 'RecentSearchs');
-    return jsonDecode(keywords!);
+    if (keywords == null) {
+      return null;
+    } else {
+      return jsonDecode(keywords);
+    }
   }
 
   static Future<void> deleteRecentSearchs() async {

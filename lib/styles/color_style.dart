@@ -14,4 +14,6 @@ class ColorStyles {
   static const Color gray90 = Color(0xff3E4145);
   static const Color gray100 = Color(0xff202429);
   static const Color red10 = Color(0xffEC0000);
+
+  static const Color kakao = Color(0xfffee501);
 }

@@ -55,6 +55,7 @@ dependencies:
   url_launcher: ^6.1.9
   easy_debounce: ^2.0.3
   infinite_scroll_pagination: ^3.2.0
+  loading_indicator: ^3.1.0
 
 dev_dependencies:
   flutter_test:

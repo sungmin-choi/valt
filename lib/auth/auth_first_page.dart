@@ -35,7 +35,8 @@ class AuthFirstPage extends StatelessWidget {
         elevation: 0,
       ),
       backgroundColor: Colors.white,
-      body: SafeArea(
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
           child: Center(
@@ -64,9 +65,9 @@ class AuthFirstPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 ButtonLgFill(
-                  text: '네이버로 로그인',
-                  bgColor: const Color(0xff03C75A),
-                  textStyle: TextStyles.pretendardB16White,
+                  text: '카카오로 로그인',
+                  bgColor: ColorStyles.kakao,
+                  textStyle: TextStyles.pretendardB16Black,
                   onClick: () async {
                     await viewModel.kakaologin();
                   },

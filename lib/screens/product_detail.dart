@@ -24,6 +24,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   final ProductController productController = Get.find<ProductController>();
   String _category = '';
   bool viewCarousel = false;
+  var isLoading = true;
   ProductDetail product = ProductDetail(
       itemsId: 0,
       name: '',
@@ -50,7 +51,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 _category = response.category;
                 viewCarousel = true;
               }
-            }));
+              isLoading = false;
+            }))
+        .onError((error, stackTrace) => {
+              setState(() {
+                isLoading = false;
+              })
+            });
   }
 
   @override

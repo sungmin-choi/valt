@@ -53,7 +53,8 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
         elevation: 0,
         title: const Text('이메일로 로그인', style: TextStyles.pretendardB17Gray100),
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

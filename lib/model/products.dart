@@ -22,7 +22,7 @@ class Products {
   });
 
   List<Product> content;
-  Pageable pageable;
+  dynamic pageable;
   int totalPages;
   int totalElements;
   bool last;
@@ -36,7 +36,7 @@ class Products {
   factory Products.fromJson(Map<String, dynamic> json) => Products(
         content:
             List<Product>.from(json["content"].map((x) => Product.fromJson(x))),
-        pageable: Pageable.fromJson(json["pageable"]),
+        pageable: json["pageable"],
         totalPages: json["totalPages"],
         totalElements: json["totalElements"],
         last: json["last"],
@@ -63,8 +63,8 @@ class Products {
       };
 }
 
-class Pageable {
-  Pageable({
+class PageableClass {
+  PageableClass({
     required this.sort,
     required this.offset,
     required this.pageSize,
@@ -80,7 +80,7 @@ class Pageable {
   bool paged;
   bool unpaged;
 
-  factory Pageable.fromJson(Map<String, dynamic> json) => Pageable(
+  factory PageableClass.fromJson(Map<String, dynamic> json) => PageableClass(
         sort: Sort.fromJson(json["sort"]),
         offset: json["offset"],
         pageSize: json["pageSize"],

@@ -23,6 +23,13 @@ class _SearchBarState extends State<SearchBar> {
   bool _focus = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    controller.textController.clear();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
@@ -70,14 +77,16 @@ class _SearchBarState extends State<SearchBar> {
                     hintStyle: TextStyle(color: ColorStyles.gray50),
                     border: InputBorder.none,
                   ),
+                  onSubmitted: (query) async {
+                    if (query.isNotEmpty) {
+                      await NetWorkHandler.storeRecentSearchs(query);
+                    }
+                  },
                   onChanged: (query) async {
                     EasyDebounce.debounce(
                         'debouncer', const Duration(milliseconds: 500),
                         () async {
                       controller.fetchProductList(query, 'MOST');
-                      if (query.isNotEmpty) {
-                        await NetWorkHandler.storeRecentSearchs(query);
-                      }
                     });
                   },
                 ),
@@ -89,6 +98,7 @@ class _SearchBarState extends State<SearchBar> {
             GestureDetector(
               onTap: () {
                 widget.cancelFocus();
+
                 setState(() {
                   _focus = false;
                 });

@@ -20,6 +20,7 @@ class _SearchPageState extends State<SearchPage> {
   SearchKeywordsController searchController =
       Get.put(SearchKeywordsController());
   int tabIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
