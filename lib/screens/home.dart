@@ -27,19 +27,6 @@ class Home extends StatelessWidget {
               child: SvgPicture.asset(logosmSvg)),
           backgroundColor: Colors.white,
           elevation: 0,
-          // actions: [
-          //   IconButton(
-          //     onPressed: () async {
-          //       var memberId = await NetWorkHandler.getMemberId();
-          //       print('memberId: $memberId');
-          //       Get.to(() => AuthFirstPage());
-          //     },
-          //     icon: const Icon(
-          //       Icons.mode_edit_outline_sharp,
-          //       color: Colors.black,
-          //     ),
-          //   )
-          // ],
         ),
       ),
       backgroundColor: Colors.white,
