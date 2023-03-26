@@ -80,11 +80,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   decoration: const BoxDecoration(color: ColorStyles.white),
                   height: 368,
                   width: double.infinity,
-                  child: Image.network(
-                    product.linkUrl.isNotEmpty
-                        ? product.linkUrl
-                        : "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png",
-                  ),
+                  child: product.linkUrl.isNotEmpty
+                      ? Image.network(product.linkUrl)
+                      : const Image(
+                          image: AssetImage('assets/images/ProductCard.png'),
+                        ),
                 ),
                 Positioned(
                   child: Container(

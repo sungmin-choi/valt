@@ -4,6 +4,7 @@ import 'package:valt/service/network_handler/product_service.dart';
 
 class ProductController extends GetxController {
   static ProductController get to => Get.find();
+
   var producBestList = <Product>[].obs;
   var producMoneyList = <Product>[].obs;
   var producCategoryList = <Product>[].obs;
@@ -75,7 +76,6 @@ class ProductController extends GetxController {
       url = '$url&size=$size';
     }
 
-    print(url);
     var products = await ProductServices.fetchProducts(url);
     return products;
   }

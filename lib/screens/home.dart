@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:valt/auth/register/controller/register_controller.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/controller/product_controller.dart';
 import 'package:valt/controller/youtube_controller.dart';
-import 'package:valt/service/network_handler/network_handler.dart';
 import 'package:valt/widgets/products_carousel2.dart';
 import 'package:valt/widgets/youtube_carousel.dart';
 
@@ -29,19 +27,19 @@ class Home extends StatelessWidget {
               child: SvgPicture.asset(logosmSvg)),
           backgroundColor: Colors.white,
           elevation: 0,
-          actions: [
-            IconButton(
-              onPressed: () async {
-                var memberId = await NetWorkHandler.getMemberId();
-                print('memberId: $memberId');
-                Get.to(() => AuthFirstPage());
-              },
-              icon: const Icon(
-                Icons.mode_edit_outline_sharp,
-                color: Colors.black,
-              ),
-            )
-          ],
+          // actions: [
+          //   IconButton(
+          //     onPressed: () async {
+          //       var memberId = await NetWorkHandler.getMemberId();
+          //       print('memberId: $memberId');
+          //       Get.to(() => AuthFirstPage());
+          //     },
+          //     icon: const Icon(
+          //       Icons.mode_edit_outline_sharp,
+          //       color: Colors.black,
+          //     ),
+          //   )
+          // ],
         ),
       ),
       backgroundColor: Colors.white,

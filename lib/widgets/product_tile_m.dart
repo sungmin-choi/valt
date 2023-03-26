@@ -56,16 +56,20 @@ class _ProductTileMState extends State<ProductTileM> {
               children: <Widget>[
                 SizedBox(
                   height: 192,
-                  child: Image.network(
-                    widget.product.linkUrl.isNotEmpty
-                        ? widget.product.linkUrl
-                        : "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png",
-                    errorBuilder: (BuildContext context, Object exception,
-                        StackTrace? stackTrace) {
-                      print(exception.toString());
-                      return const Text('error');
-                    },
-                  ),
+                  child: widget.product.linkUrl.isNotEmpty
+                      ? Image.network(
+                          widget.product.linkUrl,
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace? stackTrace) {
+                            return const Image(
+                              image:
+                                  AssetImage('assets/images/ProductCardM.png'),
+                            );
+                          },
+                        )
+                      : const Image(
+                          image: AssetImage('assets/images/ProductCardM.png'),
+                        ),
                 ),
                 Positioned(
                   child: Container(
