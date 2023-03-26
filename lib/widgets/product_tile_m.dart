@@ -27,13 +27,14 @@ class _ProductTileMState extends State<ProductTileM> {
   final String favorite = 'assets/icons/favorite.svg';
   final String favoriteOutline = 'assets/icons/favoriteOutline.svg';
   var f = NumberFormat('###,###,###,###');
-
+  int viewCount = 0;
   bool like = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     setState(() {
+      viewCount = widget.product.viewCount;
       like = widget.product.like;
     });
   }
@@ -44,6 +45,9 @@ class _ProductTileMState extends State<ProductTileM> {
       onTap: () {
         Get.to(() => ProductDetailPage(itemsId: widget.product.itemsId),
             preventDuplicates: false);
+        setState(() {
+          viewCount = viewCount + 1;
+        });
       },
       child: SizedBox(
         // margin: EdgeInsets.only(
@@ -166,7 +170,7 @@ class _ProductTileMState extends State<ProductTileM> {
             const SizedBox(
               height: 6,
             ),
-            Text('${f.format(widget.product.viewCount ?? 0)}명이 보는 중',
+            Text('${f.format(viewCount)}명이 보는 중',
                 style: TextStyles.pretendardN11Gray60),
             const SizedBox(
               height: 4,

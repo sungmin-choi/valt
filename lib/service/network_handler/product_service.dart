@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:valt/model/product.dart';
 import 'package:valt/model/product_detail_model.dart';
 import 'package:valt/model/products.dart';
 
@@ -16,7 +15,7 @@ class ProductServices {
     return Uri.parse(apiPath);
   }
 
-  static Future<List<Product>?> fetchProducts(String? params) async {
+  static Future<Products?> fetchProducts(String? params) async {
     var memberId = await NetWorkHandler.getMemberId();
     var response =
         await client.get(buildUrl('/items${params ?? params}'), headers: {
@@ -27,7 +26,7 @@ class ProductServices {
     if (response.statusCode == 200) {
       var jasonData = utf8.decode(response.bodyBytes);
       var products = productsFromJson(jasonData);
-      return products.content;
+      return products;
     } else {
       return null;
     }

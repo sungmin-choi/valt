@@ -45,7 +45,7 @@ class _ProductsPageState extends State<ProductsPage> {
   final String sortIcon = 'assets/icons/sortLine.svg';
   late List<Product> products = [];
   late String orderBy = 'MOST';
-
+  var totalLength = 0;
   String renderSortText(String orderBy) {
     if (orderBy == 'MOST') {
       return '평점 높은 순';
@@ -77,7 +77,8 @@ class _ProductsPageState extends State<ProductsPage> {
               if (value != null)
                 setState(
                   () {
-                    products = value;
+                    products = value.content;
+                    totalLength = value.totalElements;
                   },
                 )
             });
@@ -129,7 +130,7 @@ class _ProductsPageState extends State<ProductsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text('총 ${products.length.toString()}개'),
+              Text('총 ${totalLength.toString()}개'),
               GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
@@ -160,7 +161,7 @@ class _ProductsPageState extends State<ProductsPage> {
                                       if (value != null)
                                         setState(
                                           () {
-                                            products = value;
+                                            products = value.content;
                                           },
                                         )
                                     });

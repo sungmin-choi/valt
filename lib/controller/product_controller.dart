@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:valt/model/product.dart';
+import 'package:valt/model/products.dart';
 import 'package:valt/service/network_handler/product_service.dart';
 
 class ProductController extends GetxController {
@@ -31,12 +32,12 @@ class ProductController extends GetxController {
     return producBestList;
   }
 
-  Future<List<Product>?> fetchDibsProductList() async {
+  Future<Products?> fetchDibsProductList() async {
     var products = await ProductServices.fetchProducts('/like');
     return products;
   }
 
-  Future<List<Product>?> fetchProductList(
+  Future<Products?> fetchProductList(
       String? category,
       String? country,
       String? displayCategory,

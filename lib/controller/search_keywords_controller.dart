@@ -12,11 +12,11 @@ class SearchKeywordsController extends GetxController {
       if (orderBy != null) {
         var products = await ProductServices.fetchProducts(
             '/search?orderBy=$orderBy&searchText=$searchText');
-        if (products != null) productList.value = products;
+        if (products != null) productList.value = products.content;
       } else {
         var products = await ProductServices.fetchProducts(
             '/search?orderBy=MOST&searchText=$searchText');
-        if (products != null) productList.value = products;
+        if (products != null) productList.value = products.content;
       }
     } else {
       productList.value = [];

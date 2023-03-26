@@ -59,19 +59,23 @@ class _ProductTileState extends State<ProductTile> {
             Stack(
               children: <Widget>[
                 SizedBox(
-                    height: 192,
-                    width: 136,
-                    child: Image.network(
-                      widget.product.linkUrl ==
-                              'https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/8f3b8bb6-eefa-4f68-a90c-3bcce37b7597.png'
-                          ? "https://whiskey-platform.s3.ap-northeast-2.amazonaws.com/images/WHIKSY_W10.png"
-                          : widget.product.linkUrl,
-                      errorBuilder: (BuildContext context, Object exception,
-                          StackTrace? stackTrace) {
-                        print(exception.toString());
-                        return const Text('error');
-                      },
-                    )),
+                  height: 192,
+                  width: 136,
+                  child: widget.product.linkUrl.isNotEmpty
+                      ? Image.network(
+                          widget.product.linkUrl,
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace? stackTrace) {
+                            return const Image(
+                              image:
+                                  AssetImage('assets/images/ProductCard.png'),
+                            );
+                          },
+                        )
+                      : const Image(
+                          image: AssetImage('assets/images/ProductCard.png'),
+                        ),
+                ),
                 Positioned(
                   child: Container(
                     decoration: BoxDecoration(
@@ -135,7 +139,6 @@ class _ProductTileState extends State<ProductTile> {
                           } else {
                             bool result = await ProductServices.likeProduct(
                                 widget.product.itemsId);
-                            print(result);
                             if (result) {
                               setState(() {
                                 like = !like;

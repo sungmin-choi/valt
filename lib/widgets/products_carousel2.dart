@@ -38,7 +38,7 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
               if (value != null)
                 setState(
                   () {
-                    products = value;
+                    products = value.content;
                   },
                 )
             });
