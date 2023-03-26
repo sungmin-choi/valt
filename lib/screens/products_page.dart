@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:valt/controller/product_controller.dart';
 import 'package:valt/model/product.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/widgets/bottomModal/category_info_bottom_modal.dart';
-import 'package:valt/widgets/bottomModal/sort_orderBy_bottomModal.dart';
-import 'package:valt/widgets/product_tile_m.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:valt/widgets/product_tile_m.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({
@@ -42,6 +42,11 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   ProductController controller = Get.find<ProductController>();
+  static const _pageSize = 20;
+
+  final PagingController<int, Product> _pagingController =
+      PagingController(firstPageKey: 1);
+
   final String sortIcon = 'assets/icons/sortLine.svg';
   late List<Product> products = [];
   late String orderBy = 'MOST';
@@ -61,27 +66,77 @@ class _ProductsPageState extends State<ProductsPage> {
     setState(() {
       orderBy = widget.orderBy ?? 'MOST';
     });
-    controller
-        .fetchProductList(
-            widget.category,
-            widget.country,
-            widget.displayCategory,
-            widget.orderBy,
-            widget.option,
-            widget.money,
-            widget.maxPrice,
-            widget.minPrice,
-            20,
-            1)
-        .then((value) => {
-              if (value != null)
-                setState(
-                  () {
-                    products = value.content;
-                    totalLength = value.totalElements;
-                  },
-                )
-            });
+
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(
+          widget.category,
+          widget.country,
+          widget.displayCategory,
+          widget.orderBy,
+          widget.option,
+          widget.money,
+          widget.maxPrice,
+          widget.minPrice,
+          _pageSize,
+          pageKey);
+    });
+
+    // controller
+    //     .fetchProductList(
+    //         widget.category,
+    //         widget.country,
+    //         widget.displayCategory,
+    //         widget.orderBy,
+    //         widget.option,
+    //         widget.money,
+    //         widget.maxPrice,
+    //         widget.minPrice,
+    //         _pageSize,
+    //         1)
+    //     .then((value) => {
+    //           if (value != null)
+    //             setState(
+    //               () {
+    //                 products = value.content;
+    //                 totalLength = value.totalElements;
+    //               },
+    //             )
+    //         });
+  }
+
+  Future<void> _fetchPage(
+      String? category,
+      String? country,
+      String? displayCategory,
+      String? orderBy,
+      String? option,
+      bool? money,
+      int? maxPrice,
+      int? minPrice,
+      int? size,
+      int? page) async {
+    try {
+      final products = await controller.fetchProductList(
+          category,
+          country,
+          displayCategory,
+          orderBy,
+          option,
+          money,
+          maxPrice,
+          minPrice,
+          size,
+          page);
+      final isLastPage = products!.last;
+      if (isLastPage) {
+        _pagingController.appendLastPage(products.content);
+      } else {
+        final nextPageKey = page! + 1;
+        _pagingController.appendPage(products.content, nextPageKey);
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
   }
 
   @override
@@ -133,41 +188,41 @@ class _ProductsPageState extends State<ProductsPage> {
               Text('총 ${totalLength.toString()}개'),
               GestureDetector(
                 onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      builder: (BuildContext context) {
-                        return SortOrderByBottomModal(
-                          curOrderBy: orderBy,
-                          onChangeSort: (value) {
-                            setState(() {
-                              orderBy = value;
-                            });
-                            controller
-                                .fetchProductList(
-                                    widget.category,
-                                    widget.country,
-                                    widget.displayCategory,
-                                    value,
-                                    widget.option,
-                                    widget.money,
-                                    widget.maxPrice,
-                                    widget.minPrice,
-                                    20,
-                                    1)
-                                .then((value) => {
-                                      if (value != null)
-                                        setState(
-                                          () {
-                                            products = value.content;
-                                          },
-                                        )
-                                    });
-                          },
-                        );
-                      });
+                  // showModalBottomSheet(
+                  //     context: context,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(8.0),
+                  //     ),
+                  //     builder: (BuildContext context) {
+                  //       return SortOrderByBottomModal(
+                  //         curOrderBy: orderBy,
+                  //         onChangeSort: (value) {
+                  //           setState(() {
+                  //             orderBy = value;
+                  //           });
+                  //           controller
+                  //               .fetchProductList(
+                  //                   widget.category,
+                  //                   widget.country,
+                  //                   widget.displayCategory,
+                  //                   value,
+                  //                   widget.option,
+                  //                   widget.money,
+                  //                   widget.maxPrice,
+                  //                   widget.minPrice,
+                  //                   20,
+                  //                   1)
+                  //               .then((value) => {
+                  //                     if (value != null)
+                  //                       setState(
+                  //                         () {
+                  //                           products = value.content;
+                  //                         },
+                  //                       )
+                  //                   });
+                  //         },
+                  //       );
+                  //     });
                 },
                 child: Row(
                   children: [
@@ -181,21 +236,38 @@ class _ProductsPageState extends State<ProductsPage> {
               height: 12,
             ),
             Expanded(
-              child: GridView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: products.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 25, //수평 Padding
-                      crossAxisSpacing: 20,
-                      childAspectRatio: 1 / 1.9,
-                      crossAxisCount: 2),
-                  itemBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      child: ProductTileM(products[index], index: index),
-                    );
-                  }),
-            )
+                child: PagedGridView<int, Product>(
+              showNewPageProgressIndicatorAsGridChild: true,
+              showNewPageErrorIndicatorAsGridChild: false,
+              showNoMoreItemsIndicatorAsGridChild: true,
+              pagingController: _pagingController,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 25,
+                crossAxisSpacing: 20,
+                childAspectRatio: 1 / 1.9,
+              ),
+              builderDelegate: PagedChildBuilderDelegate<Product>(
+                  itemBuilder: (BuildContext context, item, index) =>
+                      ProductTileM(item, index: index)),
+            ))
+
+            // Expanded(
+            //   child: GridView.builder(
+            //       shrinkWrap: true,
+            //       scrollDirection: Axis.vertical,
+            //       itemCount: products.length,
+            //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //           mainAxisSpacing: 25, //수평 Padding
+            //           crossAxisSpacing: 20,
+            //           childAspectRatio: 1 / 1.9,
+            //           crossAxisCount: 2),
+            //       itemBuilder: (BuildContext context, int index) {
+            //         return SizedBox(
+            //           child: ProductTileM(products[index], index: index),
+            //         );
+            //       }),
+            // )
           ],
         ),
       ),
