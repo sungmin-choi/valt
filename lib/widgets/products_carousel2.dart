@@ -32,8 +32,8 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
   void initState() {
     super.initState();
     productController
-        .fetchProductList(
-            widget.category, null, null, null, widget.option, null, null, null)
+        .fetchProductList(widget.category, null, null, null, widget.option,
+            null, null, null, 10, 1)
         .then((value) => {
               if (value != null)
                 setState(

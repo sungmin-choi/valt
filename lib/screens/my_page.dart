@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 import 'package:valt/styles/color_style.dart';
@@ -83,9 +84,23 @@ class _MyPageState extends State<MyPage> {
               TabItem('비밀번호 변경', () {}),
             ]),
             MyPageTab(title: '고객센터', tabItems: [
-              TabItem('문의하기', () {}),
+              TabItem('문의하기', () async {
+                if (await canLaunchUrl(
+                    Uri.parse('https://forms.gle/JWLC13RgJhtYx5tw5'))) {
+                  await launchUrl(
+                      Uri.parse('https://forms.gle/JWLC13RgJhtYx5tw5'),
+                      mode: LaunchMode.externalApplication);
+                }
+              }),
               TabItem('자주 묻는 질문', () {}),
-              TabItem('상품 제안하기', () {})
+              TabItem('상품 제안하기', () async {
+                if (await canLaunchUrl(
+                    Uri.parse('https://forms.gle/tqmtv2j17jMWot838'))) {
+                  await launchUrl(
+                      Uri.parse('https://forms.gle/tqmtv2j17jMWot838'),
+                      mode: LaunchMode.externalApplication);
+                }
+              })
             ]),
             MyPageTab(title: '기타', tabItems: [
               TabItem('로그아웃', () {

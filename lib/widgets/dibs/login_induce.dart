@@ -15,7 +15,7 @@ class LoginInduce extends StatelessWidget {
         height: 16,
       ),
       const Text(
-        '로그인 후 찜 기능을 사용해 주세요',
+        '로그인 후 찜 기능을 사용해주세요',
         style: TextStyles.pretendardN16Gray90w700,
       ),
       const SizedBox(

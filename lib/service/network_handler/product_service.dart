@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:valt/model/product.dart';
 import 'package:valt/model/product_detail_model.dart';
+import 'package:valt/model/products.dart';
 
 import 'network_handler.dart';
 
@@ -23,12 +24,10 @@ class ProductServices {
       "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
       "mid": memberId.toString()
     });
-    var jasonData = utf8.decode(response.bodyBytes);
-    print(jasonData);
     if (response.statusCode == 200) {
       var jasonData = utf8.decode(response.bodyBytes);
-      // print(jasonData);
-      return productFromJson(jasonData);
+      var products = productsFromJson(jasonData);
+      return products.content;
     } else {
       return null;
     }

@@ -36,15 +36,16 @@ class ProductController extends GetxController {
   }
 
   Future<List<Product>?> fetchProductList(
-    String? category,
-    String? country,
-    String? displayCategory,
-    String? orderBy,
-    String? option,
-    bool? money,
-    int? maxPrice,
-    int? minPrice,
-  ) async {
+      String? category,
+      String? country,
+      String? displayCategory,
+      String? orderBy,
+      String? option,
+      bool? money,
+      int? maxPrice,
+      int? minPrice,
+      int? size,
+      int? page) async {
     var url = '';
     if (option != null) {
       url = '$url?option=$option';
@@ -67,6 +68,14 @@ class ProductController extends GetxController {
     } else {
       url = '$url&orderBy=MOST';
     }
+    if (page != null) {
+      url = '$url&page=$page';
+    }
+    if (size != null) {
+      url = '$url&size=$size';
+    }
+
+    print(url);
     var products = await ProductServices.fetchProducts(url);
     return products;
   }

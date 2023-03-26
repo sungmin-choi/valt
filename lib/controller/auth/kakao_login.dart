@@ -14,7 +14,9 @@ class KakaoLogin {
       } else {
         try {
           OAuthToken token = await UserApi.instance.loginWithKakaoAccount();
+          print(token);
           print('카카오계정으로 로그인 성공 ${token.accessToken}');
+
           // await UserApi.instance.loginWithKakaoAccount();
           return true;
         } catch (e) {

@@ -63,15 +63,16 @@ class _ProductsPageState extends State<ProductsPage> {
     });
     controller
         .fetchProductList(
-          widget.category,
-          widget.country,
-          widget.displayCategory,
-          widget.orderBy,
-          widget.option,
-          widget.money,
-          widget.maxPrice,
-          widget.minPrice,
-        )
+            widget.category,
+            widget.country,
+            widget.displayCategory,
+            widget.orderBy,
+            widget.option,
+            widget.money,
+            widget.maxPrice,
+            widget.minPrice,
+            20,
+            1)
         .then((value) => {
               if (value != null)
                 setState(
@@ -145,15 +146,16 @@ class _ProductsPageState extends State<ProductsPage> {
                             });
                             controller
                                 .fetchProductList(
-                                  widget.category,
-                                  widget.country,
-                                  widget.displayCategory,
-                                  value,
-                                  widget.option,
-                                  widget.money,
-                                  widget.maxPrice,
-                                  widget.minPrice,
-                                )
+                                    widget.category,
+                                    widget.country,
+                                    widget.displayCategory,
+                                    value,
+                                    widget.option,
+                                    widget.money,
+                                    widget.maxPrice,
+                                    widget.minPrice,
+                                    20,
+                                    1)
                                 .then((value) => {
                                       if (value != null)
                                         setState(

@@ -6,9 +6,8 @@ import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/controller/product_controller.dart';
 import 'package:valt/controller/youtube_controller.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
+import 'package:valt/widgets/products_carousel2.dart';
 import 'package:valt/widgets/youtube_carousel.dart';
-
-import '../widgets/products_carousel2.dart';
 
 class Home extends StatelessWidget {
   final RegisterController controller = Get.put(RegisterController());
