@@ -40,11 +40,25 @@ class Home extends StatelessWidget {
             ),
             SizedBox(height: 24),
             ProductCarousel2(
+              label: '🥃 편의점 위스키',
+              displayCategory: 'STORE',
+            ),
+            SizedBox(height: 24),
+            ProductCarousel2(
               label: '🥃 5만원 이하 가성비 위스키',
               option: 'MONEY',
             ),
             SizedBox(height: 24),
             YoutubeCarousel(label: '👀 위스키 알아봐요', page: 'HOME'),
+            ProductCarousel2(
+              label: '🥃 스모키한 위스키',
+              displayCategory: 'SMOKEY',
+            ),
+            SizedBox(height: 24),
+            ProductCarousel2(
+              label: '🥃 달달한 위스키',
+              displayCategory: 'SWEET',
+            ),
           ],
         ),
       ),

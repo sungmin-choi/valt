@@ -60,6 +60,10 @@ class ProductController extends GetxController {
       int? size,
       int? page) async {
     var url = '';
+    if (displayCategory != null) {
+      url = '/displayCategory?displayCategory=$displayCategory';
+    }
+
     if (option != null) {
       url = '$url?option=$option';
     } else if (category != null) {

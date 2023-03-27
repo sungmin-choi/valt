@@ -15,11 +15,13 @@ class ProductCarousel2 extends StatefulWidget {
       required this.label,
       this.option,
       this.category,
-      this.isBest});
+      this.isBest,
+      this.displayCategory});
   final String label;
   final String? option;
   final String? category;
   final bool? isBest;
+  final String? displayCategory;
 
   @override
   State<ProductCarousel2> createState() => _ProductCarouselState2();
@@ -33,8 +35,8 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
   void initState() {
     super.initState();
     productController
-        .fetchProductList(widget.category, null, null, null, widget.option,
-            null, null, null, 10, 0)
+        .fetchProductList(widget.category, null, widget.displayCategory, null,
+            widget.option, null, null, null, 10, 0)
         .then((value) => {
               if (value != null)
                 setState(
@@ -56,7 +58,7 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -74,6 +76,7 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
                           title: widget.label,
                           category: widget.category,
                           option: widget.option,
+                          displayCategory: widget.displayCategory,
                         ));
                   },
                   icon: const Icon(Icons.chevron_right))
