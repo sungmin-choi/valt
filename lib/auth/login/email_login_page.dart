@@ -113,6 +113,7 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
                                     bool response =
                                         await loginController.login();
 
+                                    print(response);
                                     setState(() {
                                       isLoading = false;
                                     });

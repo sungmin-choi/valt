@@ -14,13 +14,18 @@ class LoginController extends GetxController {
         email: emailTextController.text, password: passwordTextController.text);
     var response =
         await NetWorkHandler.post(loginModelToJson(loginModel), "member/login");
-    var data = json.decode(response);
-    var a = json.decode(data['body']);
-    var memberId = a['memberId'];
 
-    await NetWorkHandler.storeMemberId(memberId.toString());
-    emailTextController.text = '';
-    passwordTextController.text = '';
-    return true;
+    var data = json.decode(response);
+    if (data['statusCode'] == 200) {
+      var a = json.decode(data['body']);
+      var memberId = a['memberId'];
+
+      await NetWorkHandler.storeMemberId(memberId.toString());
+      emailTextController.clear();
+      passwordTextController.clear();
+      return true;
+    }
+
+    return false;
   }
 }
