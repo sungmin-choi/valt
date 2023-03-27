@@ -16,8 +16,9 @@ class ProductTileM extends StatefulWidget {
   final int index;
   final int? size;
   final bool? isBest;
+  final String? type;
   const ProductTileM(this.product,
-      {super.key, required this.index, this.size, this.isBest});
+      {super.key, required this.index, this.size, this.isBest, this.type});
 
   @override
   State<ProductTileM> createState() => _ProductTileMState();
@@ -114,7 +115,6 @@ class _ProductTileMState extends State<ProductTileM> {
                     child: IconButton(
                       onPressed: () async {
                         var memberId = await NetWorkHandler.getMemberId();
-                        print(memberId);
                         if (memberId == 'null' || memberId == null) {
                           Get.to(() => AuthFirstPage());
                           Fluttertoast.showToast(
@@ -130,6 +130,17 @@ class _ProductTileMState extends State<ProductTileM> {
                             bool result = await ProductServices.unlikeProduct(
                                 widget.product.itemsId);
                             if (result) {
+                              if (widget.type == 'dib') {
+                                Fluttertoast.showToast(
+                                    msg: '찜을 해제하였습니다.',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.TOP,
+                                    timeInSecForIosWeb: 2,
+                                    backgroundColor:
+                                        Colors.black.withOpacity(0.7),
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                              }
                               setState(() {
                                 like = !like;
                               });

@@ -17,7 +17,6 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  final TextEditingController _searchController = TextEditingController();
   var controller = Get.find<SearchKeywordsController>();
   var productController = Get.find<ProductController>();
   bool _focus = false;
@@ -27,12 +26,6 @@ class _SearchBarState extends State<SearchBar> {
     // TODO: implement initState
     controller.textController.clear();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
   }
 
   @override

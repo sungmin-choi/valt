@@ -23,10 +23,14 @@ class ProductServices {
       "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
       "mid": memberId.toString()
     });
+
     if (response.statusCode == 200) {
       var jasonData = utf8.decode(response.bodyBytes);
       var products = productsFromJson(jasonData);
       return products;
+    } else if (response.statusCode == 401) {
+      print('401');
+      return null;
     } else {
       return null;
     }

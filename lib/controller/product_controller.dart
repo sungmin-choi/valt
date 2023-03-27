@@ -15,6 +15,8 @@ class ProductController extends GetxController {
   var loading = true.obs;
   RxString errorMessage = ''.obs;
 
+  get client => null;
+
   RxList<Product> getProductList(String? option, String? category) {
     if (option != null) {
       switch (option) {
@@ -32,8 +34,17 @@ class ProductController extends GetxController {
     return producBestList;
   }
 
-  Future<Products?> fetchDibsProductList() async {
-    var products = await ProductServices.fetchProducts('/like');
+  Future<Products?> fetchDibsProductList(int? size, int? page) async {
+    var url = '/like?';
+    if (page != null) {
+      url = '$url&page=$page';
+    }
+    if (size != null) {
+      url = '$url&size=$size';
+    }
+
+    var products = await ProductServices.fetchProducts(url);
+
     return products;
   }
 
