@@ -51,7 +51,8 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
         elevation: 0,
         title: const Text('회원가입', style: TextStyles.pretendardB17Gray100),
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Center(
           child: Form(
             onChanged: () {
