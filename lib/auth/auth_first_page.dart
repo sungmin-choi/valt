@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:valt/auth/auth_authentication_code.dart';
 import 'package:valt/auth/controller/auth_controller.dart';
 import 'package:valt/auth/login/controller/login_controller.dart';
@@ -104,7 +105,14 @@ class AuthFirstPage extends StatelessWidget {
                   style: TextStyles.pretendardR13Gray60,
                 ),
                 TextButton(
-                  onPressed: () => {},
+                  onPressed: () async {
+                    if (await canLaunchUrl(
+                        Uri.parse('https://forms.gle/JWLC13RgJhtYx5tw5'))) {
+                      await launchUrl(
+                          Uri.parse('https://forms.gle/JWLC13RgJhtYx5tw5'),
+                          mode: LaunchMode.externalApplication);
+                    }
+                  },
                   child: const Text(
                     '고객센터 문의하기',
                     style: TextStyle(
