@@ -1,5 +1,5 @@
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
-import 'package:valt/controller/auth/kakao_login.dart';
+import 'package:valt/auth/kakao_login.dart';
 
 class MainViewModel {
   final KakaoLogin _kakaoLogin;
@@ -9,11 +9,11 @@ class MainViewModel {
   MainViewModel(this._kakaoLogin);
 
   Future kakaologin() async {
-    isLogined = await _kakaoLogin.login();
-    if (isLogined) {
-      kakaoUser = await UserApi.instance.me();
-      print(kakaoUser);
-    }
+    await _kakaoLogin.login();
+    // if (isLogined) {
+    //   kakaoUser = await UserApi.instance.me();
+    //   print(kakaoUser);
+    // }
   }
 
   Future logout() async {

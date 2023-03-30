@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:valt/auth/auth_authentication_code.dart';
 import 'package:valt/auth/controller/auth_controller.dart';
 import 'package:valt/auth/login/controller/login_controller.dart';
-import 'package:valt/controller/auth/kakao_login.dart';
+import 'package:valt/auth/kakao_login.dart';
 import 'package:valt/model/main_view_model.dart';
 import 'package:valt/auth/login/email_login_page.dart';
 import 'package:valt/auth/register/auth_email_register_page.dart';
@@ -68,7 +68,7 @@ class AuthFirstPage extends StatelessWidget {
                 ButtonLgFill(
                   text: '카카오로 로그인',
                   bgColor: ColorStyles.kakao,
-                  textStyle: TextStyles.pretendardB16Black,
+                  textStyle: TextStyles.pretendardB16Gray90,
                   onClick: () async {
                     await viewModel.kakaologin();
                   },

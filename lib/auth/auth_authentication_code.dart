@@ -46,7 +46,8 @@ class _AuthenticationCodePageState extends State<AuthenticationCodePage> {
         elevation: 0,
         title: const Text('비밀번호 찾기', style: TextStyles.pretendardB17Gray100),
       ),
-      body: SafeArea(
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
