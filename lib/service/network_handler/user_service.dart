@@ -31,6 +31,27 @@ class UserServices {
     }
   }
 
+  static Future<bool> fetchEditPassword(String confirm, String newPassword,
+      String password, String memberId) async {
+    final msg = jsonEncode(
+        {"confirm": confirm, "newPassword": newPassword, "password": password});
+    try {
+      var response =
+          await client.patch(buildUrl('/member/password'), body: msg, headers: {
+        "Content-type": "application/json",
+        "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+        "mid": memberId.toString()
+      });
+
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
   static Future<bool> logout(String memberId) async {
     try {
       var response = await client.post(buildUrl('/member/logout'), headers: {

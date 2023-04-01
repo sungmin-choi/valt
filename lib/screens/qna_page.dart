@@ -22,6 +22,7 @@ class QNAPage extends StatelessWidget {
             ),
           ),
           elevation: 0,
+          centerTitle: true,
           title: const Text('자주 묻는 질문', style: TextStyles.pretendardB17Gray100),
         ),
         body: SingleChildScrollView(

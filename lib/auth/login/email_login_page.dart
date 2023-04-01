@@ -51,6 +51,7 @@ class _EmailLoginPageState extends State<EmailLoginPage> {
           ),
         ),
         elevation: 0,
+        centerTitle: true,
         title: const Text('이메일로 로그인', style: TextStyles.pretendardB17Gray100),
       ),
       body: SingleChildScrollView(

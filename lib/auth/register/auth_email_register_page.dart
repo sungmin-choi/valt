@@ -49,6 +49,7 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
           ),
         ),
         elevation: 0,
+        centerTitle: true,
         title: const Text('회원가입', style: TextStyles.pretendardB17Gray100),
       ),
       body: SingleChildScrollView(

@@ -179,7 +179,10 @@ class _MyPageState extends State<MyPage> {
             if (userData != null)
               MyPageTab(title: '회원정보', tabItems: [
                 TabItem('회원정보 수정', () {}),
-                TabItem('비밀번호 변경', () {}),
+                TabItem('비밀번호 변경', () {
+                  Get.toNamed('/edit_password',
+                      arguments: {'memberId': _memberId});
+                }),
               ]),
             MyPageTab(title: '고객센터', tabItems: [
               TabItem('문의하기', () async {
