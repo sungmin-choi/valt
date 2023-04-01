@@ -7,6 +7,8 @@ import 'package:valt/screens/home.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 import 'package:valt/screens/my_page.dart';
 import 'package:valt/screens/search_page.dart';
+import 'package:valt/service/network_handler/deviceId.dart';
+import 'package:valt/service/network_handler/network_handler.dart';
 
 import 'controller/product_controller.dart';
 
@@ -61,6 +63,20 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _storeDeviceId();
+  }
+
+  Future<void> _storeDeviceId() async {
+    var deviceId = await getDeviceUniqueId();
+
+    NetWorkHandler.storeDeviceId(deviceId);
   }
 
   @override

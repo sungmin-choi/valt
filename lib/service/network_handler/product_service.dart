@@ -17,10 +17,11 @@ class ProductServices {
 
   static Future<Products?> fetchProducts(String? params) async {
     var memberId = await NetWorkHandler.getMemberId();
+    var deviceId = await NetWorkHandler.getDeviceId();
     var response =
         await client.get(buildUrl('/items${params ?? params}'), headers: {
       "Content-type": "application/json",
-      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+      "DeviceId": deviceId.toString(),
       "mid": memberId.toString()
     });
 
@@ -38,10 +39,11 @@ class ProductServices {
 
   static Future<bool> likeProduct(int itemsId) async {
     var memberId = await NetWorkHandler.getMemberId();
+    var deviceId = await NetWorkHandler.getDeviceId();
     var response =
         await client.post(buildUrl('/items/$itemsId/like'), headers: {
       "Content-type": "application/json",
-      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+      "DeviceId": deviceId.toString(),
       "mid": memberId.toString()
     });
 
@@ -53,10 +55,11 @@ class ProductServices {
 
   static Future<bool> unlikeProduct(int itemsId) async {
     var memberId = await NetWorkHandler.getMemberId();
+    var deviceId = await NetWorkHandler.getDeviceId();
     var response =
         await client.delete(buildUrl('/items/$itemsId/like'), headers: {
       "Content-type": "application/json",
-      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+      "DeviceId": deviceId.toString(),
       "mid": memberId.toString()
     });
 
@@ -70,14 +73,15 @@ class ProductServices {
 
   static Future<ProductDetail?> fetchProductDetail(int itemsId) async {
     var memberId = await NetWorkHandler.getMemberId();
+    var deviceId = await NetWorkHandler.getDeviceId();
     var response = await client.get(buildUrl('/item/$itemsId'), headers: {
       "Content-type": "application/json",
-      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+      "DeviceId": deviceId.toString(),
       "mid": memberId.toString()
     });
     var viewCnt = await client.post(buildUrl('/item/$itemsId'), headers: {
       "Content-type": "application/json",
-      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE"
+      "DeviceId": deviceId.toString()
     });
 
     if (response.statusCode == 200 && viewCnt.statusCode == 200) {

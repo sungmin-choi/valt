@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:valt/model/user_data.dart';
+import 'package:valt/service/network_handler/network_handler.dart';
 
 class UserServices {
   static var client = http.Client();
@@ -14,11 +15,12 @@ class UserServices {
 
   static Future<bool> fetchPromotionReceive(bool value, String memberId) async {
     final msg = jsonEncode({"receive": value});
+    var deviceId = await NetWorkHandler.getDeviceId();
     try {
       var response = await client
           .patch(buildUrl('/member/promotion-receive'), body: msg, headers: {
         "Content-type": "application/json",
-        "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+        "DeviceId": deviceId.toString(),
         "mid": memberId.toString()
       });
 
@@ -36,10 +38,11 @@ class UserServices {
     final msg = jsonEncode(
         {"confirm": confirm, "newPassword": newPassword, "password": password});
     try {
+      var deviceId = await NetWorkHandler.getDeviceId();
       var response =
           await client.patch(buildUrl('/member/password'), body: msg, headers: {
         "Content-type": "application/json",
-        "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+        "DeviceId": deviceId.toString(),
         "mid": memberId.toString()
       });
 
@@ -71,9 +74,10 @@ class UserServices {
 
     print(jsonDecode(msg));
     try {
+      var deviceId = await NetWorkHandler.getDeviceId();
       var response = await client.put(buildUrl('/member'), body: msg, headers: {
         "Content-type": "application/json",
-        "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+        "DeviceId": deviceId.toString(),
         "mid": memberId.toString()
       });
       if (response.statusCode == 200) {
@@ -91,9 +95,10 @@ class UserServices {
 
   static Future<bool> logout(String memberId) async {
     try {
+      var deviceId = await NetWorkHandler.getDeviceId();
       var response = await client.post(buildUrl('/member/logout'), headers: {
         "Content-type": "application/json",
-        "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+        "DeviceId": deviceId.toString(),
         "mid": memberId.toString()
       });
       if (response.statusCode == 200) {
@@ -108,9 +113,10 @@ class UserServices {
 
   static Future<UserData?> fetchUserData(String memberId) async {
     try {
+      var deviceId = await NetWorkHandler.getDeviceId();
       var response = await client.get(buildUrl('/member'), headers: {
         "Content-type": "application/json",
-        "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+        "DeviceId": deviceId.toString(),
         "mid": memberId.toString()
       });
       if (response.statusCode == 200) {

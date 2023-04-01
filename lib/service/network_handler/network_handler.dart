@@ -6,6 +6,7 @@ import 'package:valt/model/errors_model.dart';
 
 class NetWorkHandler {
   static final client = http.Client();
+
 // Create storage
   static const storage = FlutterSecureStorage();
 
@@ -17,9 +18,10 @@ class NetWorkHandler {
   }
 
   static Future<String> post(var body, String endpoint) async {
+    var deviceId = await NetWorkHandler.getDeviceId();
     var response = await client.post(buildUrl(endpoint), body: body, headers: {
       "Content-type": "application/json",
-      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE"
+      "DeviceId": deviceId.toString()
     });
 
     var utf8body = utf8.decode(response.bodyBytes);
@@ -29,9 +31,10 @@ class NetWorkHandler {
   }
 
   static Future<String> get(String endpoint) async {
+    var deviceId = await NetWorkHandler.getDeviceId();
     var response = await client.get(buildUrl(endpoint), headers: {
       "Content-type": "application/json",
-      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE"
+      "DeviceId": deviceId.toString()
     });
 
     var utf8body = utf8.decode(response.bodyBytes);
@@ -41,9 +44,10 @@ class NetWorkHandler {
   }
 
   static Future<String> put(var body, String endpoint) async {
+    var deviceId = await NetWorkHandler.getDeviceId();
     var response = await client.put(buildUrl(endpoint), body: body, headers: {
       "Content-type": "application/json",
-      "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE"
+      "DeviceId": deviceId.toString()
     });
 
     var utf8body = utf8.decode(response.bodyBytes);
@@ -71,6 +75,15 @@ class NetWorkHandler {
 
   static Future<String?> getMemberId() async {
     var memberId = await storage.read(key: 'memberId');
+    return memberId;
+  }
+
+  static Future<void> storeDeviceId(String id) async {
+    await storage.write(key: 'deviceId', value: id);
+  }
+
+  static Future<String?> getDeviceId() async {
+    var memberId = await storage.read(key: 'deviceId');
     return memberId;
   }
 
