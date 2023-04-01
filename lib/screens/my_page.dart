@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:valt/auth/auth_first_page.dart';
 import 'package:valt/model/user_data.dart';
+import 'package:valt/screens/qna_page.dart';
 import 'package:valt/service/network_handler/network_handler.dart';
 import 'package:valt/service/network_handler/user_service.dart';
 import 'package:valt/styles/color_style.dart';
@@ -189,7 +190,9 @@ class _MyPageState extends State<MyPage> {
                       mode: LaunchMode.externalApplication);
                 }
               }),
-              TabItem('자주 묻는 질문', () {}),
+              TabItem('자주 묻는 질문', () {
+                Get.to(() => const QNAPage());
+              }),
               TabItem('상품 제안하기', () async {
                 if (await canLaunchUrl(
                     Uri.parse('https://forms.gle/tqmtv2j17jMWot838'))) {
