@@ -32,6 +32,7 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
   }
 
   List whereList = ['레스토랑', '위스키바', '파티', '홈술', '선물용'];
+  List whereListEnglish = ['RESTAURANT', 'WHISKEY', 'PARTY', 'HOME', 'GIFT'];
   List registerReasonList = [
     '위스키 종류를 알고 싶어요.',
     '위스키 배경 지식을 알고 싶어요.',
@@ -58,6 +59,7 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
           ),
         ),
         elevation: 0,
+        centerTitle: true,
         title: const Text('회원가입', style: TextStyles.pretendardB17Gray100),
       ),
       body: SingleChildScrollView(
@@ -72,6 +74,8 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                 } else {
                   handelDisabled(false);
                 }
+              } else {
+                handelDisabled(true);
               }
             },
             key: _formKey,
@@ -182,20 +186,21 @@ class _OnboardingFullPageState extends State<OnboardingFullPage> {
                           const Text('최대 3개까지 선택할 수 있어요.',
                               style: TextStyles.pretendardR13Gray60),
                           const SizedBox(height: 16),
-                          for (var item in whereList)
+                          for (int i = 0; i < whereList.length; i++)
                             Obx(
                               () => LabeledCheckbox(
-                                  label: item.toString(),
+                                  label: whereList[i].toString(),
                                   padding: const EdgeInsets.only(bottom: 10),
                                   value: registerController.whereListSelected
-                                      .contains(item),
+                                      .contains(whereListEnglish[i]),
                                   onChanged: ((value) {
                                     if (!value) {
                                       registerController.whereListSelected
-                                          .removeWhere((ele) => ele == item);
+                                          .removeWhere((ele) =>
+                                              ele == whereListEnglish[i]);
                                     } else {
                                       registerController.whereListSelected
-                                          .add(item);
+                                          .add(whereListEnglish[i]);
                                     }
                                   })),
                             ),

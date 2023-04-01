@@ -50,6 +50,7 @@ class _MyPageState extends State<MyPage> {
     if (memberId != null) {
       UserData? data = await UserServices.fetchUserData(memberId);
       if (data != null) {
+        print(userDataToJson(data));
         setState(() {
           userData = data;
           toggle = data.isPromotionReceiveAgree;
@@ -125,52 +126,53 @@ class _MyPageState extends State<MyPage> {
                           style: TextStyles.pretendardN12Gray60w500,
                         )),
                     Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 18, vertical: 16),
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    '마케팅 알림',
-                                    style: TextStyles.pretendardN15Gray100,
-                                  ),
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    userData != null
-                                        ? '마케팅 정보 수신 동의 ${userData!.promotionReceiveDate.toString().substring(0, 10)}'
-                                        : '',
-                                    style: TextStyles.pretendardN13Gray70,
-                                  )
-                                ],
-                              ),
-                              CupertinoSwitch(
-                                // overrides the default green color of the track
-                                activeColor: ColorStyles.gray90,
-                                // color of the round icon, which moves from right to left
-                                thumbColor: ColorStyles.white,
-                                // when the switch is off
-                                trackColor: Colors.black12,
-                                // boolean variable value
-                                value: toggle,
-                                // changes the state of the switch
-                                onChanged: (value) async {
-                                  var res =
-                                      await UserServices.fetchPromotionReceive(
-                                          value, _memberId.toString());
-                                  if (res) {
-                                    setState(() => toggle = value);
-                                  }
-                                  //
-                                },
-                              ),
-                            ],
-                          ),
-                        )),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 16),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  '마케팅 알림',
+                                  style: TextStyles.pretendardN15Gray100,
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  userData != null
+                                      ? '마케팅 정보 수신 동의 ${userData!.promotionReceiveDate.toString().substring(0, 10)}'
+                                      : '',
+                                  style: TextStyles.pretendardN13Gray70,
+                                )
+                              ],
+                            ),
+                            CupertinoSwitch(
+                              // overrides the default green color of the track
+                              activeColor: ColorStyles.gray90,
+                              // color of the round icon, which moves from right to left
+                              thumbColor: ColorStyles.white,
+                              // when the switch is off
+                              trackColor: Colors.black12,
+                              // boolean variable value
+                              value: toggle,
+                              // changes the state of the switch
+                              onChanged: (value) async {
+                                var res =
+                                    await UserServices.fetchPromotionReceive(
+                                        value, _memberId.toString());
+                                if (res) {
+                                  setState(() => toggle = value);
+                                }
+                                //
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -178,10 +180,21 @@ class _MyPageState extends State<MyPage> {
             const SizedBox(height: 8),
             if (userData != null)
               MyPageTab(title: '회원정보', tabItems: [
-                TabItem('회원정보 수정', () {}),
+                TabItem('회원정보 수정', () {
+                  Get.toNamed('/edit_profile', arguments: {
+                    'memberId': _memberId,
+                    'name': userData!.name,
+                    'gender': userData!.gender,
+                    'birthDate': userData!.birth.toString(),
+                    'whereListSelected': userData!.recommendType,
+                    "platform": userData!.socialJoinType.toString(),
+                    'reason': userData!.joinReason
+                  });
+                }),
                 TabItem('비밀번호 변경', () {
-                  Get.toNamed('/edit_password',
-                      arguments: {'memberId': _memberId});
+                  Get.toNamed('/edit_password', arguments: {
+                    'memberId': _memberId,
+                  });
                 }),
               ]),
             MyPageTab(title: '고객센터', tabItems: [

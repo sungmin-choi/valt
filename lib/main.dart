@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:valt/screens/dibs_page.dart';
 import 'package:valt/screens/edit_password.dart';
+import 'package:valt/screens/edit_profile.dart';
 import 'package:valt/screens/home.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 import 'package:valt/screens/my_page.dart';
@@ -29,7 +30,9 @@ class Main extends StatelessWidget {
       home: const MyApp(),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/edit_password', page: () => const EditPasswordPage())
+        GetPage(name: '/edit_password', page: () => const EditPasswordPage()),
+        GetPage(name: '/edit_profile', page: () => const EditProfile()),
+        GetPage(name: '/mypage', page: () => const MyPage())
       ],
     );
   }

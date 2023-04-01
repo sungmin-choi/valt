@@ -5,7 +5,7 @@ import 'package:valt/model/user_data.dart';
 
 class UserServices {
   static var client = http.Client();
-
+  static String error401message = '세션이 끊어졌습니다. 다시 로그인 해 주세요.';
   static Uri buildUrl(String endpoint) {
     String host = "https://whiskeyshop.cf";
     final apiPath = host + endpoint;
@@ -49,6 +49,43 @@ class UserServices {
       return false;
     } catch (e) {
       return false;
+    }
+  }
+
+  static Future<String> fetchEditProfile(
+      String memberId,
+      String reason,
+      int birth,
+      String name,
+      String platform,
+      String gender,
+      List<dynamic> reocommendType) async {
+    final msg = jsonEncode({
+      "birth": birth,
+      "gender": gender,
+      "name": name,
+      "platform": platform,
+      "reason": reason,
+      "recommendType": reocommendType
+    });
+
+    print(jsonDecode(msg));
+    try {
+      var response = await client.put(buildUrl('/member'), body: msg, headers: {
+        "Content-type": "application/json",
+        "DeviceId": "365C96E6-B22A-41FA-B569-BAF68E5F61FE",
+        "mid": memberId.toString()
+      });
+      if (response.statusCode == 200) {
+        // var utf8body = utf8.decode(response.bodyBytes);
+        return 'true';
+      }
+
+      var utf8Body = utf8.decode(response.bodyBytes);
+      // return utf8.decode(json.decode(utf8Body)['errors'][0]['message']);
+      return json.decode(utf8Body)['errors'][0]['message'].toString();
+    } on Exception {
+      return 'false';
     }
   }
 
