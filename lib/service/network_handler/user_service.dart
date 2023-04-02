@@ -72,7 +72,6 @@ class UserServices {
       "recommendType": reocommendType
     });
 
-    print(jsonDecode(msg));
     try {
       var deviceId = await NetWorkHandler.getDeviceId();
       var response = await client.put(buildUrl('/member'), body: msg, headers: {

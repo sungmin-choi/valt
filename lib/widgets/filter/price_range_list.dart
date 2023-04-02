@@ -28,8 +28,8 @@ class PriceRangeList extends StatelessWidget {
             minPrice: 50000,
           ),
           PriceRangeItem(name: '10 ~ 20만원', maxPrice: 200000, minPrice: 100000),
-          PriceRangeItem(name: '20 ~ 30만원', maxPrice: 200000, minPrice: 300000),
-          PriceRangeItem(name: '30만원 이상', minPrice: 300000),
+          PriceRangeItem(name: '20 ~ 30만원', maxPrice: 300000, minPrice: 200000),
+          PriceRangeItem(name: '30만원 이상', maxPrice: 300000),
         ],
       ),
     );

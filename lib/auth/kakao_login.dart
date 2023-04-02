@@ -1,9 +1,10 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:valt/auth/register/auth_onboarding_full_page.dart';
+import 'package:valt/auth/register/kakao_onboarding_page.dart';
 import 'package:valt/model/kakao_duplication_check_body.dart';
 import 'package:valt/model/kakao_login_body.dart';
 import 'package:valt/screens/home.dart';
@@ -11,6 +12,13 @@ import 'package:valt/service/network_handler/network_handler.dart';
 import 'package:get/get.dart';
 
 class KakaoLogin {
+  static var client = http.Client();
+  static Uri buildUrl(String endpoint) {
+    String host = "https://whiskeyshop.cf";
+    final apiPath = host + endpoint;
+    return Uri.parse(apiPath);
+  }
+
   Future<void> login() async {
     try {
       bool isInstalled = await isKakaoTalkInstalled();
@@ -34,15 +42,15 @@ class KakaoLogin {
           print('result:$result');
           if (result is bool) {
             if (result == false) {
-              Get.to(() => const OnboardingFullPage());
+              Get.to(() => const KakaoOnboarding());
             } else {
               User? kakaoUser;
               kakaoUser = await UserApi.instance.me();
-              var isLogin = await blatLogin(
+              var isLogin = await baltLogin(
                   kakaoUser.kakaoAccount!.email.toString(), token.accessToken);
 
               print('isLogin:$isLogin');
-              if (isLogin) {
+              if (isLogin == 'true') {
                 Get.to(() => Home());
               } else {
                 Fluttertoast.showToast(
@@ -76,24 +84,32 @@ class KakaoLogin {
     }
   }
 
-  Future<bool> blatLogin(String email, String token) async {
+  Future<String> baltLogin(String email, String token) async {
     KakaoLoginBody loginBody =
         KakaoLoginBody(email: email, token: token, platform: 'KAKAO');
 
-    var response = await NetWorkHandler.post(
-        kakaoLoginBodyToJson(loginBody), "member/social-login");
+    try {
+      var deviceId = await NetWorkHandler.getDeviceId();
+      var response = await client.post(buildUrl("member/social-login"),
+          body: kakaoLoginBodyToJson(loginBody),
+          headers: {
+            "Content-type": "application/json",
+            "DeviceId": deviceId.toString(),
+          });
+      var utf8Body = utf8.decode(response.bodyBytes);
+      if (response.statusCode == 200) {
+        var memberId = json.decode(utf8Body)['memberId'];
 
-    var data = json.decode(response);
-    if (data['statusCode'] == 200) {
-      var a = json.decode(data['body']);
-      var memberId = a['memberId'];
+        await NetWorkHandler.storeMemberId(memberId.toString());
 
-      await NetWorkHandler.storeMemberId(memberId.toString());
-
-      return true;
+        return 'true';
+      }
+      // return utf8.decode(json.decode(utf8Body)['errors'][0]['message']);
+      print(json.decode(utf8Body)['errors'][0]['message'].toString());
+      return json.decode(utf8Body)['errors'][0]['message'].toString();
+    } catch (e) {
+      return 'false';
     }
-
-    return false;
   }
 
   Future<dynamic> checkDuplication(String platform, String token) async {

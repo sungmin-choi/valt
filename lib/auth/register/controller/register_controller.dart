@@ -13,7 +13,7 @@ class RegisterController extends GetxController {
   TextEditingController birthDateTextController = TextEditingController();
   TextEditingController extraReasonTextController = TextEditingController();
   RxString gender = "".obs;
-  List<String> whereListSelected = [];
+  RxList whereListSelected = [].obs;
   RxList registerReasonListSelected = [].obs;
   RxList agreeList = [].obs;
 
@@ -28,7 +28,7 @@ class RegisterController extends GetxController {
         privateInfoAgree: true,
         promotionReceiveAgree: agreeList.contains(3),
         reason: extraReasonTextController.text,
-        recommendType: whereListSelected,
+        recommendType: ['RESTAURANT', 'WHISKEY', 'PARTY', 'HOME', 'GIFT'],
         termsAgree: true);
 
     var response = await NetWorkHandler.post(
