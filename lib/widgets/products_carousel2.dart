@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:valt/controller/product_controller.dart';
 import 'package:valt/model/product.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +29,83 @@ class ProductCarousel2 extends StatefulWidget {
 class _ProductCarouselState2 extends State<ProductCarousel2> {
   final ProductController productController = Get.put(ProductController());
   late List<Product> products = [];
+  List<Product> products_dummy = [
+    Product(
+        itemsId: 0,
+        name: '....',
+        englishName: '....',
+        price: 00,
+        size: 00,
+        strength: 00,
+        country: '...',
+        categoryName: '...',
+        rating: 0.0,
+        ratingCount: 00,
+        linkUrl: '',
+        like: false,
+        category: '',
+        viewCount: 0),
+    Product(
+        itemsId: 1,
+        name: '....',
+        englishName: '....',
+        price: 00,
+        size: 00,
+        strength: 00,
+        country: '...',
+        categoryName: '...',
+        rating: 0.0,
+        ratingCount: 00,
+        linkUrl: '',
+        like: false,
+        category: '',
+        viewCount: 0),
+    Product(
+        itemsId: 0,
+        name: '....',
+        englishName: '....',
+        price: 00,
+        size: 00,
+        strength: 00,
+        country: '...',
+        categoryName: '...',
+        rating: 0.0,
+        ratingCount: 00,
+        linkUrl: '',
+        like: false,
+        category: '',
+        viewCount: 0),
+    Product(
+        itemsId: 2,
+        name: '....',
+        englishName: '....',
+        price: 00,
+        size: 00,
+        strength: 00,
+        country: '...',
+        categoryName: '...',
+        rating: 0.0,
+        ratingCount: 00,
+        linkUrl: '',
+        like: false,
+        category: '',
+        viewCount: 0),
+    Product(
+        itemsId: 3,
+        name: '....',
+        englishName: '....',
+        price: 00,
+        size: 00,
+        strength: 00,
+        country: '...',
+        categoryName: '...',
+        rating: 0.0,
+        ratingCount: 00,
+        linkUrl: '',
+        like: false,
+        category: '',
+        viewCount: 0)
+  ];
   var isLoading = true;
   @override
   void initState() {
@@ -84,23 +160,25 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
           ),
         ),
         isLoading
-            ? SizedBox(
-                height: 190,
-                width: double.infinity,
-                child: LoadingIndicator(
-                  indicatorType: Indicator.ballPulseSync,
-
-                  /// Required, The loading type of the widget
-                  colors: const [Colors.white],
-
-                  /// Optional, The stroke of the line, only applicable to widget which contains line
-                  backgroundColor: Colors.black.withOpacity(0.2),
-
-                  /// Optional, Background of the widget
-                  pathBackgroundColor: Colors.black.withOpacity(0.2),
-
-                  /// Optional, the stroke backgroundColor
-                ),
+            ? CarouselSlider(
+                items: products_dummy.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  Product item = entry.value;
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return ProductTile(item,
+                          isLoading: true,
+                          index: index,
+                          isBest: widget.isBest,
+                          size: productController.producBestList.length);
+                    },
+                  );
+                }).toList(),
+                options: CarouselOptions(
+                    height: 330,
+                    viewportFraction: 0.4,
+                    enableInfiniteScroll: false,
+                    padEnds: false),
               )
             : CarouselSlider(
                 items: products.asMap().entries.map((entry) {

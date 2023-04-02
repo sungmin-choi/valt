@@ -33,7 +33,7 @@ class RegisterModel {
   bool privateInfoAgree;
   bool promotionReceiveAgree;
   String reason;
-  List<String> recommendType;
+  List<dynamic> recommendType;
   bool termsAgree;
 
   factory RegisterModel.fromJson(Map<String, dynamic> json) => RegisterModel(
@@ -46,7 +46,7 @@ class RegisterModel {
         privateInfoAgree: json["privateInfoAgree"],
         promotionReceiveAgree: json["promotionReceiveAgree"],
         reason: json["reason"],
-        recommendType: List<String>.from(json["recommendType"].map((x) => x)),
+        recommendType: List<dynamic>.from(json["recommendType"].map((x) => x)),
         termsAgree: json["termsAgree"],
       );
 

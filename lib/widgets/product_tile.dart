@@ -16,8 +16,9 @@ class ProductTile extends StatefulWidget {
   final int index;
   final int? size;
   final bool? isBest;
+  final bool? isLoading;
   const ProductTile(this.product,
-      {super.key, required this.index, this.size, this.isBest});
+      {super.key, required this.index, this.size, this.isBest, this.isLoading});
 
   @override
   State<ProductTile> createState() => _ProductTileState();
@@ -153,40 +154,42 @@ class _ProductTileState extends State<ProductTile> {
                     ))
               ],
             ),
-            const SizedBox(
-              height: 9.5,
-            ),
-            Text('${widget.product.country} ・ ${widget.product.categoryName}',
-                style: TextStyles.pretendardN11Gray60),
-            const SizedBox(
-              height: 2,
-            ),
-            Text(widget.product.name, style: TextStyles.pretendardN13Gray90),
-            const SizedBox(
-              height: 6,
-            ),
-            Text('${f.format(widget.product.price)} 원',
-                style: TextStyles.pretendardN15Gray90),
-            const SizedBox(
-              height: 6,
-            ),
-            Text('${f.format(viewCount)}명이 보는 중',
-                style: TextStyles.pretendardN11Gray60),
-            const SizedBox(
-              height: 4,
-            ),
-            Row(
-              children: [
-                const Icon(
-                  Icons.star,
-                  color: ColorStyles.gray60,
-                  size: 13.0,
-                ),
-                Text(
-                    '${widget.product.rating}(${f.format(widget.product.ratingCount)})',
-                    style: TextStyles.pretendardN11Gray60),
-              ],
-            )
+            if (widget.isLoading != true) ...[
+              const SizedBox(
+                height: 9.5,
+              ),
+              Text('${widget.product.country} ・ ${widget.product.categoryName}',
+                  style: TextStyles.pretendardN11Gray60),
+              const SizedBox(
+                height: 2,
+              ),
+              Text(widget.product.name, style: TextStyles.pretendardN13Gray90),
+              const SizedBox(
+                height: 6,
+              ),
+              Text('${f.format(widget.product.price)} 원',
+                  style: TextStyles.pretendardN15Gray90),
+              const SizedBox(
+                height: 6,
+              ),
+              Text('${f.format(viewCount)}명이 보는 중',
+                  style: TextStyles.pretendardN11Gray60),
+              const SizedBox(
+                height: 4,
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.star,
+                    color: ColorStyles.gray60,
+                    size: 13.0,
+                  ),
+                  Text(
+                      '${widget.product.rating}(${f.format(widget.product.ratingCount)})',
+                      style: TextStyles.pretendardN11Gray60),
+                ],
+              )
+            ]
           ],
         ),
       ),

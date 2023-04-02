@@ -90,13 +90,15 @@ class KakaoLogin {
 
     try {
       var deviceId = await NetWorkHandler.getDeviceId();
-      var response = await client.post(buildUrl("member/social-login"),
+      var response = await client.post(buildUrl("/member/social-login"),
           body: kakaoLoginBodyToJson(loginBody),
           headers: {
             "Content-type": "application/json",
             "DeviceId": deviceId.toString(),
           });
+
       var utf8Body = utf8.decode(response.bodyBytes);
+
       if (response.statusCode == 200) {
         var memberId = json.decode(utf8Body)['memberId'];
 
@@ -108,6 +110,7 @@ class KakaoLogin {
       print(json.decode(utf8Body)['errors'][0]['message'].toString());
       return json.decode(utf8Body)['errors'][0]['message'].toString();
     } catch (e) {
+      print(e);
       return 'false';
     }
   }
