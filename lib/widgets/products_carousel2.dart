@@ -175,7 +175,7 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
                   );
                 }).toList(),
                 options: CarouselOptions(
-                    height: 330,
+                    height: 230,
                     viewportFraction: 0.4,
                     enableInfiniteScroll: false,
                     padEnds: false),
@@ -194,7 +194,7 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
                   );
                 }).toList(),
                 options: CarouselOptions(
-                    height: 330,
+                    height: 280,
                     viewportFraction: 0.4,
                     enableInfiniteScroll: false,
                     padEnds: false),
