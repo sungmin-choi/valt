@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:valt/controller/product_controller.dart';
 import 'package:valt/model/product.dart';
@@ -29,6 +30,7 @@ class ProductCarousel2 extends StatefulWidget {
 class _ProductCarouselState2 extends State<ProductCarousel2> {
   final ProductController productController = Get.put(ProductController());
   late List<Product> products = [];
+  final String chevronRight = 'assets/icons/chevron-right.svg';
   List<Product> products_dummy = [
     Product(
         itemsId: 0,
@@ -142,20 +144,32 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
                 widget.label,
                 style: TextStyles.pretendardB18Gray100,
               ),
-              IconButton(
-                  iconSize: 30.0,
-                  color: ColorStyles.gray60,
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  onPressed: () {
-                    Get.to(() => ProductsPage(
-                          title: widget.label,
-                          category: widget.category,
-                          option: widget.option,
-                          displayCategory: widget.displayCategory,
-                        ));
-                  },
-                  icon: const Icon(Icons.chevron_right))
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => ProductsPage(
+                        title: widget.label,
+                        category: widget.category,
+                        option: widget.option,
+                        displayCategory: widget.displayCategory,
+                      ));
+                },
+                child: Row(
+                  children: [
+                    const Text(
+                      '더보기',
+                      style: TextStyle(color: ColorStyles.gray60),
+                    ),
+                    SvgPicture.asset(chevronRight)
+                    // IconButton(
+                    //     iconSize: 30.0,
+                    //     color: ColorStyles.gray60,
+                    //     padding: EdgeInsets.zero,
+                    //     constraints: const BoxConstraints(),
+                    //     onPressed: () {},
+                    //     icon: const Icon(Icons.chevron_right_outlined))
+                  ],
+                ),
+              )
             ],
           ),
         ),
