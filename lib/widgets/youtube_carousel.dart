@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:valt/controller/youtube_controller.dart';
 import 'package:valt/model/youtube_model.dart';
@@ -17,7 +18,7 @@ class YoutubeCarousel extends StatelessWidget {
   final String label;
 
   final String page;
-
+  final String chevronRight = 'assets/icons/chevron-right.svg';
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,13 +32,18 @@ class YoutubeCarousel extends StatelessWidget {
                 label,
                 style: TextStyles.pretendardB18Gray100,
               ),
-              IconButton(
-                  iconSize: 30.0,
-                  color: ColorStyles.gray60,
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  onPressed: () {},
-                  icon: const Icon(Icons.chevron_right))
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  children: [
+                    const Text(
+                      '더보기',
+                      style: TextStyle(color: ColorStyles.gray60),
+                    ),
+                    SvgPicture.asset(chevronRight)
+                  ],
+                ),
+              )
             ],
           ),
         ),

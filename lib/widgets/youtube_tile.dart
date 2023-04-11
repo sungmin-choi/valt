@@ -17,23 +17,28 @@ class YoutubeTile extends StatelessWidget {
       onTap: () {
         controller.youtubeLaunchUrl(youtubeModel.youtubeLink);
       },
-      child: SizedBox(
-        width: page == 'detail' ? 343 : 239,
+      child: Flexible(
+        fit: FlexFit.tight,
+        // width: page == 'detail' ? 343 : 239,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(3),
-              child: SizedBox(
-                width: page == 'detail' ? 343 : 239,
-                height: page == 'detail' ? 197 : 137,
-                // Image radius
-                child:
-                    Image.network(youtubeModel.thumbnailUrl, fit: BoxFit.cover),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: SizedBox(
+                  width: double.infinity,
+                  // width: page == 'detail' ? 343 : 239,
+                  height: page == 'detail' ? 197 : 137,
+                  // Image radius
+                  child: Image.network(youtubeModel.thumbnailUrl,
+                      fit: BoxFit.cover),
+                ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

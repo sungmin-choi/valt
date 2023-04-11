@@ -62,7 +62,7 @@ class Home extends StatelessWidget {
               displayCategory: 'SWEET',
             ),
             const SizedBox(
-              height: 12,
+              height: 20,
             ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
