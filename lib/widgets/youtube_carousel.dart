@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:valt/controller/youtube_controller.dart';
 import 'package:valt/model/youtube_model.dart';
+import 'package:valt/screens/videos_page.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:valt/widgets/youtube_tile.dart';
@@ -33,7 +34,9 @@ class YoutubeCarousel extends StatelessWidget {
                 style: TextStyles.pretendardB18Gray100,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const VideosPage());
+                },
                 child: Row(
                   children: [
                     const Text(

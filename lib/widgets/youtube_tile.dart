@@ -26,7 +26,9 @@ class YoutubeTile extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(3),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: page == 'detail'
+                    ? const EdgeInsets.symmetric(horizontal: 0)
+                    : const EdgeInsets.symmetric(horizontal: 10),
                 child: SizedBox(
                   width: double.infinity,
                   // width: page == 'detail' ? 343 : 239,
@@ -38,7 +40,9 @@ class YoutubeTile extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+              padding: page == 'detail'
+                  ? const EdgeInsets.symmetric(vertical: 4, horizontal: 0)
+                  : const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

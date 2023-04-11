@@ -53,7 +53,10 @@ class _EditProfileState extends State<EditProfile> {
     gender = Get.arguments['gender'];
     birthDate.text = Get.arguments['birthDate'];
     whereListSelected = Get.arguments['whereListSelected'];
-    reason.text = Get.arguments['reason'];
+    if (Get.arguments['reason'] != null) {
+      reason.text = Get.arguments['reason'];
+    }
+
     print(Get.arguments['gender']);
   }
 
@@ -179,13 +182,6 @@ class _EditProfileState extends State<EditProfile> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 32),
-                          const Text('취향 설정',
-                              style: TextStyles.pretendardB20Black),
-                          const SizedBox(height: 2),
-                          const Text('취향에 맞는 위스키를 추천해드릴게요.',
-                              style: TextStyles.pretendardR14Gray70),
-                          const SizedBox(height: 32),
                           const Text('어디서 위스키를 가장 많이 즐기시나요?',
                               style: TextStyles.pretendardB16Black),
                           const SizedBox(height: 2),
