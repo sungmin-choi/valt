@@ -61,8 +61,11 @@ class Home extends StatelessWidget {
               label: '🥃 달달한 위스키',
               displayCategory: 'SWEET',
             ),
+            const SizedBox(
+              height: 12,
+            ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               color: ColorStyles.gray10,
               height: 160,
               width: double.infinity,
@@ -71,7 +74,7 @@ class Home extends StatelessWidget {
                 children: [
                   SvgPicture.asset(logoGreySvg),
                   const SizedBox(
-                    height: 4,
+                    height: 12,
                   ),
                   const Text(
                     '발트는 국세청의 주류 통매에 관한 명령에 따라 주류에 대한',

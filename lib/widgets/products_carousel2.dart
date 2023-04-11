@@ -202,7 +202,7 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
                 }).toList(),
                 options: CarouselOptions(
                     height: 280,
-                    viewportFraction: 0.4,
+                    viewportFraction: 0.43,
                     enableInfiniteScroll: false,
                     padEnds: false),
               ),
