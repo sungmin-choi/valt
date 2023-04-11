@@ -57,102 +57,103 @@ class _ProductTileState extends State<ProductTile> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: <Widget>[
-                SizedBox(
-                  height: 192,
-                  width: 136,
-                  child: widget.product.linkUrl.isNotEmpty
-                      ? Image.network(
-                          widget.product.linkUrl,
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace? stackTrace) {
-                            return const Image(
-                              image:
-                                  AssetImage('assets/images/ProductCard.png'),
-                            );
-                          },
-                        )
-                      : const Image(
-                          image: AssetImage('assets/images/ProductCard.png'),
-                        ),
-                ),
-                Positioned(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(5),
-                        topRight: Radius.circular(5),
-                      ),
-                      color: ColorStyles.gray80.withOpacity(0.05),
-                    ),
+            Flexible(
+              fit: FlexFit.loose,
+              child: Stack(
+                children: <Widget>[
+                  SizedBox(
                     height: 192,
-                    width: 136,
+                    child: widget.product.linkUrl.isNotEmpty
+                        ? Image.network(
+                            widget.product.linkUrl,
+                            errorBuilder: (BuildContext context,
+                                Object exception, StackTrace? stackTrace) {
+                              return const Image(
+                                image:
+                                    AssetImage('assets/images/ProductCard.png'),
+                              );
+                            },
+                          )
+                        : const Image(
+                            image: AssetImage('assets/images/ProductCard.png'),
+                          ),
                   ),
-                ),
-                if (widget.isBest == true)
                   Positioned(
-                    top: 0.0,
-                    left: 0.0,
-                    right: 110.0,
                     child: Container(
-                      alignment: Alignment.center,
-                      height: 27,
-                      decoration: const BoxDecoration(
-                        color: ColorStyles.black,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(3),
-                            topRight: Radius.circular(3),
-                            bottomRight: Radius.circular(3)),
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5),
+                        ),
+                        color: ColorStyles.gray80.withOpacity(0.05),
                       ),
-                      child: Text(
-                        '${widget.index + 1}',
-                        style: TextStyles.pretendardN14White,
-                      ),
+                      height: 192,
                     ),
                   ),
-                Positioned(
-                    bottom: -4,
-                    right: -4,
-                    child: IconButton(
-                      onPressed: () async {
-                        var memberId = await NetWorkHandler.getMemberId();
+                  if (widget.isBest == true)
+                    Positioned(
+                      top: 0.0,
+                      left: 0.0,
+                      right: 110.0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 27,
+                        decoration: const BoxDecoration(
+                          color: ColorStyles.black,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(3),
+                              topRight: Radius.circular(3),
+                              bottomRight: Radius.circular(3)),
+                        ),
+                        child: Text(
+                          '${widget.index + 1}',
+                          style: TextStyles.pretendardN14White,
+                        ),
+                      ),
+                    ),
+                  Positioned(
+                      bottom: -4,
+                      right: -4,
+                      child: IconButton(
+                        onPressed: () async {
+                          var memberId = await NetWorkHandler.getMemberId();
 
-                        if (memberId == 'null' || memberId == null) {
-                          Get.to(() => AuthFirstPage());
-                          Fluttertoast.showToast(
-                              msg: '로그인 해주세요',
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.TOP,
-                              timeInSecForIosWeb: 2,
-                              backgroundColor: Colors.black.withOpacity(0.7),
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                        } else {
-                          if (like) {
-                            bool result = await ProductServices.unlikeProduct(
-                                widget.product.itemsId);
-                            if (result) {
-                              setState(() {
-                                like = !like;
-                              });
-                            }
+                          if (memberId == 'null' || memberId == null) {
+                            Get.to(() => AuthFirstPage());
+                            Fluttertoast.showToast(
+                                msg: '로그인 해주세요',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.TOP,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.black.withOpacity(0.7),
+                                textColor: Colors.white,
+                                fontSize: 16.0);
                           } else {
-                            bool result = await ProductServices.likeProduct(
-                                widget.product.itemsId);
-                            if (result) {
-                              setState(() {
-                                like = !like;
-                              });
+                            if (like) {
+                              bool result = await ProductServices.unlikeProduct(
+                                  widget.product.itemsId);
+                              if (result) {
+                                setState(() {
+                                  like = !like;
+                                });
+                              }
+                            } else {
+                              bool result = await ProductServices.likeProduct(
+                                  widget.product.itemsId);
+                              if (result) {
+                                setState(() {
+                                  like = !like;
+                                });
+                              }
                             }
                           }
-                        }
-                      },
-                      icon: like == true
-                          ? SvgPicture.asset(favorite)
-                          : SvgPicture.asset(favoriteOutline),
-                    ))
-              ],
+                        },
+                        icon: like == true
+                            ? SvgPicture.asset(favorite)
+                            : SvgPicture.asset(favoriteOutline),
+                      ))
+                ],
+              ),
             ),
             if (widget.isLoading != true) ...[
               const SizedBox(

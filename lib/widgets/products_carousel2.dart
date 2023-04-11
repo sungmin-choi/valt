@@ -160,13 +160,6 @@ class _ProductCarouselState2 extends State<ProductCarousel2> {
                       style: TextStyle(color: ColorStyles.gray60),
                     ),
                     SvgPicture.asset(chevronRight)
-                    // IconButton(
-                    //     iconSize: 30.0,
-                    //     color: ColorStyles.gray60,
-                    //     padding: EdgeInsets.zero,
-                    //     constraints: const BoxConstraints(),
-                    //     onPressed: () {},
-                    //     icon: const Icon(Icons.chevron_right_outlined))
                   ],
                 ),
               )
