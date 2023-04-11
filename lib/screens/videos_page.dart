@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:valt/controller/youtube_controller.dart';
 import 'package:valt/styles/color_style.dart';
 import 'package:valt/styles/text_style.dart';
 import 'package:get/get.dart';
+import 'package:valt/widgets/youtube_tile.dart';
 
 class VideosPage extends StatelessWidget {
-  const VideosPage({super.key});
+  VideosPage({super.key});
+  var controller = Get.find<YoutubeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +30,24 @@ class VideosPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const []),
-        ]),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Text('총 ${controller.youtubeHomeList.length.toString()}개')
+            ]),
+            const SizedBox(
+              height: 12,
+            ),
+            for (var item in controller.youtubeHomeList)
+              YoutubeTile(youtubeModel: item, page: 'detail'),
+            const SizedBox(
+              height: 12,
+            )
+          ]),
+        ),
       ),
     );
   }

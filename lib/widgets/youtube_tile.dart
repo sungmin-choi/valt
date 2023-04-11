@@ -24,7 +24,7 @@ class YoutubeTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(3),
+              borderRadius: BorderRadius.circular(5),
               child: Padding(
                 padding: page == 'detail'
                     ? const EdgeInsets.symmetric(horizontal: 0)

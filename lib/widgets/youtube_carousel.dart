@@ -35,7 +35,7 @@ class YoutubeCarousel extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.to(() => const VideosPage());
+                  Get.to(() => VideosPage());
                 },
                 child: Row(
                   children: [
