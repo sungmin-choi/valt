@@ -32,7 +32,8 @@ class MyPageTab extends StatelessWidget {
                     onTap: () {
                       tabItems[i].onTap();
                     },
-                    child: Text(tabItems[i].label),
+                    child: SizedBox(
+                        width: double.infinity, child: Text(tabItems[i].label)),
                   )),
           ],
         ));
