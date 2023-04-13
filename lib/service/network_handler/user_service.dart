@@ -110,6 +110,24 @@ class UserServices {
     return false;
   }
 
+  static Future<bool> withdraw(String memberId) async {
+    try {
+      var deviceId = await NetWorkHandler.getDeviceId();
+      var response = await client.post(buildUrl('/member/withdraw'), headers: {
+        "Content-type": "application/json",
+        "DeviceId": deviceId.toString(),
+        "mid": memberId.toString()
+      });
+      if (response.statusCode == 200) {
+        // var utf8body = utf8.decode(response.bodyBytes);
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
+    return false;
+  }
+
   static Future<UserData?> fetchUserData(String memberId) async {
     try {
       var deviceId = await NetWorkHandler.getDeviceId();

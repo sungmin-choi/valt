@@ -12,6 +12,7 @@ import 'package:valt/styles/text_style.dart';
 import 'package:get/get.dart';
 import 'package:valt/widgets/mypage/logout_buttom_modal.dart';
 import 'package:valt/widgets/mypage/tab.dart';
+import 'package:valt/widgets/mypage/withdrawal_bottom_modal.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -218,7 +219,7 @@ class _MyPageState extends State<MyPage> {
                 }
               })
             ]),
-            if (userData != null)
+            if (userData != null) ...[
               MyPageTab(title: '기타', tabItems: [
                 TabItem('로그아웃', () {
                   showModalBottomSheet(
@@ -250,10 +251,53 @@ class _MyPageState extends State<MyPage> {
                           },
                         );
                       });
+                })
+              ]),
+              GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        context: context,
+                        builder: (BuildContext context) {
+                          return WithdrawalBottomModal(
+                              handelDeleteCount: () async {
+                            var res = await UserServices.withdraw(_memberId);
+                            if (res) {
+                              NetWorkHandler.deleteMemberId();
 
-                  // NetWorkHandler.deleteMemberId();
-                }),
-              ])
+                              setState(() {
+                                userData = null;
+                              });
+                              Fluttertoast.showToast(
+                                  msg: "계정이 삭제되었습니다.",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 5,
+                                  backgroundColor:
+                                      Colors.black.withOpacity(0.9),
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                              Navigator.pop(context);
+                            }
+                          });
+                        });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.only(
+                        top: 14, left: 18, bottom: 64, right: 16),
+                    color: ColorStyles.white,
+                    width: double.infinity,
+                    child: const Text(
+                      '회원탈퇴',
+                      style: TextStyle(
+                        color: ColorStyles.gray60,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ))
+            ]
           ],
         ),
       ),
