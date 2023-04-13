@@ -21,10 +21,15 @@ class ProductInfoList extends StatelessWidget {
             style: TextStyles.pretendardN15Gray70,
           ),
           const SizedBox(width: 28),
-          Text(
-            value,
-            style: TextStyles.pretendardN15Gray90,
-          )
+          Flexible(
+              child: RichText(
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            text: TextSpan(
+              text: value,
+              style: TextStyles.pretendardN15Gray90,
+            ),
+          )),
         ],
       ),
     );

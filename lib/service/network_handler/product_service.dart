@@ -15,7 +15,7 @@ class ProductServices {
     return Uri.parse(apiPath);
   }
 
-  static Future<Products?> fetchProducts(String? params) async {
+  static Future<Products?> fetchProducts(String? params) async {09
     var memberId = await NetWorkHandler.getMemberId();
     var deviceId = await NetWorkHandler.getDeviceId();
     var response =
