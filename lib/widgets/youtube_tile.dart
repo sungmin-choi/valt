@@ -21,7 +21,7 @@ class YoutubeTile extends StatelessWidget {
         fit: FlexFit.tight,
         // width: page == 'detail' ? 343 : 239,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
