@@ -12,7 +12,7 @@ class SortOrderByBottomModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -20,11 +20,11 @@ class SortOrderByBottomModal extends StatelessWidget {
           topRight: Radius.circular(30),
         ),
       ),
-      height: 230,
+      height: 223,
       child: Column(
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.fromLTRB(4, 6, 0, 6),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -38,7 +38,7 @@ class SortOrderByBottomModal extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 0),
+            padding: const EdgeInsets.symmetric(vertical: 4),
             child: Center(
               child: Column(
                 children: [
